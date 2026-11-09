@@ -17,7 +17,7 @@ Repo này là **Public**, nên đồng bộ **không cần token, không cần �
 
 ```bash
 mkdir -p scripts
-curl -fsSL https://raw.githubusercontent.com/tsudev-tsudev/tsudev-standards/main/scripts/sync-standards.sh \
+curl -fsSL https://raw.githubusercontent.com/tsudev-org/tsudev-standards/main/scripts/sync-standards.sh \
   -o scripts/sync-standards.sh
 chmod +x scripts/sync-standards.sh
 ./scripts/sync-standards.sh

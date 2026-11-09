@@ -3,6 +3,9 @@
 > Agent đọc file này ở đầu mỗi phiên và cập nhật ở cuối mỗi phiên.
 > Quy trình: `docs/AGENT_PROTOCOL.md`.
 
+> **09/11/2026**: bản `v3.2.0` - repo ở `tsudev-org`, thêm quy tắc tên repo cũ (AGENTS.md mục 4). Phiếu
+> [`20261109-01`](handover/20261109-01_v3.2.0-tsudev-org.md). Hàng đợi bên dưới từ 25/08 - đo lại trước khi làm.
+
 ## Hàng đợi task (làm từ trên xuống)
 
 - [ ] **TS-15** `docs/AUTH_AND_ACCOUNT.md` mục 1 xếp **sai hạng** cho
