@@ -8,6 +8,39 @@ Mới nhất trên cùng.
 
 ---
 
+## 3.2.0 - 09/11/2026
+
+Repo chuyển sang Organization `tsudev-org`. Bản MINOR: không token nào đổi giá
+trị, không repo con nào phải sửa mã.
+
+### Thêm
+
+- `AGENTS.md` mục 4: quy tắc cứng **tên repo GitHub cũ là bất khả xâm phạm** -
+  không tạo/fork/đổi tên repo thành tên cũ dưới `tsudev-tsudev`, và bật lại secret
+  scanning, push protection, CodeQL sau khi chuyển repo vào org. Repo con không
+  phải sửa mã; quy tắc chỉ ràng buộc thao tác trên GitHub.
+
+### Đổi
+
+- Mọi URL `tsudev-tsudev/tsudev-standards` → `tsudev-org/tsudev-standards`, kể cả
+  `REPO` mặc định của `scripts/sync-standards.sh`. URL cũ vẫn chạy nhờ chuyển hướng
+  của GitHub, nên repo con chưa đồng bộ không gãy.
+
+### Hướng dẫn nâng cấp
+
+Từ gốc repo con (script `3.1.1` trở lên đã đi theo gói):
+
+```bash
+./scripts/sync-standards.sh --repo tsudev-org/tsudev-standards --ref v3.2.0
+./scripts/check-standards.sh
+git add .standards .standards-version scripts/sync-standards.sh scripts/check-standards.sh
+```
+
+Kiểm `.standards-version` ghi `repo=tsudev-org/tsudev-standards` và
+`version=3.2.0`.
+
+---
+
 ## 3.1.1 - 25/08/2026
 
 Sửa hướng dẫn nâng cấp của `3.1.0`. Không đổi hành vi script, không đổi nội dung
