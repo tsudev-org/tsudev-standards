@@ -16,18 +16,8 @@
       công cụ chuyển CSV sang vCard. Việc `QU-STD-AUTH` ở repo đó đã được ghi ở
       trạng thái **chặn**, chờ quyết định này. Sửa xong là bản `v3.0.1`.
 
-- [ ] **TS-18** Merge 4 PR đồng bộ `v3.1.1` rồi xác minh. Cả 4 đã **xanh toàn bộ
-      CI** lúc 19:35 25/08/2026, chỉ còn thiếu lệnh merge:
-
-      ```bash
-      GH_TOKEN="$(gh auth token --user tsudev-tsudev)" gh pr merge 74 --repo tsudev-tsudev/tsudev --squash --delete-branch
-      GH_TOKEN="$(gh auth token --user tsudev-tsudev)" gh pr merge 9  --repo tsudev-tsudev/swico --squash --delete-branch
-      GH_TOKEN="$(gh auth token --user tsudev-tsudev)" gh pr merge 13 --repo tsudev-tsudev/tsudev-cwico --squash --delete-branch
-      GH_TOKEN="$(gh auth token --user tsudev-tsudev)" gh pr merge 7  --repo tsudev-tsudev/tsudev-contact --squash --delete-branch
-      ```
-
-      Xác minh bằng **clone mới**, và `MUST` nhìn `ls .standards/scripts/` ra đủ
-      **2 file**, không chỉ nhìn `version=3.1.1`. Lý do ở phiếu bàn giao 09 mục 5b.
+- [x] **TS-18** XONG 09/11/2026 - thay bằng đồng bộ thẳng lên `v3.2.0`: tsudev #208, tsudev-contact #8,
+      tsudev-cwico #35, tsudev-swico #10 (đóng #13/#9 v3.1.1 treo). Cả 4 xanh CI, `.standards/scripts/` đủ 2 file.
 
 **Chờ chủ project quyết, agent không tự quyết được:**
 
