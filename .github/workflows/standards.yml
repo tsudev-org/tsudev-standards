@@ -34,6 +34,9 @@ jobs:
       - name: Cổng kiểm quy ước
         run: ./scripts/check-standards.sh
 
+      - name: Ngoại lệ upstream của mục 7.1 hoạt động đúng
+        run: ./scripts/test-upstream-exempt.sh
+
       - name: Script phải chạy được trên shell chuẩn
         run: |
           for f in scripts/*.sh; do

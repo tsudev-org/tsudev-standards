@@ -8,6 +8,44 @@ Mới nhất trên cùng.
 
 ---
 
+## 3.3.0 - 10/11/2026
+
+Bản MINOR: thêm một ngoại lệ có kiểm soát cho quy tắc gạch ngang. Repo không phải
+fork không bị ảnh hưởng; repo fork tự chọn bật bằng một file khai báo.
+
+### Thêm
+
+- `AGENTS.md` mục 7.1, **ngoại lệ 3**: dòng kế thừa nguyên văn từ upstream ở repo
+  fork. Khai báo ở `.standards-upstream` (`repo=`, `ref=`); miễn theo dòng, đối
+  chiếu nội dung với commit upstream; `ref` phải là tổ tiên của HEAD và, với
+  `STANDARDS_VERIFY_UPSTREAM=1`, phải tải được từ chính repo upstream đã khai.
+- `templates/standards-upstream.example`.
+- `scripts/test-upstream-exempt.sh`: 7 ca (miễn đúng dòng kế thừa; trượt khi fork
+  thêm dòng, sửa dòng kế thừa, thêm file mới, `ref` không phải tổ tiên, `ref` viết
+  tắt, không khai báo). Chạy trong CI của repo trung tâm.
+
+### Sửa
+
+- Mục 4 của `check-standards.sh`: danh sách file có en-dash in dính vào dòng LƯU Ý
+  kế tiếp (thiếu xuống dòng).
+
+### Kiểm chứng ở repo con thật
+
+- `tsudev-lotus` (fork LocalSend, `ref=8476c091`): 71 dòng kế thừa được miễn, đã
+  xác minh trực tuyến với `github.com/localsend/localsend`; cổng kiểm bắt được
+  một em-dash do chính fork thêm (`website/scripts/check-dist.mjs`, mẫu chép từ
+  `tsudev-files`). Ca khai `ref` là commit của fork + xác minh trực tuyến: trượt.
+
+### Hướng dẫn nâng cấp
+
+```bash
+./scripts/sync-standards.sh --ref v3.3.0
+# Chỉ repo fork: khai upstream đã gộp gần nhất
+printf 'repo=<owner>/<tên>\nref=%s\n' "$(git rev-parse <nhánh-upstream-đã-gộp>)" > .standards-upstream
+STANDARDS_VERIFY_UPSTREAM=1 ./scripts/check-standards.sh
+git add .standards .standards-version .standards-upstream scripts/sync-standards.sh scripts/check-standards.sh
+```
+
 ## 3.2.0 - 09/11/2026
 
 Repo chuyển sang Organization `tsudev-org`. Bản MINOR: không token nào đổi giá
