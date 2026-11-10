@@ -4,6 +4,8 @@
 liệu chuẩn, design token và script đồng bộ dùng chung cho mọi project, tool, và
 phần mềm.
 
+Một sản phẩm của [tsudev](https://tsudev.com).
+
 Mọi repo con (`tsudev-web`, `swico`, ...) mang một **bản sao chỉ-đọc** tại
 `.standards/` và đồng bộ xuống từ đây. Không sửa ngược.
 

@@ -8,18 +8,18 @@
 
 ## Hàng đợi task (làm từ trên xuống)
 
-- [ ] **TS-15** `docs/AUTH_AND_ACCOUNT.md` mục 1 xếp **sai hạng** cho
-      `tsudev-contact`: bảng ghi nó là **hạng A - web có tài khoản**, nhưng repo
-      đó là app desktop Tkinter đóng gói `.exe` bằng PyInstaller, chạy ngoại
-      tuyến, không có tài khoản nào. Theo mô tả trong chính bảng đó thì nó là
-      **hạng C**. Để nguyên thì `QU-STD-AUTH` buộc dựng cả luồng OIDC cho một
-      công cụ chuyển CSV sang vCard. Việc `QU-STD-AUTH` ở repo đó đã được ghi ở
-      trạng thái **chặn**, chờ quyết định này. Sửa xong là bản `v3.0.1`.
+- [x] **TS-15** XONG trong v3.4.0 (10/11/2026): `tsudev-contact` xếp hạng C ở `AUTH_AND_ACCOUNT.md` mục 1.
+
+- [ ] **v3.4.0** Chủ project: merge PR nhánh `feat/v3.4.0-giao-dien-den-tim`, gắn nhãn có chú thích `v3.4.0`, tạo
+      Release (phiếu `20261110-05`). Sau đó repo con đồng bộ.
 
 - [x] **TS-18** XONG 09/11/2026 - thay bằng đồng bộ thẳng lên `v3.2.0`: tsudev #208, tsudev-contact #8,
       tsudev-cwico #35, tsudev-swico #10 (đóng #13/#9 v3.1.1 treo). Cả 4 xanh CI, `.standards/scripts/` đủ 2 file.
 
 **Chờ chủ project quyết, agent không tự quyết được:**
+
+- [ ] **v4.0.0** Gỡ `color.warm` và nhận bảng đen + tím (`ECOSYSTEM_IDENTITY.md` mục 4.2) làm giá trị token
+      chuẩn - MAJOR, mọi repo con đổi màu theo. Chi tiết: CHANGELOG 3.4.0 mục "Dự kiến v4.0.0".
 
 - [ ] **TS-8** Chữ "dev" đang có **hai màu** ở hai sản phẩm, cả hai đều hợp lệ theo
       `docs/BRAND_ASSETS.md` mục 5 nên cổng kiểm không bắt được:

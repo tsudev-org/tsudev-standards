@@ -8,6 +8,41 @@ Mới nhất trên cùng.
 
 ---
 
+## 3.4.0 - 10/11/2026
+
+Bản MINOR theo quyết định chủ project ngày 10/11/2026: toàn hệ sinh thái chỉ còn **Sáng / Tối / Hệ thống**,
+mặc định Tối, website dùng **đen tuyền + tím** kiểu Supabase. Không đổi giá trị token nào (quy tắc cứng của
+`VERSIONING.md` mục 1: đổi giá trị token màu là MAJOR) - bảng màu mới nằm ở tài liệu và repo con ghi đè ở tầng
+riêng. Phiếu: `logs/handover/20261110-05_yeu-cau-giao-dien-den-tim-kieu-supabase.md`.
+
+### Thay đổi
+
+- `docs/DESIGN_SYSTEM.md` mục 1: bỏ chế độ Ấm (`SHOULD NOT` hiển thị; `warm` đã lưu đọc thành `light`); ba lựa
+  chọn Sáng / Tối / Hệ thống, mặc định Tối, "Hệ thống" đổi ngay theo hệ điều hành.
+- `docs/ACCESSIBILITY.md`, `docs/ONBOARDING.md`, `docs/RICH_TEXT_EDITOR.md`: kiểm tương phản ở hai chế độ Sáng / Tối.
+- `docs/AUTH_AND_ACCOUNT.md` mục 1 (**TS-15**): `tsudev-contact` là **hạng C** (app ngoại tuyến), không phải hạng A.
+
+### Thêm
+
+- `docs/ECOSYSTEM_IDENTITY.md` mục 4.1 **bộ chọn giao diện** (khóa `tsudev-theme`, áp trước khi vẽ, radiogroup ở
+  hàng cuối chân trang cạnh `© tsudev`, CSP không `'unsafe-inline'`) và mục 4.2 **bảng màu + ngôn ngữ thiết kế của
+  website** (đen tuyền + tím, nền liền mạch, nút/thẻ kiểu Supabase); checklist mục 9 thêm hai dòng.
+- `tokens/design-tokens.json` `meta.deprecated`: khối `color.warm` ngừng dùng, gỡ ở v4.0.0 (schema thêm trường).
+
+### Hướng dẫn nâng cấp
+
+```bash
+./scripts/sync-standards.sh --ref v3.4.0
+./scripts/check-standards.sh
+```
+
+Không bắt buộc sửa mã. Repo có website/app đang hiện lựa chọn Ấm: làm theo phiếu `20261110-05` của repo đó.
+
+### Dự kiến v4.0.0 (MAJOR)
+
+Gỡ khối `color.warm`, nhận bảng mục 4.2 làm giá trị chuẩn `light`/`dark` của `tokens/design-tokens.json`, nâng
+`SHOULD` của mục 1 và 4.1 lên `MUST`. Cần chủ project duyệt vì mọi repo con đổi màu theo.
+
 ## 3.3.0 - 10/11/2026
 
 Bản MINOR: thêm một ngoại lệ có kiểm soát cho quy tắc gạch ngang. Repo không phải
