@@ -8,6 +8,22 @@ Mới nhất trên cùng.
 
 ---
 
+## 3.5.0 - 11/11/2026
+
+Bản MINOR: thêm tài liệu mới, mọi quy tắc mới ở mức `SHOULD` / `MAY` cho repo con (bắt buộc `MUST` chỉ áp dụng khi
+repo đã chọn công bố một kênh). Repo con đồng bộ được ngay, không cần sửa code.
+
+### Thêm
+
+- `docs/PACKAGING.md` v1.0.0: mọi app/tool tsudev cài được bằng một lệnh terminal - kênh được duyệt (winget, Scoop
+  bucket `tsudev-org/scoop-bucket`, kho APT/RPM ký GPG tại `pkg.tsudev.com` trên Cloudflare R2, Homebrew tap
+  `tsudev-org/homebrew-tap`, F-Droid riêng, lệnh cài một dòng), khuôn tên gói, nguồn khai báo duy nhất
+  `packaging/package.json`, chữ ký SHA-256 + chứng thực Sigstore, CI cài thử thật trên ba hệ điều hành, khối
+  "Cài bằng lệnh" trên website.
+- `docs/00-INDEX.md`: thêm `PACKAGING.md` vào lộ trình "sắp phát hành" và danh mục.
+
+---
+
 ## 3.4.0 - 10/11/2026
 
 Bản MINOR theo quyết định chủ project ngày 10/11/2026: toàn hệ sinh thái chỉ còn **Sáng / Tối / Hệ thống**,
