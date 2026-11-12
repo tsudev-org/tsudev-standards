@@ -8,6 +8,23 @@ Mới nhất trên cùng.
 
 ---
 
+## 3.6.0 - 13/11/2026
+
+Bản MINOR: quy tắc mới ở mức `MAY` (logo sản phẩm riêng khi chủ dự án duyệt) và cập nhật mô tả logo tsudev theo thực
+tế. Repo con đồng bộ được ngay; repo đã có logo riêng gỡ dòng "lệch chuẩn logo" ở `AGENTS.md` sau khi đồng bộ.
+
+### Đổi
+
+- `docs/BRAND_ASSETS.md` mục 1-2: logo tsudev là `logo-tsudev.png` (cú + chữ, nền đen), dùng NGUYÊN logo ở mọi cỡ kể cả
+  favicon (chủ dự án chốt 13/11/2026); bỏ bộ logo-full / logo-mark / wordmark / `-dark` đã gỡ khỏi tsudev.com.
+- `docs/AUTH_AND_ACCOUNT.md`: sơ đồ trang đăng nhập dùng logo tsudev thay `logo-mark`.
+
+### Thêm
+
+- `docs/BRAND_ASSETS.md` mục 15: logo sản phẩm riêng - một ảnh gốc, script sinh có `--check` trong CI, đủ bộ tài sản
+  mục 12, quy tắc xoá nền, giữ liên kết hệ sinh thái. Nhận đề xuất `logs/handover/20261112-01` (trafficmonitor, Lotus
+  Share, trò chơi, cwico / SWICO / contact).
+
 ## 3.5.0 - 11/11/2026
 
 Bản MINOR: thêm tài liệu mới, mọi quy tắc mới ở mức `SHOULD` / `MAY` cho repo con (bắt buộc `MUST` chỉ áp dụng khi
