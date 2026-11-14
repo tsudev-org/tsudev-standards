@@ -10,8 +10,10 @@
    "Đăng xuất" TRẦN cạnh tên - bấm nhầm một lần là mất phiên (chủ dự án báo). Site con đang làm đăng nhập chung
    (kế hoạch OIDC, D1) sẽ mỗi nơi tự nghĩ một kiểu.
 2. **Chân trang**: không site nào có đường tới "Bảo mật tài khoản" ngoài menu; người dùng di động không thấy.
-3. **Khối "Cài bằng lệnh" ở website từng app**: 6 site app chép tay lệnh winget/Scoop/apt. Đo 13/11/2026: lệnh
-   chép tay lệch tên gói thật ở 2 site sau khi `tsudev-files` đổi tên hiển thị thành TsuFiles - không cổng nào bắt.
+3. **Khối "Cài bằng lệnh" ở website từng app**: quy ước chưa nói lệnh lấy từ đâu, nên mỗi site sẽ chép tay lệnh
+   winget/Scoop/apt. Lệnh chép tay lệch IM LẶNG khi gói đổi tên (ví dụ thật: `tsudev-files` đổi tên hiển thị thành
+   TsuFiles ngày 12/11/2026 trong khi tên gói giữ nguyên) - không cổng nào bắt. Chưa đo từng site; phiếu
+   20261114-02 yêu cầu mỗi repo đo khi làm.
 
 ## 2. Bằng chứng
 
