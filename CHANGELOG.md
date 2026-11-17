@@ -8,6 +8,38 @@ Mới nhất trên cùng.
 
 ---
 
+## 3.7.0 - 17/11/2026
+
+Bản MINOR: thêm tài liệu mới và chuẩn hoá khuôn thẻ/tên tệp cho bản phát hành KẾ TIẾP; cổng kiểm mới chỉ ở mức LƯU Ý.
+Repo con đồng bộ được ngay, không cần sửa code. Thẻ đã phát hành giữ nguyên (VERSIONING.md mục 2.4).
+
+### Thêm
+
+- `docs/DISTRIBUTION_TRUST.md` v1.0.0: cài không bị hệ điều hành / trình duyệt / antivirus chặn - ma trận kênh theo
+  nền tảng (Microsoft Store MSIX, Developer ID + notarize, APT/RPM ký GPG, Google Play + xác minh nhà phát triển
+  Android, App Store đầu 2027), chuỗi cung ứng (SHA256SUMS + Sigstore, chứng thực nguồn gốc, SBOM), phòng và gỡ báo
+  nhầm antivirus (VirusTotal trong CI, không packer, PyInstaller `--onedir`), kiến trúc bảo mật app phát hành, bảng hồ
+  sơ phải đăng ký, thứ tự A-B-C-D, checklist mỗi bản phát hành. Trạng thái nền tảng đo 17/11/2026.
+- `scripts/check-standards.sh` mục 5b: LƯU Ý khi thẻ phát hành mới nhất của repo có `packaging/package.json` lệch khuôn
+  `vYY.M.DDNN`.
+
+### Đổi
+
+- `docs/VERSIONING.md` v3.0.0 (phiếu toàn hệ `20261117-V1`): mục 2 chuẩn hoá thẻ git `vYY.M.DDNN` (không tiền tố,
+  không hậu tố), bản thử `-beta.N`/`-rc.N`, tiêu đề Release `{Tên sản phẩm} {phiên bản}`, tên tệp
+  `{tên-gói}_{phiên bản}_{os}-{arch}[-{loại}].{ext}`, Android `versionCode` `YYMDDNN`, iOS, Windows/MSIX 4 phần, gói
+  Linux, bản fork (phiên bản gốc chỉ ở Release notes), quy tắc chuyển khuôn an toàn, thẻ deploy website
+  `deploy-YYYY.MM.DD.N`.
+- `docs/DESIGN_SYSTEM.md` mục 6, `docs/ONBOARDING.md` câu lệnh (g), `docs/PACKAGING.md`, `docs/00-INDEX.md`, `AGENTS.md`
+  mục 1: theo khuôn mới và trỏ tới tài liệu mới.
+
+### Hướng dẫn cho repo con
+
+1. `./scripts/sync-standards.sh` lên `v3.7.0`.
+2. Repo app: bản phát hành kế tiếp theo `VERSIONING.md` mục 2.2 - đọc mục 2.4 (updater đã cài) TRƯỚC khi đổi khuôn.
+3. Làm `DISTRIBUTION_TRUST.md` mục 6 theo thứ tự A-B-C-D; kế hoạch theo từng repo ở
+   `~/projects/logs/handover/20261117-P2_ke-hoach-phan-phoi-tin-cay-da-nen-tang.md`.
+
 ## 3.6.0 - 13/11/2026
 
 Bản MINOR: quy tắc mới ở mức `MAY` (logo sản phẩm riêng khi chủ dự án duyệt) và cập nhật mô tả logo tsudev theo thực
