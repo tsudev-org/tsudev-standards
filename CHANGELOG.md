@@ -8,6 +8,43 @@ Mới nhất trên cùng.
 
 ---
 
+## 3.8.0 - 19/11/2026
+
+Bản MINOR theo yêu cầu chủ dự án 19/11/2026. Thêm hai tài liệu, đổi mặc định giao diện, tên thương hiệu và bảng màu
+website. Không có cổng kiểm mới; repo con đồng bộ được ngay, việc sửa sản phẩm làm theo kế hoạch toàn hệ.
+
+### Thêm
+
+- `docs/PRODUCT_POLICY.md` v1.0.0: lần chạy đầu dùng **ngôn ngữ hệ thống** (dự phòng EN → VI) và **giao diện Hệ
+  thống**; thứ tự nền tảng + **iOS phát triển ngay, thử trên iPhone thật qua cáp** (Apple ID miễn phí, CI macOS), nộp
+  App Store/notarize đầu 2027; **không quảng cáo** - chỉ gói **Pro tháng/năm** và **Ủng hộ**, thanh toán đúng kênh
+  từng nền tảng, quyền lợi gắn tài khoản TsuDEV xác minh phía máy chủ; **huy hiệu Pro / Ủng hộ** (chọn hiển thị một,
+  hai hoặc ẩn; thiết kế, kích thước, chuyển động, truy cập); website sản phẩm **bắt buộc có hình ảnh + video**; mức
+  kiến trúc/bảo mật tối thiểu; checklist.
+- `docs/STORE_SUBMISSION.md` v1.0.0: agent đề xuất chủ dự án mở **phiên nộp duyệt riêng**, agent tự mở trình duyệt và
+  điền từng trường (Google Play Console, Microsoft Partner Center, App Store Connect 2027, cổng báo nhầm antivirus,
+  SignPath, Flathub); chủ dự án chỉ đăng nhập và bấm gửi; tệp hồ sơ `docs/store/<kenh>.md`; kiểm trước khi nộp.
+
+### Đổi
+
+- `docs/ECOSYSTEM_IDENTITY.md` v3.1.0: tên hiển thị **`TsuDEV`** (định danh máy đọc giữ chữ thường); mục 3.1 trang
+  Danh sách ứng dụng của tsudev.com; bảng màu website **đen tuyền + xanh logo** thay tím (nhận tsudev-standards#55),
+  icon nền tảng/icon thông tin màu xanh; bộ chọn giao diện mặc định `system`.
+- `docs/DESIGN_SYSTEM.md` mục 1: mặc định **Hệ thống** (trước là Tối).
+- `docs/DISTRIBUTION_TRUST.md` v1.1.0: iOS từ `SHOULD` thành `MUST` phát triển ngay; thử nghiệm kín Play; không
+  quảng cáo; hồ sơ mục 5 đi qua phiên điền biểu mẫu; `CompanyName` = `TsuDEV`.
+- `AGENTS.md`, `docs/00-INDEX.md`: trỏ tới hai tài liệu mới.
+
+### Hướng dẫn cho repo con
+
+1. `./scripts/sync-standards.sh` lên `v3.8.0`.
+2. Đổi chữ hiển thị `tsudev` → `TsuDEV` (không đổi định danh máy đọc); mặc định giao diện + ngôn ngữ theo hệ thống.
+3. Repo có SDK quảng cáo: gỡ ở bản kế tiếp. Repo app: lập kế hoạch Pro/Ủng hộ/huy hiệu theo `PRODUCT_POLICY.md`
+   (máy chủ quyền lợi dùng chung ở tsudev.com - làm một lần, không mỗi app một bản).
+4. Kế hoạch theo từng repo: `~/projects/logs/handover/20261119-01_ke-hoach-toan-he-v3.8.0.md`.
+
+---
+
 ## 3.7.0 - 17/11/2026
 
 Bản MINOR: thêm tài liệu mới và chuẩn hoá khuôn thẻ/tên tệp cho bản phát hành KẾ TIẾP; cổng kiểm mới chỉ ở mức LƯU Ý.
