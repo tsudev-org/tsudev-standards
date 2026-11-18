@@ -8,6 +8,16 @@ Mới nhất trên cùng.
 
 ---
 
+## 3.8.1 - 19/11/2026
+
+Bản PATCH: ghi các quyết định chủ dự án 19/11/2026, không thêm yêu cầu mới.
+
+- `docs/PRODUCT_POLICY.md` v1.0.1 mục 3.3, 4.3: ủng hộ trong bản Google Play **chốt** dùng Google Play Billing; bản Play
+  không có liên kết ủng hộ ra web.
+- `docs/ECOSYSTEM_IDENTITY.md` mục 4.2: lotus.tsudev.com giữ tím hoa sen là ngoại lệ **đã chốt**; logo ảnh không vẽ lại.
+
+---
+
 ## 3.8.0 - 19/11/2026
 
 Bản MINOR theo yêu cầu chủ dự án 19/11/2026. Thêm hai tài liệu, đổi mặc định giao diện, tên thương hiệu và bảng màu

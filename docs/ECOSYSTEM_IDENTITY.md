@@ -201,8 +201,9 @@ sẻ localStorage, nhưng cùng khóa và cùng hành vi giữ trải nghiệm n
 
 > **Từ v3.8.0 (quyết định chủ dự án 16/11 và 19/11/2026; nhận đề xuất tsudev-standards#55):** bảng **đen tuyền +
 > xanh logo** thay bảng tím. Biểu tượng (kể cả biểu tượng nền tảng Windows/Linux/Android/macOS và nhóm icon "thông
-> tin") `MUST` dùng sắc xanh của logo, KHÔNG còn tím. Ngoại lệ có quyết định riêng: lotus.tsudev.com giữ tím hoa sen
-> (11/11/2026) - chủ dự án xem lại khi đồng bộ toàn hệ.
+> tin") `MUST` dùng sắc xanh của logo, KHÔNG còn tím. Ngoại lệ **đã chốt** (chủ dự án 11/11, xác nhận lại 19/11/2026): lotus.tsudev.com
+> giữ **tím hoa sen** cho khớp logo Lotus Share - KHÔNG đổi sang xanh. Logo `logo-tsudev.png` giữ nguyên (không vẽ lại
+> chữ "TsuDEV" trong ảnh - quyết định 19/11/2026); `alt` vẫn là `TsuDEV`.
 
 Website trong hệ sinh thái dùng **đen tuyền + xanh logo** (xanh lơ ~`#30C8F0` → xanh dương chữ "dev" ~`#1E90FF` của
 `logo-tsudev.png`), ghi đè token màu chuẩn ở tầng repo (ví dụ `palette.css`, `tokens/extensions.<repo>.json`) - không

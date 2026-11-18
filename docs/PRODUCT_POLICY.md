@@ -1,4 +1,4 @@
-# CHÍNH SÁCH SẢN PHẨM TOÀN HỆ TSUDEV (v1.0.0)
+# CHÍNH SÁCH SẢN PHẨM TOÀN HỆ TSUDEV (v1.0.1)
 
 > Áp dụng cho MỌI phần mềm / tool / app / trò chơi / website sản phẩm của hệ sinh thái TsuDEV, ở mọi giai đoạn xây
 > dựng và phát triển. Quyết định của chủ dự án ngày **19/11/2026**. Tài liệu này nói **sản phẩm phải như thế nào**;
@@ -89,7 +89,7 @@ Android, không đợi có Mac:
 
    | Nơi người dùng mua | Pro (thuê bao) | Ủng hộ |
    | --- | --- | --- |
-   | App tải từ **Google Play** | **Google Play Billing** (subscription, gói tháng + gói năm cùng một sản phẩm) | Xem mục 4.3 - có huy hiệu nên KHÔNG còn là "ủng hộ thuần" |
+   | App tải từ **Google Play** | **Google Play Billing** (subscription, gói tháng + gói năm cùng một sản phẩm) | **Google Play Billing** (sản phẩm tiêu hao "Ủng hộ") - đã chốt 19/11/2026, mục 4.3 |
    | App từ **App Store** (2027) | **In-App Purchase** auto-renewable | IAP (tip) hoặc ẩn hẳn - theo phiếu `20261112-02` |
    | Website, app desktop tải trực tiếp, winget/Scoop/APT/Homebrew, APK ngoài Play | Thanh toán trên **tsudev.com** (VietQR có xác nhận tự động/thủ công), không nhúng cổng thanh toán vào app | Trang `tsudev.com/ung-ho` (VietQR) |
    | Microsoft Store | App desktop được dùng thanh toán ngoài: mở trang tsudev.com | Như website |
@@ -146,9 +146,12 @@ Phiếu `20261112-02` dựa trên điều kiện ủng hộ **không mở khoá 
 - **Website, desktop tải trực tiếp, APK ngoài Play, Microsoft Store:** ủng hộ qua `tsudev.com/ung-ho` (VietQR có mã nội
   dung chuyển khoản gắn với tài khoản, ví dụ `TSU <mã-ngắn>`); chủ dự án xác nhận trong trang quản trị (0 đồng) hoặc
   webhook ngân hàng khi có giải pháp 0 đồng cố định ⇒ cấp huy hiệu.
-- **App từ Google Play:** nút Ủng hộ trong app `MUST` dùng **Google Play Billing** (sản phẩm tiêu hao "Ủng hộ", vài mức)
-  nếu ủng hộ đó cấp huy hiệu. Muốn giữ liên kết ra web theo phiếu `20261112-02` thì trong app Play `MUST NOT` nhắc
-  tới huy hiệu cạnh nút ủng hộ. **Khuyến nghị: Play Billing** - đúng luật, không rủi ro bị gỡ.
+- **App từ Google Play - ĐÃ CHỐT (chủ dự án 19/11/2026): Google Play Billing.** Nút Ủng hộ trong bản Play `MUST` dùng
+  sản phẩm tiêu hao "Ủng hộ" (vài mức) của Play Billing; biên nhận xác minh phía máy chủ rồi mới cấp huy hiệu. Bản Play
+  `MUST NOT` có liên kết/QR ủng hộ ra web (thay quy tắc "nút mở trang web" của phiếu `20261112-02` cho riêng bản Play).
+  Lý do chọn: phương án "giữ liên kết web, không nhắc huy hiệu" vẫn để tài khoản nhận huy hiệu từ khoản tiền ngoài Play
+  rồi hiện trong app Play - Google có thể coi là lách billing; Play Billing không có rủi ro đó, đổi lại Google thu phí
+  dịch vụ trên khoản ủng hộ.
 - **App Store (2027):** chỉ IAP; không có liên kết ủng hộ ra ngoài.
 - Huy hiệu có được từ bất kỳ kênh nào vẫn **hiển thị** ở mọi app (đó là dữ liệu tài khoản, không phải mua trong app).
 - Phiên phát hành bản di động `MUST` đọc lại chính sách thanh toán của Google/Apple và ghi ngày đối chiếu (như phiếu
