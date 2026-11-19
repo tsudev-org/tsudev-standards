@@ -8,6 +8,29 @@ Mới nhất trên cùng.
 
 ---
 
+## 3.9.0 - 20/11/2026
+
+Bản MINOR: quyết định chủ dự án 19/11/2026 (phiếu `20261119-PRO1`, phase PRO-A + phần SVG của PRO-C). Thêm yêu cầu
+mới - mọi repo sync lên 3.9.0 trước khi làm phần Pro/đồng bộ.
+
+- `docs/PRODUCT_POLICY.md` v1.1.0 mục 7 (mới) **Lưu cục bộ mặc định - đồng bộ/sao lưu đám mây là Pro**: nguyên tắc
+  N1-N8 (cục bộ trước, miễn phí không gửi dữ liệu lên mạng, máy chủ kiểm quyền bằng JWS, chịu tải, 0 đồng); gói chung
+  **TsuDEV Pro 49.000 ₫/tháng, 490.000 ₫/năm**, Ủng hộ 20/50/100/200 nghìn; Pro hết hạn ⇒ chặn đẩy, kéo/xuất 90 ngày,
+  dữ liệu trên thiết bị không bao giờ bị xoá; thông báo "nhiều thiết bị chưa có Pro" (nội dung vi/en nguyên văn, chu kỳ
+  30 ngày, 5 test bắt buộc) - ngoại lệ có chủ đích của mục 3.2; **hợp đồng chung** (mã sản phẩm Play `tsudev_pro`
+  `thang`/`nam`, `ung_ho_*`, App Store, JWS quyền lợi ES256, `/api/me/entitlements`, `/api/rp/entitlements/*`,
+  `402 pro_required`, TsuDEV Sync `tsudev-org/tsusync` + mật mã); hạn mức 100 MiB + 1 GiB; điều khoản thuê bao nguyên
+  văn. Checklist thành mục 8, thêm 7 dòng.
+- `docs/AUTH_AND_ACCOUNT.md` v3.1.0 mục 14.3 (mới): **mã cài đặt** ngẫu nhiên 128 bit, cấm IMEI/MAC/vân tay, header
+  `X-Tsu-Installation`, máy chủ chỉ lưu HMAC; ca kiểm thử 15; checklist thêm dòng.
+- `docs/FREE_TIER_STACK.md` v2.1.0 mục 3.1 (mới): đồng bộ/sao lưu đám mây ở lại trong hạn mức miễn phí (người dùng miễn
+  phí không tốn dung lượng, delta theo `rev`, không poll dày, lùi thử lại, giới hạn ở máy chủ).
+- `docs/STORE_SUBMISSION.md` mục 4.1: mã sản phẩm Play cố định + ghi chú ngoại lệ thông báo Pro.
+- `assets/badges/` (mới): SVG gốc huy hiệu Pro + Ủng hộ (Sáng/Tối, vi/en) kèm bảng màu và số đo tương phản (thấp nhất
+  6.12:1).
+
+---
+
 ## 3.8.3 - 19/11/2026
 
 Bản PATCH: ghi quyết định chủ dự án 19/11/2026.
