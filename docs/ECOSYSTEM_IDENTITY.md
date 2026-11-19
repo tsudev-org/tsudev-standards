@@ -1,4 +1,4 @@
-# NHẬN DIỆN HỆ SINH THÁI TSUDEV (v3.1.0)
+# NHẬN DIỆN HỆ SINH THÁI TSUDEV (v3.1.1)
 
 > `https://tsudev.com` là nhà chung của mọi dịch vụ, sản phẩm và công cụ trong hệ
 > sinh thái. Tài liệu này quy định mọi project **tự khai mình thuộc về đâu** như
@@ -86,7 +86,7 @@ Mọi repo thuộc hệ sinh thái `MUST` có:
 <meta name="twitter:card" content="summary_large_image" />
 ```
 
-- `og:site_name` `MUST` là chuỗi `tsudev` ở **mọi** sản phẩm, kể cả sản phẩm có
+- `og:site_name` `MUST` là chuỗi `TsuDEV` (từ v3.8.0, mục 3) ở **mọi** sản phẩm, kể cả sản phẩm có
   tên miền riêng. Đó là thứ nối các sản phẩm lại với nhau khi được chia sẻ.
 - Khuôn tiêu đề `MUST` đúng thứ tự trên. Trang chủ của sản phẩm rút gọn thành
   `{Tên sản phẩm} | TsuDEV`.
@@ -202,7 +202,9 @@ sẻ localStorage, nhưng cùng khóa và cùng hành vi giữ trải nghiệm n
 > **Từ v3.8.0 (quyết định chủ dự án 16/11 và 19/11/2026; nhận đề xuất tsudev-standards#55):** bảng **đen tuyền +
 > xanh logo** thay bảng tím. Biểu tượng (kể cả biểu tượng nền tảng Windows/Linux/Android/macOS và nhóm icon "thông
 > tin") `MUST` dùng sắc xanh của logo, KHÔNG còn tím. Ngoại lệ **đã chốt** (chủ dự án 11/11, xác nhận lại 19/11/2026): lotus.tsudev.com
-> giữ **tím hoa sen** cho khớp logo Lotus Share - KHÔNG đổi sang xanh. Logo `logo-tsudev.png` giữ nguyên (không vẽ lại
+> giữ **tím hoa sen** cho khớp logo Lotus Share - KHÔNG đổi sang xanh. Ngoại lệ **đã chốt** thứ hai (chủ dự án
+> 19/11/2026): kiểu giao diện **"Cú đêm"** trong app TsuFiles giữ **tím** cho khớp logo con cú TsuFiles; website
+> files.tsudev.com và token thương hiệu của TsuFiles vẫn theo bảng xanh. Logo `logo-tsudev.png` giữ nguyên (không vẽ lại
 > chữ "TsuDEV" trong ảnh - quyết định 19/11/2026); `alt` vẫn là `TsuDEV`.
 
 Website trong hệ sinh thái dùng **đen tuyền + xanh logo** (xanh lơ ~`#30C8F0` → xanh dương chữ "dev" ~`#1E90FF` của

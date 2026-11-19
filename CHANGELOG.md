@@ -8,6 +8,16 @@ Mới nhất trên cùng.
 
 ---
 
+## 3.8.2 - 19/11/2026
+
+Bản PATCH: ghi quyết định chủ dự án 19/11/2026 và sửa một dòng mâu thuẫn, không thêm yêu cầu mới.
+
+- `docs/ECOSYSTEM_IDENTITY.md` v3.1.1 mục 4.2: kiểu giao diện "Cú đêm" của app TsuFiles giữ **tím** (khớp logo con cú)
+  là ngoại lệ **đã chốt** thứ hai, cạnh tím hoa sen của lotus.tsudev.com.
+- Mục 2.2: `og:site_name` là `TsuDEV` (dòng cũ còn ghi `tsudev`, mâu thuẫn mục 3 và khuôn thẻ ngay trên).
+
+---
+
 ## 3.8.1 - 19/11/2026
 
 Bản PATCH: ghi các quyết định chủ dự án 19/11/2026, không thêm yêu cầu mới.
