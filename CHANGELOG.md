@@ -8,6 +8,16 @@ Mới nhất trên cùng.
 
 ---
 
+## 3.8.3 - 19/11/2026
+
+Bản PATCH: ghi quyết định chủ dự án 19/11/2026.
+
+- `docs/ECOSYSTEM_IDENTITY.md` v3.1.2 mục 4.2 + 4.2.1 (mới): ngoại lệ TsuFiles mở rộng - website **files.tsudev.com**
+  cũng dùng **đen tuyền + tím logo cú** như kiểu "Cú đêm" của app (thay ghi chú "website vẫn theo bảng xanh" của
+  v3.8.2); bảng token tím lấy mẫu từ logo, dùng lại bảng đã kiểm AA của v3.4.0.
+
+---
+
 ## 3.8.2 - 19/11/2026
 
 Bản PATCH: ghi quyết định chủ dự án 19/11/2026 và sửa một dòng mâu thuẫn, không thêm yêu cầu mới.
