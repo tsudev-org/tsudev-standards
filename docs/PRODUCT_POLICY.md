@@ -1,4 +1,4 @@
-# CHÍNH SÁCH SẢN PHẨM TOÀN HỆ TSUDEV (v1.1.0)
+# CHÍNH SÁCH SẢN PHẨM TOÀN HỆ TSUDEV (v1.1.1)
 
 > Áp dụng cho MỌI phần mềm / tool / app / trò chơi / website sản phẩm của hệ sinh thái TsuDEV, ở mọi giai đoạn xây
 > dựng và phát triển. Quyết định của chủ dự án ngày **19/11/2026**. Tài liệu này nói **sản phẩm phải như thế nào**;
@@ -266,10 +266,12 @@ máy chủ được xoá dữ liệu thử nghiệm.
 Luồng mua Play: `obfuscatedAccountId` = base64url(SHA-256(`tsudev-pro|` + `sub`)), 43 ký tự (giới hạn 64). Biên nhận
 **chỉ** được xác minh ở máy chủ quyền lợi tsudev.com - không ở app, không ở máy chủ sản phẩm.
 
-**JWS quyền lợi** (ES256, ký bằng khoá OIDC của tsudev.com, kiểm bằng JWKS `https://tsudev.com/.well-known/jwks.json`):
+**JWS quyền lợi** (ES256, header `typ` = `tsu-ent+jwt`, ký bằng khoá OIDC của tsudev.com; kiểm bằng JWKS
+`https://tsudev.com/oidc/jwks` - lấy từ discovery `https://tsudev.com/oidc/.well-known/openid-configuration`, chọn khoá
+theo `kid`):
 
 ```json
-{ "iss": "https://tsudev.com", "sub": "<id tài khoản>", "aud": "<client_id>", "iat": 0, "exp": 0,
+{ "iss": "https://tsudev.com/oidc", "sub": "<id tài khoản>", "aud": "<client_id>", "iat": 0, "exp": 0,
   "pro_until": 0, "pro_source": "play|appstore|web|null", "donor": false,
   "badge": "pro|donor|both|none", "devices_30d": 1 }
 ```
@@ -278,10 +280,13 @@ Luồng mua Play: `obfuscatedAccountId` = base64url(SHA-256(`tsudev-pro|` + `sub
   kiểm `iss`, `aud` = `client_id` của mình, `exp`, và chỉ nhận `alg` = `ES256`.
 - `badge` là kết quả SAU khi áp `badge_display` (người khác chỉ thấy đúng giá trị này). `pro_until` = 0 nghĩa là chưa
   từng có Pro; Pro còn hạn khi `pro_until` > giờ hiện tại.
-- Lấy JWS: app có access token tsudev ⇒ `GET https://tsudev.com/api/me/entitlements` (scope `tsudev.entitlements`). App
-  đăng nhập qua máy chủ sản phẩm (RP) ⇒ máy chủ đó gọi `GET https://tsudev.com/api/rp/entitlements/{sub}` bằng
-  `private_key_jwt`, chỉ với `sub` đã cấp quyền cho client đó; gửi biên nhận Play qua
-  `POST https://tsudev.com/api/rp/entitlements/play`.
+- Lấy JWS (thân trả về `{"jws": "<compact>"}`, `Cache-Control: no-store`): app có access token tsudev ⇒
+  `GET https://tsudev.com/api/me/entitlements` (scope `tsudev.entitlements`, thiếu ⇒ `403 insufficient_scope`). App
+  đăng nhập qua máy chủ sản phẩm (RP) ⇒ máy chủ đó gọi `GET https://tsudev.com/api/rp/entitlements/{sub}` với
+  `Authorization: Bearer <client assertion>` - JWT ES256 kiểu `private_key_jwt` (RFC 7523): `iss` = `sub` = `client_id`,
+  `aud` = `https://tsudev.com/api/rp/entitlements`, `exp` ≤ 300 giây, `jti` dùng một lần; khoá công khai của RP đăng
+  ký với tsudev.com (tsudev ADR-0002). Chỉ trả cho `sub` đã cấp quyền cho client đó (`sub` khác ⇒ `404
+  unknown_subject`). Gửi biên nhận Play qua `POST https://tsudev.com/api/rp/entitlements/play` (cùng xác thực).
 - Mã cài đặt gửi trong header `X-Tsu-Installation` (`AUTH_AND_ACCOUNT.md` mục 14.3).
 
 **Máy chủ sản phẩm / TsuDEV Sync:**

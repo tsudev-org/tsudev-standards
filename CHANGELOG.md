@@ -8,6 +8,17 @@ Mới nhất trên cùng.
 
 ---
 
+## 3.9.1 - 20/11/2026
+
+Bản PATCH: đính chính hợp đồng JWS quyền lợi cho khớp máy chủ thật (tsudev#336, ADR-0002), không thêm yêu cầu mới.
+
+- `docs/PRODUCT_POLICY.md` v1.1.1 mục 7.4: `iss` = issuer OIDC `https://tsudev.com/oidc` (không phải
+  `https://tsudev.com`), JWKS `https://tsudev.com/oidc/jwks` (không có `/.well-known/jwks.json`), header `typ`
+  `tsu-ent+jwt`, thân trả về `{"jws": ...}`; cách gửi client assertion của kênh RP (`Bearer`, `aud`, `exp` ≤ 300 s,
+  `jti` một lần) và mã lỗi `403 insufficient_scope` / `404 unknown_subject`.
+
+---
+
 ## 3.9.0 - 20/11/2026
 
 Bản MINOR: quyết định chủ dự án 19/11/2026 (phiếu `20261119-PRO1`, phase PRO-A + phần SVG của PRO-C). Thêm yêu cầu
