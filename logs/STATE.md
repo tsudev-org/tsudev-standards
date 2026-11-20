@@ -50,7 +50,8 @@
   `catalog.json` ba kênh, vân tay ghi cứng trong `install.sh`, `verify-install` x64 + ARM64, lệnh sinh lúc build mục
   8.1) - phiếu `20261113-01`; `ECOSYSTEM_IDENTITY.md` v3.2.0 mục 4.3 menu tài khoản disclosure + cột "Tài khoản" ở chân
   trang - đề xuất PR #52 (đóng, nội dung đã vào docs). Ghi sổ đóng phiếu `20261119-PRO1`, phần repo này của
-  `20261117-V1` và hàng tsudev-standards của `20261114-01`. Dependabot #37/#44/#45: xem phiếu phiên.
+  `20261117-V1` và hàng tsudev-standards của `20261114-01`. Dependabot: merge #37 (setup-node 7.1.0); #44/#45 thay bằng #68 (codeql-action init + analyze 4.39.3
+  cùng lúc, nhóm `codeql-action` trong `dependabot.yml`). AKB: SES-20261121-0246-7ca7, LES-20261121-0304-b86f.
 
 - 21/11/2026 - **`v4.3.0`**: Apple là lối vào có điều kiện (`AUTH_AND_ACCOUNT.md` v3.2.0 mục 3.2, phiếu `20261119-01`);
   tên gói thương hiệu + quy trình đổi tên gói (`PACKAGING.md` v1.1.0 mục 2.1-2.2, phiếu `20261112-02`). Đóng phiếu
