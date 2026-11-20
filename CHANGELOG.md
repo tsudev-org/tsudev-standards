@@ -8,6 +8,36 @@ Mới nhất trên cùng.
 
 ---
 
+## 4.4.0 - 21/11/2026
+
+Bản MINOR (chỉ thêm, không phá vỡ): đưa văn bản khớp hạ tầng đang chạy thật và nhận đề xuất mẫu header/chân trang.
+Phiếu: `20261113-01` (linux-packages), `20261114-01` hàng tsudev-standards; đề xuất PR #52 (tsudev, phiên 53).
+
+- `docs/PACKAGING.md` v1.2.0:
+  - Mục 3.1 (mới) **dựng gói tập trung** ở `tsudev-org/linux-packages` từ `products.json` + `packaging/package.json`;
+    repo sản phẩm không giữ khóa ký kho hay token R2; kiểm bản mới mỗi giờ, xuất bản qua Environment `packages` có
+    duyệt; repo private phát hành qua repo công khai `<org>/tsudev-<id>-releases`.
+  - Mục 5: đẩy R2 qua API S3 bằng khóa phạm vi một bucket. Mục 5.1 (mới) **`catalog.json` schema 1** cho APT/RPM,
+    Scoop, Homebrew (trường `name`, `version`, `homepage`, `arch`, `install`, `installFull`, `replacedBy`), sinh cùng lần
+    với kho, tự đối chiếu, job đối chiếu kênh hằng ngày.
+  - Mục 6: `install.sh`/`install.ps1` đọc `catalog.json` và so vân tay khóa với giá trị **ghi cứng trong script**,
+    không tin vân tay tải về.
+  - Mục 7: bỏ bước `wrangler r2 object put` ở repo sản phẩm; `verify-install` APT/RPM chạy ở kho gói trên Ubuntu
+    22.04/24.04, Debian 12/13, Fedora (x64) + ARM64.
+  - Mục 8.1 (mới) **lệnh "Cài bằng lệnh" sinh lúc build từ danh mục**, chọn theo `homepage`; cấm chép tay, cấm gọi
+    danh mục lúc chạy; gói có `replacedBy` không hiện lệnh; cổng đỏ khi khai hệ điều hành mà không có kênh.
+- `docs/ECOSYSTEM_IDENTITY.md` v3.2.0: mục 4.3 (mới) **khu vực tài khoản ở header** - một nút disclosure (ảnh đại
+  diện + tên) mở "Hồ sơ tài khoản", "Đăng xuất"; cấm "Đăng xuất" trần, cấm `role="menu"`; Esc/bấm ngoài/rời focus thì
+  đóng; vòng tròn trơn khi phiên chưa rõ. Mục 4: cột **"Tài khoản"** ở chân trang theo phiên (`SHOULD`). Checklist mục 9.
+
+### Hướng dẫn nâng cấp
+
+1. Repo con sync v4.4.0 trong PR kế tiếp của nó (KHÔNG mở PR sync riêng).
+2. `tsudev`: đã đạt (header #251, chân trang #252, `pkg:catalog` + `installChannels.test.ts`). Không cần làm gì.
+3. Site app có trang Tải về (tsucwico, tsuswico, tsucontact, tsufiles, lotus-share, trafficmonitor...): làm khối "Cài
+   bằng lệnh" sinh lúc build theo mục 8.1 (phiếu `20261114-02` đã gửi); site có đăng nhập làm mục 4.3 khi thêm đăng nhập.
+4. Repo sản phẩm còn bước đẩy R2 riêng (`wrangler`) trong workflow phát hành: gỡ bước đó và token R2 khỏi secret.
+
 ## 4.3.0 - 21/11/2026
 
 Bản MINOR (chỉ thêm, không phá vỡ): xử lý hai phiếu đề xuất đang chờ duyệt, chủ dự án uỷ quyền chọn phương án
