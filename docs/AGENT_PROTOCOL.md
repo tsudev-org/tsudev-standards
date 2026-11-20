@@ -1,4 +1,4 @@
-# GIAO THỨC LÀM VIỆC CỦA AGENT (v2.0.0)
+# GIAO THỨC LÀM VIỆC CỦA AGENT (v2.1.0)
 
 > Tài liệu này mô tả **cách vận hành một phiên làm việc** cho cả lập trình viên
 > và agent AI: mở phiên, khóa file, bàn giao, đóng phiên. Quy ước nội dung nằm ở
@@ -28,6 +28,10 @@ tiết kiệm token, không lặp lại nội dung đã có trong file quy ướ
 
 Agent `MUST` thực hiện đúng thứ tự: đọc quy ước -> đọc trạng thái -> đọc phiếu
 bàn giao -> nhận việc -> khóa file -> mới bắt đầu sửa.
+
+Trên máy phát triển có kho tri thức AKB ([`KNOWLEDGE_BASE.md`](KNOWLEDGE_BASE.md)), ngay sau khi nhận việc agent
+`MUST` chạy `akb start "<mục tiêu phiên>"` (đọc phần liên quan trong danh sách in ra) và, với việc cụ thể (lỗi, thư
+viện, CI, deploy, nộp duyệt), `akb search "<từ khoá>"` để dùng lại cách sửa mà dự án khác đã kiểm chứng.
 
 ## 3. Khóa file (chống giẫm chân)
 
@@ -72,7 +76,10 @@ hoặc (c) ngữ cảnh sắp cạn.
 3. Nhả toàn bộ khóa của mình trong `logs/LOCKS.md`.
 4. Dọn tàn dư: xóa file tạm, không để thay đổi chưa commit nằm ngoài phạm vi bàn
    giao. Cây làm việc sạch để phiên sau không tốn "chi phí chết".
-5. Đề xuất chủ project đóng terminal và mở phiên mới cho task kế tiếp.
+5. **AKB** (`KNOWLEDGE_BASE.md` mục 7): lỗi/bài học/quyết định dùng lại được đã ghi thành `ISS`/`LES`/`DEC`;
+   điền `SES`, `akb close <SES-ID> "<tóm tắt>"`, `akb sync --project <slug>`. Phiếu bàn giao trỏ tới ID AKB thay vì
+   chép lại tri thức.
+6. Đề xuất chủ project đóng terminal và mở phiên mới cho task kế tiếp.
 
 ## 6. Ranh giới của agent AI
 
