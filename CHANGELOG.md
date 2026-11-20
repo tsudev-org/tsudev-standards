@@ -8,6 +8,343 @@ Mới nhất trên cùng.
 
 ---
 
+## 4.4.0 - 21/11/2026
+
+Bản MINOR (chỉ thêm, không phá vỡ): đưa văn bản khớp hạ tầng đang chạy thật và nhận đề xuất mẫu header/chân trang.
+Phiếu: `20261113-01` (linux-packages), `20261114-01` hàng tsudev-standards; đề xuất PR #52 (tsudev, phiên 53).
+
+- `docs/PACKAGING.md` v1.2.0:
+  - Mục 3.1 (mới) **dựng gói tập trung** ở `tsudev-org/linux-packages` từ `products.json` + `packaging/package.json`;
+    repo sản phẩm không giữ khóa ký kho hay token R2; kiểm bản mới mỗi giờ, xuất bản qua Environment `packages` có
+    duyệt; repo private phát hành qua repo công khai `<org>/tsudev-<id>-releases`.
+  - Mục 5: đẩy R2 qua API S3 bằng khóa phạm vi một bucket. Mục 5.1 (mới) **`catalog.json` schema 1** cho APT/RPM,
+    Scoop, Homebrew (trường `name`, `version`, `homepage`, `arch`, `install`, `installFull`, `replacedBy`), sinh cùng lần
+    với kho, tự đối chiếu, job đối chiếu kênh hằng ngày.
+  - Mục 6: `install.sh`/`install.ps1` đọc `catalog.json` và so vân tay khóa với giá trị **ghi cứng trong script**,
+    không tin vân tay tải về.
+  - Mục 7: bỏ bước `wrangler r2 object put` ở repo sản phẩm; `verify-install` APT/RPM chạy ở kho gói trên Ubuntu
+    22.04/24.04, Debian 12/13, Fedora (x64) + ARM64.
+  - Mục 8.1 (mới) **lệnh "Cài bằng lệnh" sinh lúc build từ danh mục**, chọn theo `homepage`; cấm chép tay, cấm gọi
+    danh mục lúc chạy; gói có `replacedBy` không hiện lệnh; cổng đỏ khi khai hệ điều hành mà không có kênh.
+- `docs/ECOSYSTEM_IDENTITY.md` v3.2.0: mục 4.3 (mới) **khu vực tài khoản ở header** - một nút disclosure (ảnh đại
+  diện + tên) mở "Hồ sơ tài khoản", "Đăng xuất"; cấm "Đăng xuất" trần, cấm `role="menu"`; Esc/bấm ngoài/rời focus thì
+  đóng; vòng tròn trơn khi phiên chưa rõ. Mục 4: cột **"Tài khoản"** ở chân trang theo phiên (`SHOULD`). Checklist mục 9.
+
+### Hướng dẫn nâng cấp
+
+1. Repo con sync v4.4.0 trong PR kế tiếp của nó (KHÔNG mở PR sync riêng).
+2. `tsudev`: đã đạt (header #251, chân trang #252, `pkg:catalog` + `installChannels.test.ts`). Không cần làm gì.
+3. Site app có trang Tải về (tsucwico, tsuswico, tsucontact, tsufiles, lotus-share, trafficmonitor...): làm khối "Cài
+   bằng lệnh" sinh lúc build theo mục 8.1 (phiếu `20261114-02` đã gửi); site có đăng nhập làm mục 4.3 khi thêm đăng nhập.
+4. Repo sản phẩm còn bước đẩy R2 riêng (`wrangler`) trong workflow phát hành: gỡ bước đó và token R2 khỏi secret.
+
+## 4.3.0 - 21/11/2026
+
+Bản MINOR (chỉ thêm, không phá vỡ): xử lý hai phiếu đề xuất đang chờ duyệt, chủ dự án uỷ quyền chọn phương án
+21/11/2026. Phiếu: `20261119-01` (qulythuchi), `20261112-02` (lotus-share).
+
+- `docs/AUTH_AND_ACCOUNT.md` v3.2.0: mục 3.2 (mới) **Đăng nhập với Apple là lối vào có điều kiện** - `MUST` cho sản phẩm
+  phát hành qua App Store (Guideline 4.8), `MAY` cho phần còn lại; không mua Apple Developer Program chỉ để có nút Apple;
+  nút ẩn khi IdP chưa bật; cấu hình một lần ở IdP `tsudev.com` (`idp_hint=apple`). Bẫy bắt buộc xử lý: callback
+  `form_post` liên trang (không có cookie `SameSite=Lax`), tên chỉ gửi lần đầu, `client_secret` ES256 hạn 6 tháng,
+  `auth/revoke` khi xoá tài khoản, thông báo máy chủ tới máy chủ, đăng ký tên miền gửi thư cho email ẩn. Mục 3.1 phạm vi
+  `name email`; mục 5 email `@privaterelay.appleid.com` coi là đã xác minh nhưng không gộp tự động; mục 15 thêm
+  `GET /auth/providers`, callback POST và điểm nhận thông báo của Apple; mục 16 ca kiểm thử 16; mục 17 checklist.
+- `docs/PACKAGING.md` v1.1.0: mục 2.1 (mới) tên gói theo **thương hiệu riêng** được duyệt (`tsuswico`, `tsucontact`,
+  `lotus-share`...) - ghi đích danh `tenRieng`, không trùng gói bản phân phối/dự án gốc. Mục 2.2 (mới) **đổi tên gói đã
+  công bố**: APT gói chuyển tiếp rỗng `oldlibs`, RPM `Provides` + `Obsoletes`, Homebrew giữ cask cũ `deprecate!` +
+  `replacement_cask` (`cask_renames.json` không đủ với tap riêng), Scoop giữ manifest cũ kèm `notes`, winget đã duyệt
+  không đổi mã, Android không đổi `applicationId`; CI kiểm đường nâng cấp từ bản cũ thật; tên cũ giữ tối thiểu 12 tháng
+  và không bao giờ dùng lại. Ghi lại đúng cách kho gói đang làm từ 12/11/2026.
+
+### Hướng dẫn nâng cấp
+
+1. Repo con sync v4.3.0 trong PR kế tiếp của nó (KHÔNG mở PR sync riêng).
+2. `tsudev` (IdP): khi chủ dự án quyết phát hành App Store - thêm provider Apple theo mục 3.2, `GET /api/v1/auth/providers`.
+   Chưa phát hành App Store thì không cần làm gì.
+3. RP có đăng nhập (qulythuchi...): dựng nút nhà cung cấp từ danh sách IdP trả về, nhận `apple` khi có.
+4. `linux-packages`, `scoop-bucket`, `homebrew-tap`: đối chiếu mục 2.2 (kho đã làm đúng; thêm CI kiểm nâng cấp cho
+   Scoop/Homebrew nếu chưa có).
+
+## 4.2.0 - 20/11/2026
+
+Bản MINOR (chỉ thêm): yêu cầu chủ dự án 20/11/2026 - **sản phẩm đứng tên chủ dự án, không ghi "do AI thực hiện"**.
+
+- `docs/AGENT_PROTOCOL.md` v2.2.0: mục 6.1 - nội dung, dữ liệu, commit/PR (không trailer `Co-Authored-By` của AI, không
+  "Generated with") và biểu mẫu nền tảng đứng tên chủ dự án; tệp điều phối nội bộ (`AGENTS.md`, AKB, `logs/`) không đổi.
+- `docs/STORE_SUBMISSION.md` v1.2.0: mục 0.1 - điền biểu mẫu với tư cách chủ dự án, không chọn "do AI thực hiện"; câu
+  hỏi về tính năng AI thật của app (chính sách nội dung AI tạo của Google Play) vẫn trả lời đúng mã; thêm dòng checklist
+  mục 3.
+
+## 4.1.0 - 20/11/2026
+
+Bản MINOR (chỉ thêm, không phá vỡ): yêu cầu chủ dự án 20/11/2026 - **kho tri thức dùng chung cho agent (AKB)** và chuẩn
+hoá **chuỗi tin cậy phát hành** từ hai tài liệu kỹ thuật 19/11/2026. Phiếu điều phối: `20261120-02`.
+
+- `docs/KNOWLEDGE_BASE.md` v1.0.0 (mới): chuẩn hoá đặc tả AKB gốc theo hệ tsudev - kho `~/agent-kb` ngoài repo, remote
+  private `tsudev-org/agent-kb`, bản sao ổ E:; slug theo tên repo GitHub (worktree dùng chung thư mục); ranh giới với
+  `logs/handover` (việc đang làm ở repo, tri thức dùng lại ở AKB); schema, ID, liên kết chéo `applied_from`; CLI `akb`
+  (start/new/set/close/search/reindex/lint/sync); lint L01-L11 (L07 bí mật chặn commit); nghiệm thu đạt (39 dự án,
+  9 test).
+- `docs/AGENT_PROTOCOL.md` v2.1.0: mở phiên thêm `akb start` + `akb search`; đóng phiên thêm bước AKB (`akb close`,
+  `akb sync`), phiếu bàn giao trỏ ID AKB thay vì chép tri thức.
+- `docs/DISTRIBUTION_TRUST.md` v1.2.0: nói rõ giới hạn của huy hiệu OpenSSF và cấm né antivirus; 3.1 gói hồ sơ báo nhầm
+  chuẩn + hạn **48 giờ**, đủ danh sách hãng; 4.1 `docs/threat-model.md` (STRIDE) + `docs/incident-response.md`; 4.2 yêu
+  cầu theo loại sản phẩm (Electron/Tauri, web, DNSSEC/CAA/DMARC, trusted publishing); mục 5 thêm OpenSSF Best Practices
+  cho MỌI repo Public, Scorecard, WDSI, xác minh Search Console bằng DNS TXT; mục 8 checklist pháp luật Việt Nam (👤
+  xác nhận văn bản hiện hành); mục 9 phiếu tin cậy từng sản phẩm + Definition of Done.
+- `docs/STORE_SUBMISSION.md` v1.1.0: 1.1 **sổ định danh** `docs/store/IDENTITY.md` - một nguồn cho mọi biểu mẫu, kiểm
+  chéo với mã trước khi điền; trình duyệt Edge hồ sơ riêng; định dạng tệp hồ sơ `docs/store/<kenh>.md`; lý do từ chối
+  ghi thêm vào AKB; 4.4 thêm OpenSSF Best Practices và Search Console/Bing.
+- `docs/templates/TRUST_TICKET.md` (mới): mẫu `logs/trust/TRUST.md` (mã `TSU-<slug>`).
+
+### Hướng dẫn nâng cấp
+
+1. Repo con sync v4.1.0 trong PR kế tiếp của nó (KHÔNG mở PR sync riêng).
+2. Repo phát hành sản phẩm: lập `logs/trust/TRUST.md` từ mẫu và `docs/store/IDENTITY.md` - theo phiếu con TR1 của repo.
+3. Máy phát triển: agent đã có `akb` trong `PATH`; phiên đầu tiên của mỗi repo sau v4.1.0 backfill `02_FEATURES.md`,
+   `03_RUNBOOK.md`, DEC từ ADR, ISS/LES quan trọng từ phiếu bàn giao.
+
+---
+
+## 4.0.0 - 20/11/2026
+
+Bản MAJOR: quyết định chủ dự án 20/11/2026 - **TsuDEV Pro theo kỳ 1 năm, không tự gia hạn**; bỏ định danh gói tháng;
+thêm `MUST` mới về nhắc gia hạn, xoá có xác minh và JWS tươi. Phiếu điều phối: `20261120-PRO2`.
+
+- `docs/PRODUCT_POLICY.md` v1.2.0:
+  - Mục 3.2, 3.3, 3.5, 7.2: một gói **TsuDEV Pro 490.000 ₫ / 1 năm**, không tự gia hạn ở mọi kênh (Play gói **trả
+    trước** `nam`, App Store Non-Renewing Subscription, web VietQR); gia hạn sớm cộng dồn
+    (`pro_until = max(pro_until, bây giờ) + 1 năm`); hết kỳ ⇒ **trạng thái miễn phí ("khách mời")**, ngừng đồng bộ
+    lên đám mây, dữ liệu trên thiết bị giữ nguyên; tsudev.com `SHOULD` gửi thư nhắc.
+  - Mục 7.4: bỏ `thang` / `com.tsudev.pro.thang`; claim tuỳ chọn `cnf.jkt` + DPoP (`SHOULD`); máy chủ nhận JWS từ app
+    chỉ nhận `iat` ≤ 24 giờ (`401 reason: "stale"`); **kênh trạng thái** `POST /api/rp/entitlements/status` (không phụ
+    thuộc grant 30 ngày); **xoá dữ liệu vì hết Pro `MUST` hỏi kênh trạng thái ngay trước khi xoá**, lỗi ⇒ hoãn.
+  - Mục 7.5: điều khoản trước nút mua (vi/en) viết lại cho kỳ 1 năm không tự gia hạn.
+  - Mục 7.6 (mới): **nhắc gia hạn 7 ngày cuối, mỗi lần mở app** + báo hết kỳ một lần - nội dung vi/en nguyên văn,
+    khoá `tsu.pro_expired.notified_until`, 6 test bắt buộc.
+  - Mục 8: checklist cập nhật theo các ý trên.
+- `docs/STORE_SUBMISSION.md`: Play chỉ gói trả trước `nam`; App Store Non-Renewing; mục 7.6 là ngoại lệ đã duyệt.
+- `docs/FREE_TIER_STACK.md` mục 3.1: xoá có xác minh.
+
+### Hướng dẫn nâng cấp
+
+1. **Repo có màn mua Pro** (app, tsudev.com): bỏ gói tháng khỏi giao diện và mã nguồn; chỉ còn "1 năm"; thay điều
+   khoản trước nút mua bằng nguyên văn mục 7.5 mới; test so nguyên văn.
+2. **Play Console** (repo đã tạo sản phẩm `tsudev_pro`): lưu trữ gói cơ sở `thang`; tạo/đổi gói `nam` sang **trả trước**
+   (prepaid, P1Y, cho phép nạp thêm). Chưa tạo thì tạo đúng như trên. App Store (2027): chỉ tạo Non-Renewing
+   `com.tsudev.pro.nam`.
+3. **Máy chủ quyền lợi tsudev.com**: tính `pro_until` theo công thức mục 7.2; thêm kênh trạng thái + `cnf.jkt` theo
+   mục 7.4; thư nhắc (`SHOULD`).
+4. **Máy chủ đồng bộ** (qulythuchi, sound-db, tsuscan, app-la-ban, TsuDEV Sync...): trước khi xoá vì hết Pro gọi kênh
+   trạng thái; thêm test "gia hạn trên web mà không mở app ⇒ không xoá"; JWS do app gửi lên: `iat` ≤ 24 giờ.
+5. **App**: hiện nhắc gia hạn + báo hết kỳ theo mục 7.6 (Flutter dùng `ProRenewalNotice` của `tsudev_ui` khi có bản
+   mới); đủ 6 test.
+6. Đồng bộ bộ quy ước lên `v4.0.0` trong cùng PR với các thay đổi trên (thay cho v3.9.1 ở phiếu PRO1).
+
+---
+
+## 3.9.1 - 20/11/2026
+
+Bản PATCH: đính chính hợp đồng JWS quyền lợi cho khớp máy chủ thật (tsudev#336, ADR-0002), không thêm yêu cầu mới.
+
+- `docs/PRODUCT_POLICY.md` v1.1.1 mục 7.4: `iss` = issuer OIDC `https://tsudev.com/oidc` (không phải
+  `https://tsudev.com`), JWKS `https://tsudev.com/oidc/jwks` (không có `/.well-known/jwks.json`), header `typ`
+  `tsu-ent+jwt`, thân trả về `{"jws": ...}`; cách gửi client assertion của kênh RP (`Bearer`, `aud`, `exp` ≤ 300 s,
+  `jti` một lần) và mã lỗi `403 insufficient_scope` / `404 unknown_subject`.
+
+---
+
+## 3.9.0 - 20/11/2026
+
+Bản MINOR: quyết định chủ dự án 19/11/2026 (phiếu `20261119-PRO1`, phase PRO-A + phần SVG của PRO-C). Thêm yêu cầu
+mới - mọi repo sync lên 3.9.0 trước khi làm phần Pro/đồng bộ.
+
+- `docs/PRODUCT_POLICY.md` v1.1.0 mục 7 (mới) **Lưu cục bộ mặc định - đồng bộ/sao lưu đám mây là Pro**: nguyên tắc
+  N1-N8 (cục bộ trước, miễn phí không gửi dữ liệu lên mạng, máy chủ kiểm quyền bằng JWS, chịu tải, 0 đồng); gói chung
+  **TsuDEV Pro 49.000 ₫/tháng, 490.000 ₫/năm**, Ủng hộ 20/50/100/200 nghìn; Pro hết hạn ⇒ chặn đẩy, kéo/xuất 90 ngày,
+  dữ liệu trên thiết bị không bao giờ bị xoá; thông báo "nhiều thiết bị chưa có Pro" (nội dung vi/en nguyên văn, chu kỳ
+  30 ngày, 5 test bắt buộc) - ngoại lệ có chủ đích của mục 3.2; **hợp đồng chung** (mã sản phẩm Play `tsudev_pro`
+  `thang`/`nam`, `ung_ho_*`, App Store, JWS quyền lợi ES256, `/api/me/entitlements`, `/api/rp/entitlements/*`,
+  `402 pro_required`, TsuDEV Sync `tsudev-org/tsusync` + mật mã); hạn mức 100 MiB + 1 GiB; điều khoản thuê bao nguyên
+  văn. Checklist thành mục 8, thêm 7 dòng.
+- `docs/AUTH_AND_ACCOUNT.md` v3.1.0 mục 14.3 (mới): **mã cài đặt** ngẫu nhiên 128 bit, cấm IMEI/MAC/vân tay, header
+  `X-Tsu-Installation`, máy chủ chỉ lưu HMAC; ca kiểm thử 15; checklist thêm dòng.
+- `docs/FREE_TIER_STACK.md` v2.1.0 mục 3.1 (mới): đồng bộ/sao lưu đám mây ở lại trong hạn mức miễn phí (người dùng miễn
+  phí không tốn dung lượng, delta theo `rev`, không poll dày, lùi thử lại, giới hạn ở máy chủ).
+- `docs/STORE_SUBMISSION.md` mục 4.1: mã sản phẩm Play cố định + ghi chú ngoại lệ thông báo Pro.
+- `assets/badges/` (mới): SVG gốc huy hiệu Pro + Ủng hộ (Sáng/Tối, vi/en) kèm bảng màu và số đo tương phản (thấp nhất
+  6.12:1).
+
+---
+
+## 3.8.3 - 19/11/2026
+
+Bản PATCH: ghi quyết định chủ dự án 19/11/2026.
+
+- `docs/ECOSYSTEM_IDENTITY.md` v3.1.2 mục 4.2 + 4.2.1 (mới): ngoại lệ TsuFiles mở rộng - website **files.tsudev.com**
+  cũng dùng **đen tuyền + tím logo cú** như kiểu "Cú đêm" của app (thay ghi chú "website vẫn theo bảng xanh" của
+  v3.8.2); bảng token tím lấy mẫu từ logo, dùng lại bảng đã kiểm AA của v3.4.0.
+
+---
+
+## 3.8.2 - 19/11/2026
+
+Bản PATCH: ghi quyết định chủ dự án 19/11/2026 và sửa một dòng mâu thuẫn, không thêm yêu cầu mới.
+
+- `docs/ECOSYSTEM_IDENTITY.md` v3.1.1 mục 4.2: kiểu giao diện "Cú đêm" của app TsuFiles giữ **tím** (khớp logo con cú)
+  là ngoại lệ **đã chốt** thứ hai, cạnh tím hoa sen của lotus.tsudev.com.
+- Mục 2.2: `og:site_name` là `TsuDEV` (dòng cũ còn ghi `tsudev`, mâu thuẫn mục 3 và khuôn thẻ ngay trên).
+
+---
+
+## 3.8.1 - 19/11/2026
+
+Bản PATCH: ghi các quyết định chủ dự án 19/11/2026, không thêm yêu cầu mới.
+
+- `docs/PRODUCT_POLICY.md` v1.0.1 mục 3.3, 4.3: ủng hộ trong bản Google Play **chốt** dùng Google Play Billing; bản Play
+  không có liên kết ủng hộ ra web.
+- `docs/ECOSYSTEM_IDENTITY.md` mục 4.2: lotus.tsudev.com giữ tím hoa sen là ngoại lệ **đã chốt**; logo ảnh không vẽ lại.
+
+---
+
+## 3.8.0 - 19/11/2026
+
+Bản MINOR theo yêu cầu chủ dự án 19/11/2026. Thêm hai tài liệu, đổi mặc định giao diện, tên thương hiệu và bảng màu
+website. Không có cổng kiểm mới; repo con đồng bộ được ngay, việc sửa sản phẩm làm theo kế hoạch toàn hệ.
+
+### Thêm
+
+- `docs/PRODUCT_POLICY.md` v1.0.0: lần chạy đầu dùng **ngôn ngữ hệ thống** (dự phòng EN → VI) và **giao diện Hệ
+  thống**; thứ tự nền tảng + **iOS phát triển ngay, thử trên iPhone thật qua cáp** (Apple ID miễn phí, CI macOS), nộp
+  App Store/notarize đầu 2027; **không quảng cáo** - chỉ gói **Pro tháng/năm** và **Ủng hộ**, thanh toán đúng kênh
+  từng nền tảng, quyền lợi gắn tài khoản TsuDEV xác minh phía máy chủ; **huy hiệu Pro / Ủng hộ** (chọn hiển thị một,
+  hai hoặc ẩn; thiết kế, kích thước, chuyển động, truy cập); website sản phẩm **bắt buộc có hình ảnh + video**; mức
+  kiến trúc/bảo mật tối thiểu; checklist.
+- `docs/STORE_SUBMISSION.md` v1.0.0: agent đề xuất chủ dự án mở **phiên nộp duyệt riêng**, agent tự mở trình duyệt và
+  điền từng trường (Google Play Console, Microsoft Partner Center, App Store Connect 2027, cổng báo nhầm antivirus,
+  SignPath, Flathub); chủ dự án chỉ đăng nhập và bấm gửi; tệp hồ sơ `docs/store/<kenh>.md`; kiểm trước khi nộp.
+
+### Đổi
+
+- `docs/ECOSYSTEM_IDENTITY.md` v3.1.0: tên hiển thị **`TsuDEV`** (định danh máy đọc giữ chữ thường); mục 3.1 trang
+  Danh sách ứng dụng của tsudev.com; bảng màu website **đen tuyền + xanh logo** thay tím (nhận tsudev-standards#55),
+  icon nền tảng/icon thông tin màu xanh; bộ chọn giao diện mặc định `system`.
+- `docs/DESIGN_SYSTEM.md` mục 1: mặc định **Hệ thống** (trước là Tối).
+- `docs/DISTRIBUTION_TRUST.md` v1.1.0: iOS từ `SHOULD` thành `MUST` phát triển ngay; thử nghiệm kín Play; không
+  quảng cáo; hồ sơ mục 5 đi qua phiên điền biểu mẫu; `CompanyName` = `TsuDEV`.
+- `AGENTS.md`, `docs/00-INDEX.md`: trỏ tới hai tài liệu mới.
+
+### Hướng dẫn cho repo con
+
+1. `./scripts/sync-standards.sh` lên `v3.8.0`.
+2. Đổi chữ hiển thị `tsudev` → `TsuDEV` (không đổi định danh máy đọc); mặc định giao diện + ngôn ngữ theo hệ thống.
+3. Repo có SDK quảng cáo: gỡ ở bản kế tiếp. Repo app: lập kế hoạch Pro/Ủng hộ/huy hiệu theo `PRODUCT_POLICY.md`
+   (máy chủ quyền lợi dùng chung ở tsudev.com - làm một lần, không mỗi app một bản).
+4. Kế hoạch theo từng repo: `~/projects/logs/handover/20261119-01_ke-hoach-toan-he-v3.8.0.md`.
+
+---
+
+## 3.7.0 - 17/11/2026
+
+Bản MINOR: thêm tài liệu mới và chuẩn hoá khuôn thẻ/tên tệp cho bản phát hành KẾ TIẾP; cổng kiểm mới chỉ ở mức LƯU Ý.
+Repo con đồng bộ được ngay, không cần sửa code. Thẻ đã phát hành giữ nguyên (VERSIONING.md mục 2.4).
+
+### Thêm
+
+- `docs/DISTRIBUTION_TRUST.md` v1.0.0: cài không bị hệ điều hành / trình duyệt / antivirus chặn - ma trận kênh theo
+  nền tảng (Microsoft Store MSIX, Developer ID + notarize, APT/RPM ký GPG, Google Play + xác minh nhà phát triển
+  Android, App Store đầu 2027), chuỗi cung ứng (SHA256SUMS + Sigstore, chứng thực nguồn gốc, SBOM), phòng và gỡ báo
+  nhầm antivirus (VirusTotal trong CI, không packer, PyInstaller `--onedir`), kiến trúc bảo mật app phát hành, bảng hồ
+  sơ phải đăng ký, thứ tự A-B-C-D, checklist mỗi bản phát hành. Trạng thái nền tảng đo 17/11/2026.
+- `scripts/check-standards.sh` mục 5b: LƯU Ý khi thẻ phát hành mới nhất của repo có `packaging/package.json` lệch khuôn
+  `vYY.M.DDNN`.
+
+### Đổi
+
+- `docs/VERSIONING.md` v3.0.0 (phiếu toàn hệ `20261117-V1`): mục 2 chuẩn hoá thẻ git `vYY.M.DDNN` (không tiền tố,
+  không hậu tố), bản thử `-beta.N`/`-rc.N`, tiêu đề Release `{Tên sản phẩm} {phiên bản}`, tên tệp
+  `{tên-gói}_{phiên bản}_{os}-{arch}[-{loại}].{ext}`, Android `versionCode` `YYMDDNN`, iOS, Windows/MSIX 4 phần, gói
+  Linux, bản fork (phiên bản gốc chỉ ở Release notes), quy tắc chuyển khuôn an toàn, thẻ deploy website
+  `deploy-YYYY.MM.DD.N`.
+- `docs/DESIGN_SYSTEM.md` mục 6, `docs/ONBOARDING.md` câu lệnh (g), `docs/PACKAGING.md`, `docs/00-INDEX.md`, `AGENTS.md`
+  mục 1: theo khuôn mới và trỏ tới tài liệu mới.
+
+### Hướng dẫn cho repo con
+
+1. `./scripts/sync-standards.sh` lên `v3.7.0`.
+2. Repo app: bản phát hành kế tiếp theo `VERSIONING.md` mục 2.2 - đọc mục 2.4 (updater đã cài) TRƯỚC khi đổi khuôn.
+3. Làm `DISTRIBUTION_TRUST.md` mục 6 theo thứ tự A-B-C-D; kế hoạch theo từng repo ở
+   `~/projects/logs/handover/20261117-P2_ke-hoach-phan-phoi-tin-cay-da-nen-tang.md`.
+
+## 3.6.0 - 13/11/2026
+
+Bản MINOR: quy tắc mới ở mức `MAY` (logo sản phẩm riêng khi chủ dự án duyệt) và cập nhật mô tả logo tsudev theo thực
+tế. Repo con đồng bộ được ngay; repo đã có logo riêng gỡ dòng "lệch chuẩn logo" ở `AGENTS.md` sau khi đồng bộ.
+
+### Đổi
+
+- `docs/BRAND_ASSETS.md` mục 1-2: logo tsudev là `logo-tsudev.png` (cú + chữ, nền đen), dùng NGUYÊN logo ở mọi cỡ kể cả
+  favicon (chủ dự án chốt 13/11/2026); bỏ bộ logo-full / logo-mark / wordmark / `-dark` đã gỡ khỏi tsudev.com.
+- `docs/AUTH_AND_ACCOUNT.md`: sơ đồ trang đăng nhập dùng logo tsudev thay `logo-mark`.
+
+### Thêm
+
+- `docs/BRAND_ASSETS.md` mục 15: logo sản phẩm riêng - một ảnh gốc, script sinh có `--check` trong CI, đủ bộ tài sản
+  mục 12, quy tắc xoá nền, giữ liên kết hệ sinh thái. Nhận đề xuất `logs/handover/20261112-01` (trafficmonitor, Lotus
+  Share, trò chơi, cwico / SWICO / contact).
+
+## 3.5.0 - 11/11/2026
+
+Bản MINOR: thêm tài liệu mới, mọi quy tắc mới ở mức `SHOULD` / `MAY` cho repo con (bắt buộc `MUST` chỉ áp dụng khi
+repo đã chọn công bố một kênh). Repo con đồng bộ được ngay, không cần sửa code.
+
+### Thêm
+
+- `docs/PACKAGING.md` v1.0.0: mọi app/tool tsudev cài được bằng một lệnh terminal - kênh được duyệt (winget, Scoop
+  bucket `tsudev-org/scoop-bucket`, kho APT/RPM ký GPG tại `pkg.tsudev.com` trên Cloudflare R2, Homebrew tap
+  `tsudev-org/homebrew-tap`, F-Droid riêng, lệnh cài một dòng), khuôn tên gói, nguồn khai báo duy nhất
+  `packaging/package.json`, chữ ký SHA-256 + chứng thực Sigstore, CI cài thử thật trên ba hệ điều hành, khối
+  "Cài bằng lệnh" trên website.
+- `docs/00-INDEX.md`: thêm `PACKAGING.md` vào lộ trình "sắp phát hành" và danh mục.
+
+---
+
+## 3.4.0 - 10/11/2026
+
+Bản MINOR theo quyết định chủ project ngày 10/11/2026: toàn hệ sinh thái chỉ còn **Sáng / Tối / Hệ thống**,
+mặc định Tối, website dùng **đen tuyền + tím** kiểu Supabase. Không đổi giá trị token nào (quy tắc cứng của
+`VERSIONING.md` mục 1: đổi giá trị token màu là MAJOR) - bảng màu mới nằm ở tài liệu và repo con ghi đè ở tầng
+riêng. Phiếu: `logs/handover/20261110-05_yeu-cau-giao-dien-den-tim-kieu-supabase.md`.
+
+### Thay đổi
+
+- `docs/DESIGN_SYSTEM.md` mục 1: bỏ chế độ Ấm (`SHOULD NOT` hiển thị; `warm` đã lưu đọc thành `light`); ba lựa
+  chọn Sáng / Tối / Hệ thống, mặc định Tối, "Hệ thống" đổi ngay theo hệ điều hành.
+- `docs/ACCESSIBILITY.md`, `docs/ONBOARDING.md`, `docs/RICH_TEXT_EDITOR.md`: kiểm tương phản ở hai chế độ Sáng / Tối.
+- `docs/AUTH_AND_ACCOUNT.md` mục 1 (**TS-15**): `tsudev-contact` là **hạng C** (app ngoại tuyến), không phải hạng A.
+
+### Thêm
+
+- `docs/ECOSYSTEM_IDENTITY.md` mục 4.1 **bộ chọn giao diện** (khóa `tsudev-theme`, áp trước khi vẽ, radiogroup ở
+  hàng cuối chân trang cạnh `© tsudev`, CSP không `'unsafe-inline'`) và mục 4.2 **bảng màu + ngôn ngữ thiết kế của
+  website** (đen tuyền + tím, nền liền mạch, nút/thẻ kiểu Supabase); checklist mục 9 thêm hai dòng.
+- `tokens/design-tokens.json` `meta.deprecated`: khối `color.warm` ngừng dùng, gỡ ở v4.0.0 (schema thêm trường).
+
+### Hướng dẫn nâng cấp
+
+```bash
+./scripts/sync-standards.sh --ref v3.4.0
+./scripts/check-standards.sh
+```
+
+Không bắt buộc sửa mã. Repo có website/app đang hiện lựa chọn Ấm: làm theo phiếu `20261110-05` của repo đó.
+
+### Dự kiến v4.0.0 (MAJOR)
+
+Gỡ khối `color.warm`, nhận bảng mục 4.2 làm giá trị chuẩn `light`/`dark` của `tokens/design-tokens.json`, nâng
+`SHOULD` của mục 1 và 4.1 lên `MUST`. Cần chủ project duyệt vì mọi repo con đổi màu theo.
+
 ## 3.3.0 - 10/11/2026
 
 Bản MINOR: thêm một ngoại lệ có kiểm soát cho quy tắc gạch ngang. Repo không phải

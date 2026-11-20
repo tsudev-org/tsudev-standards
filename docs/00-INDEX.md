@@ -37,6 +37,10 @@
 1. [`ECOSYSTEM_IDENTITY.md`](ECOSYSTEM_IDENTITY.md) mục 2 - siêu dữ liệu bắt buộc
 2. [`BRAND_ASSETS.md`](BRAND_ASSETS.md) mục 12 - bộ tài sản nhận diện bắt buộc
 3. [`VERSIONING.md`](VERSIONING.md) - đặt tên bản phát hành
+4. [`PACKAGING.md`](PACKAGING.md) - cài bằng lệnh: winget, Scoop, apt/rpm, Homebrew
+5. [`DISTRIBUTION_TRUST.md`](DISTRIBUTION_TRUST.md) - cửa hàng, ký mã, chống báo nhầm antivirus, hồ sơ nền tảng
+6. [`PRODUCT_POLICY.md`](PRODUCT_POLICY.md) - ngôn ngữ/giao diện theo hệ thống, không quảng cáo, Pro + Ủng hộ, huy hiệu, iOS, ảnh/video website, lưu cục bộ - đồng bộ là Pro
+7. [`STORE_SUBMISSION.md`](STORE_SUBMISSION.md) - phiên agent tự điền biểu mẫu nộp duyệt cửa hàng/antivirus
 
 **Bạn sắp commit hoặc mở PR:**
 1. [`GIT_WORKFLOW.md`](GIT_WORKFLOW.md) - nhánh, commit, PR
@@ -45,8 +49,9 @@
 
 **Bạn là agent AI:**
 1. [`AGENT_PROTOCOL.md`](AGENT_PROTOCOL.md) - toàn bộ quy trình phiên làm việc
-2. [`SECURITY_BASELINE.md`](SECURITY_BASELINE.md) mục 12 - ranh giới của agent
-3. [`LANGUAGE_SELECTION.md`](LANGUAGE_SELECTION.md) mục 8 - ràng buộc khi chọn stack
+2. [`KNOWLEDGE_BASE.md`](KNOWLEDGE_BASE.md) - kho tri thức AKB: `akb start` đầu phiên, `akb search` trước khi tự mò, `akb sync` cuối phiên
+3. [`SECURITY_BASELINE.md`](SECURITY_BASELINE.md) mục 12 - ranh giới của agent
+4. [`LANGUAGE_SELECTION.md`](LANGUAGE_SELECTION.md) mục 8 - ràng buộc khi chọn stack
 
 **Bạn đang làm chức năng nội dung:**
 1. [`RICH_TEXT_EDITOR.md`](RICH_TEXT_EDITOR.md) - trình soạn thảo ngang Word
@@ -59,10 +64,11 @@
 | [`../AGENTS.md`](../AGENTS.md) | Điểm vào bắt buộc, nguyên tắc chung | Bất khả xâm phạm |
 | [`../SECURITY.md`](../SECURITY.md) | Chính sách và kênh báo lỗ hổng | Bất khả xâm phạm |
 | [`AGENT_PROTOCOL.md`](AGENT_PROTOCOL.md) | Phiên làm việc, khóa file, bàn giao | Bất khả xâm phạm |
+| [`KNOWLEDGE_BASE.md`](KNOWLEDGE_BASE.md) | Kho tri thức agent ngoài repo (AKB): cấu trúc, schema, CLI `akb`, lint | Bất khả xâm phạm |
 | [`SECURITY_BASELINE.md`](SECURITY_BASELINE.md) | Chuẩn bảo mật kỹ thuật | Bất khả xâm phạm |
 | [`GITIGNORE_POLICY.md`](GITIGNORE_POLICY.md) | Duy trì `.gitignore` | Bất khả xâm phạm |
 | [`GIT_WORKFLOW.md`](GIT_WORKFLOW.md) | Nhánh, commit, PR, phát hành | Bất khả xâm phạm |
-| [`VERSIONING.md`](VERSIONING.md) | Ba khuôn phiên bản | Bất khả xâm phạm |
+| [`VERSIONING.md`](VERSIONING.md) | Ba khuôn phiên bản, thẻ git, tên tệp phát hành | Bất khả xâm phạm |
 | [`SYNC.md`](SYNC.md) | Đồng bộ quy ước xuống repo con | Bất khả xâm phạm |
 | [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) | Cây thư mục chuẩn | Bất khả xâm phạm |
 | [`AUTH_AND_ACCOUNT.md`](AUTH_AND_ACCOUNT.md) | Đăng nhập, đăng ký, xác minh tài khoản | Bất khả xâm phạm |
@@ -74,12 +80,17 @@
 | [`TESTING_QUALITY.md`](TESTING_QUALITY.md) | Kiểm thử và chất lượng mã | Bất khả xâm phạm |
 | [`LANGUAGE_SELECTION.md`](LANGUAGE_SELECTION.md) | Chọn ngôn ngữ theo loại project | Bất khả xâm phạm |
 | [`FREE_TIER_STACK.md`](FREE_TIER_STACK.md) | Hạ tầng 0 đồng | Bất khả xâm phạm |
+| [`PACKAGING.md`](PACKAGING.md) | Phân phối, cài bằng lệnh, ký gói | Bất khả xâm phạm |
+| [`DISTRIBUTION_TRUST.md`](DISTRIBUTION_TRUST.md) | Cài không bị chặn: cửa hàng, ký mã, notarize, chống báo nhầm, hồ sơ nền tảng | Bất khả xâm phạm |
+| [`PRODUCT_POLICY.md`](PRODUCT_POLICY.md) | Chính sách sản phẩm: mặc định theo hệ thống, không quảng cáo, Pro/Ủng hộ, huy hiệu, iOS, website có hình/video, lưu cục bộ - đồng bộ là Pro | Bất khả xâm phạm |
+| [`STORE_SUBMISSION.md`](STORE_SUBMISSION.md) | Nộp duyệt cửa hàng/nền tảng: phiên agent điền biểu mẫu trên trình duyệt | Bất khả xâm phạm |
 | [`RICH_TEXT_EDITOR.md`](RICH_TEXT_EDITOR.md) | Trình soạn thảo nội dung | Bất khả xâm phạm |
 | [`SEARCH_AND_FILTER.md`](SEARCH_AND_FILTER.md) | Tìm kiếm và lọc tiếng Việt | Bất khả xâm phạm |
 | [`ONBOARDING.md`](ONBOARDING.md) | Triển khai và bộ câu lệnh agent | Hướng dẫn |
 | [`templates/HANDOVER.md`](templates/HANDOVER.md) | Mẫu phiếu bàn giao | Mẫu |
 | [`templates/ADR.md`](templates/ADR.md) | Mẫu ghi quyết định kiến trúc | Mẫu |
 | [`templates/SECURITY_REVIEW.md`](templates/SECURITY_REVIEW.md) | Mẫu phiếu rà soát bảo mật | Mẫu |
+| [`templates/TRUST_TICKET.md`](templates/TRUST_TICKET.md) | Mẫu phiếu tin cậy phát hành `logs/trust/TRUST.md` (ký, kênh, hồ sơ nền tảng, pháp lý, nghiệm thu) | Mẫu |
 
 ## Ngoài thư mục docs
 

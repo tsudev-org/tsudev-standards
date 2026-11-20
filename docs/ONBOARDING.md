@@ -148,7 +148,7 @@ kiểm tra và khóa file trong LOCKS.md trước khi sửa.
 <mô tả thay đổi giao diện>. Bắt buộc dùng token trong .standards/tokens/tokens.css
 (hoặc đọc .standards/tokens/design-tokens.json), theo docs/DESIGN_SYSTEM.md.
 Cấm hard-code màu, cỡ chữ, radius. Ngày hiển thị dạng số DD/MM/YYYY.
-Kiểm tra tương phản ở cả ba chế độ Sáng, Ấm, Tối.
+Kiểm tra tương phản ở cả hai chế độ Sáng, Tối.
 ```
 
 **c) Trước khi cho phép commit hoặc push:**
@@ -191,10 +191,11 @@ việc dang dở, nhả các khóa mồ côi của phiên trước, rồi tiếp
 
 ```
 Phát hành bản mới cho <tên-app> theo docs/VERSIONING.md mục 2:
-đặt tên file dạng {ten-app}_{YY}.{M}.{DD}{NN}_{arch}-setup.{ext} với NN là
-số thứ tự trong ngày hôm nay (kiểm CHANGELOG.md để lấy NN kế tiếp),
-đồng bộ chuỗi version vào manifest, công bố SHA-256 của file cài,
-ghi một dòng vào CHANGELOG.md.
+phiên bản YY.M.DDNN với NN là số thứ tự trong ngày hôm nay (kiểm CHANGELOG.md
+để lấy NN kế tiếp), thẻ git vYY.M.DDNN, tên tệp
+{tên-gói}_{phiên bản}_{os}-{arch}[-{loại}].{ext}, tiêu đề Release "{Tên sản phẩm} {phiên bản}",
+đồng bộ chuỗi version vào manifest, ký + công bố SHA256SUMS.txt theo
+docs/DISTRIBUTION_TRUST.md mục 7, ghi một dòng vào CHANGELOG.md.
 ```
 
 **h) Rà soát bảo mật cho một thay đổi:**
