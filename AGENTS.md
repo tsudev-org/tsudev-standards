@@ -53,7 +53,12 @@ chuyên đề. Bản đồ đầy đủ: [`docs/00-INDEX.md`](docs/00-INDEX.md).
 | Kiểm thử và chất lượng mã | [`docs/TESTING_QUALITY.md`](docs/TESTING_QUALITY.md) |
 | Trình soạn thảo nội dung | [`docs/RICH_TEXT_EDITOR.md`](docs/RICH_TEXT_EDITOR.md) |
 | Tìm kiếm và lọc tiếng Việt | [`docs/SEARCH_AND_FILTER.md`](docs/SEARCH_AND_FILTER.md) |
-| Phiên bản và CHANGELOG | [`docs/VERSIONING.md`](docs/VERSIONING.md) |
+| Phiên bản, thẻ git, tên tệp, CHANGELOG | [`docs/VERSIONING.md`](docs/VERSIONING.md) |
+| Cài đặt bằng lệnh (winget, Scoop, APT/RPM, Homebrew) | [`docs/PACKAGING.md`](docs/PACKAGING.md) |
+| **Cài không bị chặn**: cửa hàng, ký mã, chống báo nhầm | [`docs/DISTRIBUTION_TRUST.md`](docs/DISTRIBUTION_TRUST.md) |
+| **Chính sách sản phẩm**: ngôn ngữ/giao diện theo hệ thống, KHÔNG quảng cáo, Pro + Ủng hộ, huy hiệu, iOS, website có hình/video, **lưu cục bộ - đồng bộ/sao lưu đám mây là Pro** | [`docs/PRODUCT_POLICY.md`](docs/PRODUCT_POLICY.md) |
+| **Nộp duyệt** cửa hàng/antivirus: đề xuất phiên agent tự điền biểu mẫu | [`docs/STORE_SUBMISSION.md`](docs/STORE_SUBMISSION.md) |
+| **Kho tri thức agent (AKB)** ngoài repo: lỗi, mẹo, quyết định dùng chung mọi dự án - `akb start` / `akb search` | [`docs/KNOWLEDGE_BASE.md`](docs/KNOWLEDGE_BASE.md) |
 | Đồng bộ quy ước xuống repo con | [`docs/SYNC.md`](docs/SYNC.md) |
 
 ## 2. Tiết kiệm token và ngữ cảnh
