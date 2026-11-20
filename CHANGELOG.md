@@ -8,6 +8,34 @@ Mới nhất trên cùng.
 
 ---
 
+## 4.3.0 - 21/11/2026
+
+Bản MINOR (chỉ thêm, không phá vỡ): xử lý hai phiếu đề xuất đang chờ duyệt, chủ dự án uỷ quyền chọn phương án
+21/11/2026. Phiếu: `20261119-01` (qulythuchi), `20261112-02` (lotus-share).
+
+- `docs/AUTH_AND_ACCOUNT.md` v3.2.0: mục 3.2 (mới) **Đăng nhập với Apple là lối vào có điều kiện** - `MUST` cho sản phẩm
+  phát hành qua App Store (Guideline 4.8), `MAY` cho phần còn lại; không mua Apple Developer Program chỉ để có nút Apple;
+  nút ẩn khi IdP chưa bật; cấu hình một lần ở IdP `tsudev.com` (`idp_hint=apple`). Bẫy bắt buộc xử lý: callback
+  `form_post` liên trang (không có cookie `SameSite=Lax`), tên chỉ gửi lần đầu, `client_secret` ES256 hạn 6 tháng,
+  `auth/revoke` khi xoá tài khoản, thông báo máy chủ tới máy chủ, đăng ký tên miền gửi thư cho email ẩn. Mục 3.1 phạm vi
+  `name email`; mục 5 email `@privaterelay.appleid.com` coi là đã xác minh nhưng không gộp tự động; mục 15 thêm
+  `GET /auth/providers`, callback POST và điểm nhận thông báo của Apple; mục 16 ca kiểm thử 16; mục 17 checklist.
+- `docs/PACKAGING.md` v1.1.0: mục 2.1 (mới) tên gói theo **thương hiệu riêng** được duyệt (`tsuswico`, `tsucontact`,
+  `lotus-share`...) - ghi đích danh `tenRieng`, không trùng gói bản phân phối/dự án gốc. Mục 2.2 (mới) **đổi tên gói đã
+  công bố**: APT gói chuyển tiếp rỗng `oldlibs`, RPM `Provides` + `Obsoletes`, Homebrew giữ cask cũ `deprecate!` +
+  `replacement_cask` (`cask_renames.json` không đủ với tap riêng), Scoop giữ manifest cũ kèm `notes`, winget đã duyệt
+  không đổi mã, Android không đổi `applicationId`; CI kiểm đường nâng cấp từ bản cũ thật; tên cũ giữ tối thiểu 12 tháng
+  và không bao giờ dùng lại. Ghi lại đúng cách kho gói đang làm từ 12/11/2026.
+
+### Hướng dẫn nâng cấp
+
+1. Repo con sync v4.3.0 trong PR kế tiếp của nó (KHÔNG mở PR sync riêng).
+2. `tsudev` (IdP): khi chủ dự án quyết phát hành App Store - thêm provider Apple theo mục 3.2, `GET /api/v1/auth/providers`.
+   Chưa phát hành App Store thì không cần làm gì.
+3. RP có đăng nhập (qulythuchi...): dựng nút nhà cung cấp từ danh sách IdP trả về, nhận `apple` khi có.
+4. `linux-packages`, `scoop-bucket`, `homebrew-tap`: đối chiếu mục 2.2 (kho đã làm đúng; thêm CI kiểm nâng cấp cho
+   Scoop/Homebrew nếu chưa có).
+
 ## 4.2.0 - 20/11/2026
 
 Bản MINOR (chỉ thêm): yêu cầu chủ dự án 20/11/2026 - **sản phẩm đứng tên chủ dự án, không ghi "do AI thực hiện"**.

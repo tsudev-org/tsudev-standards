@@ -47,6 +47,10 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 21/11/2026 - **`v4.3.0`**: Apple là lối vào có điều kiện (`AUTH_AND_ACCOUNT.md` v3.2.0 mục 3.2, phiếu `20261119-01`);
+  tên gói thương hiệu + quy trình đổi tên gói (`PACKAGING.md` v1.1.0 mục 2.1-2.2, phiếu `20261112-02`). Đóng phiếu
+  `20261120-02` (bị v4.0.0 bao trùm). Phiếu sang `tsudev`, `qulythuchi`, `tsuswico`, `linux-packages`.
+
 - 25/08/2026 - **TS-16 + TS-17 xong: `v3.1.0` và `v3.1.1`.** Hai lỗ hổng của
   chính cơ chế đồng bộ, không phải của nội dung quy ước.
   - `v3.1.0` (PR #25 tới #28): `scripts/check-standards.sh` và
