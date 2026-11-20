@@ -8,6 +8,43 @@ Mới nhất trên cùng.
 
 ---
 
+## 4.0.0 - 20/11/2026
+
+Bản MAJOR: quyết định chủ dự án 20/11/2026 - **TsuDEV Pro theo kỳ 1 năm, không tự gia hạn**; bỏ định danh gói tháng;
+thêm `MUST` mới về nhắc gia hạn, xoá có xác minh và JWS tươi. Phiếu điều phối: `20261120-PRO2`.
+
+- `docs/PRODUCT_POLICY.md` v1.2.0:
+  - Mục 3.2, 3.3, 3.5, 7.2: một gói **TsuDEV Pro 490.000 ₫ / 1 năm**, không tự gia hạn ở mọi kênh (Play gói **trả
+    trước** `nam`, App Store Non-Renewing Subscription, web VietQR); gia hạn sớm cộng dồn
+    (`pro_until = max(pro_until, bây giờ) + 1 năm`); hết kỳ ⇒ **trạng thái miễn phí ("khách mời")**, ngừng đồng bộ
+    lên đám mây, dữ liệu trên thiết bị giữ nguyên; tsudev.com `SHOULD` gửi thư nhắc.
+  - Mục 7.4: bỏ `thang` / `com.tsudev.pro.thang`; claim tuỳ chọn `cnf.jkt` + DPoP (`SHOULD`); máy chủ nhận JWS từ app
+    chỉ nhận `iat` ≤ 24 giờ (`401 reason: "stale"`); **kênh trạng thái** `POST /api/rp/entitlements/status` (không phụ
+    thuộc grant 30 ngày); **xoá dữ liệu vì hết Pro `MUST` hỏi kênh trạng thái ngay trước khi xoá**, lỗi ⇒ hoãn.
+  - Mục 7.5: điều khoản trước nút mua (vi/en) viết lại cho kỳ 1 năm không tự gia hạn.
+  - Mục 7.6 (mới): **nhắc gia hạn 7 ngày cuối, mỗi lần mở app** + báo hết kỳ một lần - nội dung vi/en nguyên văn,
+    khoá `tsu.pro_expired.notified_until`, 6 test bắt buộc.
+  - Mục 8: checklist cập nhật theo các ý trên.
+- `docs/STORE_SUBMISSION.md`: Play chỉ gói trả trước `nam`; App Store Non-Renewing; mục 7.6 là ngoại lệ đã duyệt.
+- `docs/FREE_TIER_STACK.md` mục 3.1: xoá có xác minh.
+
+### Hướng dẫn nâng cấp
+
+1. **Repo có màn mua Pro** (app, tsudev.com): bỏ gói tháng khỏi giao diện và mã nguồn; chỉ còn "1 năm"; thay điều
+   khoản trước nút mua bằng nguyên văn mục 7.5 mới; test so nguyên văn.
+2. **Play Console** (repo đã tạo sản phẩm `tsudev_pro`): lưu trữ gói cơ sở `thang`; tạo/đổi gói `nam` sang **trả trước**
+   (prepaid, P1Y, cho phép nạp thêm). Chưa tạo thì tạo đúng như trên. App Store (2027): chỉ tạo Non-Renewing
+   `com.tsudev.pro.nam`.
+3. **Máy chủ quyền lợi tsudev.com**: tính `pro_until` theo công thức mục 7.2; thêm kênh trạng thái + `cnf.jkt` theo
+   mục 7.4; thư nhắc (`SHOULD`).
+4. **Máy chủ đồng bộ** (qulythuchi, sound-db, tsuscan, app-la-ban, TsuDEV Sync...): trước khi xoá vì hết Pro gọi kênh
+   trạng thái; thêm test "gia hạn trên web mà không mở app ⇒ không xoá"; JWS do app gửi lên: `iat` ≤ 24 giờ.
+5. **App**: hiện nhắc gia hạn + báo hết kỳ theo mục 7.6 (Flutter dùng `ProRenewalNotice` của `tsudev_ui` khi có bản
+   mới); đủ 6 test.
+6. Đồng bộ bộ quy ước lên `v4.0.0` trong cùng PR với các thay đổi trên (thay cho v3.9.1 ở phiếu PRO1).
+
+---
+
 ## 3.9.1 - 20/11/2026
 
 Bản PATCH: đính chính hợp đồng JWS quyền lợi cho khớp máy chủ thật (tsudev#336, ADR-0002), không thêm yêu cầu mới.
