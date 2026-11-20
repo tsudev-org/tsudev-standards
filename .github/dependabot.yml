@@ -18,3 +18,9 @@ updates:
     labels:
       - dependencies
       - security
+    # Mọi bước github/codeql-action (init, analyze, upload-sarif) MUST cùng phiên bản - lệch là CodeQL đỏ
+    # ("Loaded a configuration file for version ..."). Gộp để Dependabot nâng cùng một PR.
+    groups:
+      codeql-action:
+        patterns:
+          - 'github/codeql-action*'
