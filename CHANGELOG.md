@@ -8,6 +8,37 @@ Mới nhất trên cùng.
 
 ---
 
+## 4.1.0 - 20/11/2026
+
+Bản MINOR (chỉ thêm, không phá vỡ): yêu cầu chủ dự án 20/11/2026 - **kho tri thức dùng chung cho agent (AKB)** và chuẩn
+hoá **chuỗi tin cậy phát hành** từ hai tài liệu kỹ thuật 19/11/2026. Phiếu điều phối: `20261120-02`.
+
+- `docs/KNOWLEDGE_BASE.md` v1.0.0 (mới): chuẩn hoá đặc tả AKB gốc theo hệ tsudev - kho `~/agent-kb` ngoài repo, remote
+  private `tsudev-org/agent-kb`, bản sao ổ E:; slug theo tên repo GitHub (worktree dùng chung thư mục); ranh giới với
+  `logs/handover` (việc đang làm ở repo, tri thức dùng lại ở AKB); schema, ID, liên kết chéo `applied_from`; CLI `akb`
+  (start/new/set/close/search/reindex/lint/sync); lint L01-L11 (L07 bí mật chặn commit); nghiệm thu đạt (39 dự án,
+  9 test).
+- `docs/AGENT_PROTOCOL.md` v2.1.0: mở phiên thêm `akb start` + `akb search`; đóng phiên thêm bước AKB (`akb close`,
+  `akb sync`), phiếu bàn giao trỏ ID AKB thay vì chép tri thức.
+- `docs/DISTRIBUTION_TRUST.md` v1.2.0: nói rõ giới hạn của huy hiệu OpenSSF và cấm né antivirus; 3.1 gói hồ sơ báo nhầm
+  chuẩn + hạn **48 giờ**, đủ danh sách hãng; 4.1 `docs/threat-model.md` (STRIDE) + `docs/incident-response.md`; 4.2 yêu
+  cầu theo loại sản phẩm (Electron/Tauri, web, DNSSEC/CAA/DMARC, trusted publishing); mục 5 thêm OpenSSF Best Practices
+  cho MỌI repo Public, Scorecard, WDSI, xác minh Search Console bằng DNS TXT; mục 8 checklist pháp luật Việt Nam (👤
+  xác nhận văn bản hiện hành); mục 9 phiếu tin cậy từng sản phẩm + Definition of Done.
+- `docs/STORE_SUBMISSION.md` v1.1.0: 1.1 **sổ định danh** `docs/store/IDENTITY.md` - một nguồn cho mọi biểu mẫu, kiểm
+  chéo với mã trước khi điền; trình duyệt Edge hồ sơ riêng; định dạng tệp hồ sơ `docs/store/<kenh>.md`; lý do từ chối
+  ghi thêm vào AKB; 4.4 thêm OpenSSF Best Practices và Search Console/Bing.
+- `docs/templates/TRUST_TICKET.md` (mới): mẫu `logs/trust/TRUST.md` (mã `TSU-<slug>`).
+
+### Hướng dẫn nâng cấp
+
+1. Repo con sync v4.1.0 trong PR kế tiếp của nó (KHÔNG mở PR sync riêng).
+2. Repo phát hành sản phẩm: lập `logs/trust/TRUST.md` từ mẫu và `docs/store/IDENTITY.md` - theo phiếu con TR1 của repo.
+3. Máy phát triển: agent đã có `akb` trong `PATH`; phiên đầu tiên của mỗi repo sau v4.1.0 backfill `02_FEATURES.md`,
+   `03_RUNBOOK.md`, DEC từ ADR, ISS/LES quan trọng từ phiếu bàn giao.
+
+---
+
 ## 4.0.0 - 20/11/2026
 
 Bản MAJOR: quyết định chủ dự án 20/11/2026 - **TsuDEV Pro theo kỳ 1 năm, không tự gia hạn**; bỏ định danh gói tháng;
