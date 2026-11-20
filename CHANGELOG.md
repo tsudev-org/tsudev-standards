@@ -8,6 +8,16 @@ Mới nhất trên cùng.
 
 ---
 
+## 4.2.0 - 20/11/2026
+
+Bản MINOR (chỉ thêm): yêu cầu chủ dự án 20/11/2026 - **sản phẩm đứng tên chủ dự án, không ghi "do AI thực hiện"**.
+
+- `docs/AGENT_PROTOCOL.md` v2.2.0: mục 6.1 - nội dung, dữ liệu, commit/PR (không trailer `Co-Authored-By` của AI, không
+  "Generated with") và biểu mẫu nền tảng đứng tên chủ dự án; tệp điều phối nội bộ (`AGENTS.md`, AKB, `logs/`) không đổi.
+- `docs/STORE_SUBMISSION.md` v1.2.0: mục 0.1 - điền biểu mẫu với tư cách chủ dự án, không chọn "do AI thực hiện"; câu
+  hỏi về tính năng AI thật của app (chính sách nội dung AI tạo của Google Play) vẫn trả lời đúng mã; thêm dòng checklist
+  mục 3.
+
 ## 4.1.0 - 20/11/2026
 
 Bản MINOR (chỉ thêm, không phá vỡ): yêu cầu chủ dự án 20/11/2026 - **kho tri thức dùng chung cho agent (AKB)** và chuẩn

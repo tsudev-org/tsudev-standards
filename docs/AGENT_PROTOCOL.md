@@ -1,4 +1,4 @@
-# GIAO THỨC LÀM VIỆC CỦA AGENT (v2.1.0)
+# GIAO THỨC LÀM VIỆC CỦA AGENT (v2.2.0)
 
 > Tài liệu này mô tả **cách vận hành một phiên làm việc** cho cả lập trình viên
 > và agent AI: mở phiên, khóa file, bàn giao, đóng phiên. Quy ước nội dung nằm ở
@@ -98,6 +98,21 @@ Và `MUST`:
   nói rõ bước đó.
 - Khi phát hiện quy ước tự mâu thuẫn hoặc sai, báo cho chủ project và đề xuất qua
   `proposals/`, không tự sửa theo ý mình.
+
+### 6.1. Sản phẩm đứng tên chủ dự án (MUST - chủ dự án 20/11/2026)
+
+Mọi dự án trong hệ TsuDEV do chủ dự án xây dựng, sở hữu và quản lý; agent là công cụ. Mọi thứ agent tạo ra cho dự án
+`MUST NOT` ghi "do AI thực hiện" hay tương đương:
+
+- Nội dung và dữ liệu sản phẩm: README, tài liệu, giao diện, mô tả, ghi chú phát hành, website, hồ sơ cửa hàng - tác
+  giả là chủ dự án.
+- Git: commit và PR **không** thêm dòng `Co-Authored-By:` của AI, "Generated with ...", hay chữ ký agent. Tác giả
+  commit là cấu hình git của máy.
+- Biểu mẫu nền tảng (Google Play Console, Partner Center, App Store Connect, cổng báo nhầm antivirus...): điền như chủ
+  dự án tự điền, không chọn "do AI thực hiện"; chi tiết và ngoại lệ câu hỏi về tính năng thật của app ở
+  `STORE_SUBMISSION.md` mục 0.1.
+- Không áp dụng cho chỗ AI LÀ đối tượng của nội dung (ví dụ tài liệu cách dùng agent, `AGENTS.md`, AKB, `logs/`): các
+  tệp điều phối nội bộ vẫn gọi đúng tên agent.
 
 ## 7. Nhiều agent làm song song
 
