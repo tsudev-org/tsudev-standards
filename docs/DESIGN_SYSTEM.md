@@ -8,7 +8,14 @@
 > Quy tắc khả năng truy cập đầy đủ: [`ACCESSIBILITY.md`](ACCESSIBILITY.md).
 > Logo, wordmark, favicon, icon ứng dụng: [`BRAND_ASSETS.md`](BRAND_ASSETS.md).
 
-## 1. Hệ màu & 3 chế độ nền (Adaptive Light)
+## 1. Hệ màu & chế độ nền
+
+> **Từ v3.4.0 (quyết định chủ project 10/11/2026):** giao diện chỉ còn **ba lựa chọn Sáng / Tối / Hệ thống**,
+> mặc định **Hệ thống** cho người dùng mới (từ v3.8.0, `PRODUCT_POLICY.md` mục 1; v3.4.0-v3.7.0 là Tối). Chế độ **Ấm (Warm/Sepia) bị bỏ**: khối `color.warm` trong
+> `tokens/design-tokens.json` còn giữ nhưng **đã ngừng dùng (deprecated)** và sẽ bị gỡ ở v4.0.0. Sản phẩm `SHOULD
+> NOT` hiển thị lựa chọn Ấm; giá trị đã lưu `warm` `SHOULD` được đọc thành `light`. Bảng màu đen tuyền + xanh logo (từ v3.8.0, thay tím) mà
+> website trong hệ sinh thái dùng, hợp đồng bộ chọn giao diện và ngôn ngữ thiết kế: [`ECOSYSTEM_IDENTITY.md`](ECOSYSTEM_IDENTITY.md)
+> mục 4.1 và 4.2. Bảng bên dưới là bảng token chuẩn (giá trị không đổi trong bản MINOR này); cột Warm chỉ để tra cứu.
 
 Màu chủ đạo: **Blue**. Nền là blue nhạt dịu mắt, bề mặt (modal/card) sáng hơn nền để tách lớp tự nhiên, viền đủ đậm để phân biệt không cần đổ bóng nặng.
 
@@ -34,7 +41,7 @@ tương tác** (viền nút phụ, viền ô nhập): chính nó nói cho ngư�
 được ở đâu, nên 3:1 là bắt buộc. Dùng nhầm vai trò là lỗi, không phải chuyện thẩm mỹ.
 
 **Quy tắc bắt buộc:**
-- Ngưỡng tương phản, đo trên đúng các cặp mà giao diện thật sinh ra, ở **cả ba** chế độ:
+- Ngưỡng tương phản, đo trên đúng các cặp mà giao diện thật sinh ra, ở **mọi** chế độ sản phẩm hiển thị (từ v3.4.0: Sáng và Tối):
 
   | Token | Nền đối chiếu | Ngưỡng | Căn cứ |
   | --- | --- | --- | --- |
@@ -49,7 +56,7 @@ tương tác** (viền nút phụ, viền ô nhập): chính nó nói cho ngư�
   v1.0.0 từng vi phạm chính mục này ở `text-muted` suốt ba chế độ mà không ai phát hiện.
 - `text-muted` chỉ dùng cho thông tin phụ không thiết yếu, nhưng vẫn là **chữ thường**
   nên ngưỡng là 4.5:1, không phải 3:1.
-- Chọn chế độ mặc định theo hệ điều hành (`prefers-color-scheme`), người dùng đổi thủ công thì **lưu lại lựa chọn** (localStorage/config file). Warm Mode là lựa chọn thủ công, khuyến nghị hiển thị gợi ý khi phiên làm việc > 2 giờ.
+- Ba lựa chọn Sáng / Tối / Hệ thống, mặc định **Hệ thống** (từ v3.8.0); "Hệ thống" đi theo hệ điều hành (`prefers-color-scheme`, Qt `QStyleHints.colorScheme()`, Android `AppCompatDelegate`...) và đổi ngay khi hệ điều hành đổi. Người dùng chọn thì **lưu lại lựa chọn** (localStorage/config file). Không còn chế độ Ấm (xem đầu mục).
 - Không dùng trắng tuyệt đối `#FFFFFF` làm `bg-base` và không dùng đen tuyệt đối `#000000` ở bất kỳ chế độ nào (giảm chói/mỏi mắt).
 - Màu trạng thái không đứng một mình: luôn kèm icon hoặc chữ (hỗ trợ người mù màu).
 
@@ -121,17 +128,15 @@ Viền luôn **phẳng 1px solid** màu `border` (viền được focus/hover d�
 > Quy ước đầy đủ cho cả ba khuôn phiên bản của hệ sinh thái (bộ quy ước, app, website)
 > nằm ở [`VERSIONING.md`](VERSIONING.md). Mục này giữ lại phần dùng thường xuyên nhất.
 
-Định dạng: `{ten-app}_{YY}.{M}.{DD}{NN}_{arch}-setup.{ext}`
+Chuỗi phiên bản: `YY.M.DDNN` - `YY` 2 số cuối năm; `M` tháng **không** số 0 đầu; `DD` ngày 2 chữ số; `NN` số thứ tự phát hành **trong ngày**, bắt đầu `01`.
 
-- `YY` = 2 số cuối năm; `M` = tháng **không** số 0 đầu; `DD` = ngày 2 chữ số; `NN` = số thứ tự phát hành **trong ngày**, bắt đầu `01`.
-- `arch`: `x64` | `x86` | `arm64`. `ext` theo nền tảng: `.exe` (Windows), `.dmg` (macOS), `.deb`/`.AppImage` (Linux), `.apk` (Android).
+Tên tệp: `{tên-gói}_{phiên bản}_{os}-{arch}[-{loại}].{ext}`, thẻ git `v{phiên bản}` (VERSIONING.md mục 2.2).
 
-Ví dụ ngày 19/8/2026, app `tsudev-swico` Windows 64-bit:
-1. Bản 1: `tsudev-swico_26.8.1901_x64-setup.exe`
-2. Bản 2 cùng ngày: `tsudev-swico_26.8.1902_x64-setup.exe`
-3. Bản 3 cùng ngày: `tsudev-swico_26.8.1903_x64-setup.exe`
+Ví dụ ngày 17/11/2026, Tsu Cwico Windows 64-bit:
+1. Bản 1: `tsucwico_26.11.1701_windows-x64-setup.exe`, thẻ `v26.11.1701`
+2. Bản 2 cùng ngày: `tsucwico_26.11.1702_windows-x64-setup.exe`, thẻ `v26.11.1702`
 
-Chuỗi version trong code/manifest = `26.8.1901` (đồng bộ với tên file). Mỗi lần phát hành ghi 1 dòng vào `CHANGELOG.md` theo dạng `26.8.1901 - 19/08/2026 - nội dung thay đổi`.
+Chuỗi version trong code/manifest = `26.11.1701` (đồng bộ với tên file). Mỗi lần phát hành ghi 1 dòng vào `CHANGELOG.md` theo dạng `26.11.1701 - 17/11/2026 - nội dung thay đổi`.
 
 ## 7. Cách truy xuất token theo nền tảng
 
