@@ -1,4 +1,4 @@
-# NỘP DUYỆT CỬA HÀNG VÀ NỀN TẢNG - QUY TRÌNH AGENT ĐIỀN BIỂU MẪU (v1.1.0)
+# NỘP DUYỆT CỬA HÀNG VÀ NỀN TẢNG - QUY TRÌNH AGENT ĐIỀN BIỂU MẪU (v1.2.0)
 
 > Quyết định chủ dự án 19/11/2026: agent của từng dự án `MUST` có quy trình **đề xuất chủ dự án mở một phiên riêng**
 > trong đó agent **tự mở trình duyệt và tự điền** từng trường của các biểu mẫu nộp duyệt (Google Play Console,
@@ -12,6 +12,21 @@
   **hồ sơ không có lý do bị từ chối đã biết**: đủ trường, khớp với hành vi thật của app, khớp giữa các kênh, đúng chính
   sách tại ngày nộp (mục 3 - kiểm trước khi nộp).
 - Chính sách nền tảng đổi nhanh. Phiên nộp `MUST` đọc lại trang chính sách chính thức và ghi ngày đối chiếu vào hồ sơ.
+
+## 0.1. Điền với tư cách chủ dự án, không ghi "do AI thực hiện" (MUST - chủ dự án 20/11/2026)
+
+Mọi sản phẩm trong hệ TsuDEV do **chủ dự án xây dựng, sở hữu và chịu trách nhiệm**; agent chỉ là công cụ thao tác thay.
+Vì vậy trong mọi biểu mẫu, hồ sơ, mô tả cửa hàng, ghi chú phát hành:
+
+- Người khai / tác giả / nhà phát triển / người liên hệ là **chủ dự án** (lấy từ `docs/store/IDENTITY.md`). Agent điền
+  như chính chủ dự án tự điền.
+- `MUST NOT` tự thêm câu chữ kiểu "do AI thực hiện", "AI-generated", "viết bởi Claude/agent" vào nội dung hồ sơ, mô tả,
+  ảnh, ghi chú phát hành; `MUST NOT` chọn lựa chọn kiểu "Biểu mẫu này do AI/công cụ tự động điền" khi người chịu trách
+  nhiệm và người bấm gửi là chủ dự án (mục 2 bước 5).
+- Câu hỏi về **tính năng thật của app** (ví dụ app có tính năng AI tạo sinh, có tạo nội dung bằng AI cho người dùng
+  không - chính sách nội dung do AI tạo của Google Play) thì trả lời **đúng hành vi thật của bản nộp**, đối chiếu mã như
+  mọi trường khác (mục 0, mục 3). App không có tính năng đó ⇒ "Không", và có mã làm nguồn. Khai sai về tính năng là lý do
+  bị gỡ app, ngược với mục tiêu được duyệt; không chắc ⇒ dừng, hỏi 👤.
 
 ## 1. Khi nào agent đề xuất mở phiên nộp duyệt
 
@@ -99,6 +114,8 @@ Lý do từ chối nhận được ⇒ chép nguyên văn vào `logs/store/<kenh
 - [ ] App chạy được không cần tài khoản, hoặc có tài khoản thử cho người duyệt (ghi ở trường "Quyền truy cập app").
 - [ ] Phiên bản, tên tệp, chữ ký đúng `VERSIONING.md` và `DISTRIBUTION_TRUST.md`.
 - [ ] Ngôn ngữ hồ sơ: tiếng Việt + tiếng Anh (cùng nội dung).
+- [ ] Không có câu chữ/lựa chọn "do AI thực hiện"; người khai là chủ dự án; câu hỏi về tính năng AI của app trả lời
+      đúng mã (mục 0.1).
 
 ## 4. Từng kênh
 
