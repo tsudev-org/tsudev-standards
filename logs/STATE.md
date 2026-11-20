@@ -10,15 +10,14 @@
 
 - [x] **TS-15** XONG trong v3.4.0 (10/11/2026): `tsudev-contact` xếp hạng C ở `AUTH_AND_ACCOUNT.md` mục 1.
 
-- [ ] **v3.4.0** Chủ project: merge PR nhánh `feat/v3.4.0-giao-dien-den-tim`, gắn nhãn có chú thích `v3.4.0`, tạo
-      Release (phiếu `20261110-05`). Sau đó repo con đồng bộ.
+- [x] **v3.4.0** XONG - nhãn + Release `v3.4.0` đã có (kiểm lại 21/11/2026).
 
 - [x] **TS-18** XONG 09/11/2026 - thay bằng đồng bộ thẳng lên `v3.2.0`: tsudev #208, tsudev-contact #8,
       tsudev-cwico #35, tsudev-swico #10 (đóng #13/#9 v3.1.1 treo). Cả 4 xanh CI, `.standards/scripts/` đủ 2 file.
 
 **Chờ chủ project quyết, agent không tự quyết được:**
 
-- [ ] **v4.0.0** Gỡ `color.warm` và nhận bảng đen + tím (`ECOSYSTEM_IDENTITY.md` mục 4.2) làm giá trị token
+- [ ] **MAJOR kế tiếp (v5.0.0; số v4.0.0 đã dùng cho TsuDEV Pro)** Gỡ `color.warm` và nhận bảng đen + tím (`ECOSYSTEM_IDENTITY.md` mục 4.2) làm giá trị token
       chuẩn - MAJOR, mọi repo con đổi màu theo. Chi tiết: CHANGELOG 3.4.0 mục "Dự kiến v4.0.0".
 
 - [ ] **TS-8** Chữ "dev" đang có **hai màu** ở hai sản phẩm, cả hai đều hợp lệ theo
@@ -46,6 +45,12 @@
 | --- | --- | --- |
 
 ## Đã hoàn thành (mới nhất trên cùng)
+
+- 21/11/2026 - **`v4.4.0`**: `PACKAGING.md` v1.2.0 khớp kho gói đang chạy (dựng tập trung ở `linux-packages`,
+  `catalog.json` ba kênh, vân tay ghi cứng trong `install.sh`, `verify-install` x64 + ARM64, lệnh sinh lúc build mục
+  8.1) - phiếu `20261113-01`; `ECOSYSTEM_IDENTITY.md` v3.2.0 mục 4.3 menu tài khoản disclosure + cột "Tài khoản" ở chân
+  trang - đề xuất PR #52 (đóng, nội dung đã vào docs). Ghi sổ đóng phiếu `20261119-PRO1`, phần repo này của
+  `20261117-V1` và hàng tsudev-standards của `20261114-01`. Dependabot #37/#44/#45: xem phiếu phiên.
 
 - 21/11/2026 - **`v4.3.0`**: Apple là lối vào có điều kiện (`AUTH_AND_ACCOUNT.md` v3.2.0 mục 3.2, phiếu `20261119-01`);
   tên gói thương hiệu + quy trình đổi tên gói (`PACKAGING.md` v1.1.0 mục 2.1-2.2, phiếu `20261112-02`). Đóng phiếu
