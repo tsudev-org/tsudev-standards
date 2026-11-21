@@ -1,4 +1,4 @@
-# XÁC THỰC VÀ KIẾN TRÚC TÀI KHOẢN - mọi project/tool/phần mềm tsudev (v3.2.1)
+# XÁC THỰC VÀ KIẾN TRÚC TÀI KHOẢN - mọi project/tool/phần mềm tsudev (v3.2.2)
 
 > Đăng nhập, đăng ký, liên kết nhà cung cấp, trạng thái tài khoản, và cơ chế
 > **Xác minh tài khoản**. Đây là chuẩn bắt buộc, không phải gợi ý.
@@ -539,7 +539,7 @@ kiện để chia sẻ liên kết giữa các sản phẩm mà không hỏng.
   minh, không phải kẻ địch.
 - Toàn bộ luồng `MUST` dùng được **chỉ bằng bàn phím**, thứ tự `Tab` đúng theo thứ
   tự nhìn thấy, vòng focus theo `DESIGN_SYSTEM.md` mục 5.
-- `MUST` giữ hoạt động ở cả ba chế độ nền, dùng bản logo cho nền tối theo
+- `MUST` giữ hoạt động ở cả hai chế độ nền Sáng/Tối, logo theo
   [`BRAND_ASSETS.md`](BRAND_ASSETS.md) mục 4.
 
 ### 13.3. Thông điệp
