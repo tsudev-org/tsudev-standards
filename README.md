@@ -6,7 +6,7 @@ phần mềm.
 
 Một sản phẩm của [tsudev](https://tsudev.com).
 
-Mọi repo con (`tsudev-web`, `swico`, ...) mang một **bản sao chỉ-đọc** tại
+Mọi repo con (`tsudev`, `tsuswico`, ...) mang một **bản sao chỉ-đọc** tại
 `.standards/` và đồng bộ xuống từ đây. Không sửa ngược.
 
 > **Bắt đầu ở đâu:** đọc [`AGENTS.md`](AGENTS.md) trước. Đó là điểm vào bắt buộc

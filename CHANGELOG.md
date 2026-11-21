@@ -8,6 +8,28 @@ Mới nhất trên cùng.
 
 ---
 
+## 4.5.0 - 21/11/2026
+
+Bản MINOR (chỉ thêm, không phá vỡ): ví dụ và quy tắc theo tên repo mới sau đợt đổi tên 13-16/11/2026. Nhận đề xuất
+issue #54 (tsuswico), mở rộng cho cả `tsucwico`, `tsucontact`, `tsufiles`.
+
+- `AGENTS.md` mục 4: tên repo đã đổi **trong** `tsudev-org` (`tsudev-swico`, `tsudev-cwico`, `tsudev-contact`,
+  `tsudev-files`) `MUST NOT` được tạo, fork hay đổi tên lại thành - cùng lý do với tên cũ dưới `tsudev-tsudev`.
+  Ví dụ repo fork mục 7.1: `tsufiles` từ Filee.
+- `docs/ECOSYSTEM_IDENTITY.md` v3.2.1: định danh máy đọc nhận tên thương hiệu đã duyệt (`tsuswico`, `tsucwico`,
+  `tsucontact`, `tsufiles`) bên cạnh `tsudev-<san-pham>`; gỡ khối mục 3 cũ bị sót từ trước v3.8.0 (bảng cụt và quy tắc
+  "luôn viết thường" mâu thuẫn với `TsuDEV`).
+- Ví dụ tên repo: `docs/AUTH_AND_ACCOUNT.md` v3.2.1 (mục 1, sơ đồ, mục 14), `docs/BRAND_ASSETS.md` v3.6.1,
+  `docs/DATA_TABLE.md` v3.0.1, `docs/SYNC.md` v3.1.2, `README.md`, comment `scripts/check-standards.sh`.
+- `docs/PACKAGING.md` v1.2.1: tham chiếu quy tắc tên repo cũ trỏ đúng `AGENTS.md` mục 4 (trước ghi nhầm
+  `GIT_WORKFLOW.md`). Tên gói đã công bố (`tsudev-files`, `tsudev.SWICO`, `tsudev.cwico`) giữ nguyên.
+
+### Hướng dẫn nâng cấp
+
+1. Repo con sync v4.5.0 trong PR kế tiếp của nó (KHÔNG mở PR sync riêng). Không có nghĩa vụ mới về mã.
+
+---
+
 ## 4.4.0 - 21/11/2026
 
 Bản MINOR (chỉ thêm, không phá vỡ): đưa văn bản khớp hạ tầng đang chạy thật và nhận đề xuất mẫu header/chân trang.

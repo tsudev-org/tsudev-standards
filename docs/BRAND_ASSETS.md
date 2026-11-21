@@ -1,4 +1,4 @@
-# TÀI SẢN THƯƠNG HIỆU (v3.6.0)
+# TÀI SẢN THƯƠNG HIỆU (v3.6.1)
 
 > Logo, dấu hiệu thu gọn, wordmark, favicon và icon ứng dụng của hệ sinh thái
 > tsudev: bản gốc nằm ở đâu, sinh ra bằng gì, dùng dấu hiệu nào ở cỡ nào.
@@ -66,7 +66,7 @@ tsudev-<loại>[-<biến-thể>][-<cỡ>].<đuôi>
   không số phiên bản trong tên file.
 
 Hai repo đang chạy dùng lược đồ tên riêng có trước quy ước này: `tsudev` dùng
-`logo-full` / `logo-mark` / `logo-wordmark`, `tsudev-cwico` dùng
+`logo-full` / `logo-mark` / `logo-wordmark`, `tsucwico` (trước là `tsudev-cwico`) dùng
 `tsudev-logo.png` cho chính **dấu hiệu thu gọn**. `MUST NOT` đổi tên chúng chỉ để
 hợp quy ước - tên file trong `public/` là URL công khai, đổi là hỏng liên kết và
 hỏng cache. Quy tắc trên áp cho **file mới**.
@@ -156,7 +156,7 @@ Hai bản cài đặt tham chiếu, dùng cho hai loại sản phẩm:
 | Dây chuyền | Repo | Sinh ra |
 | --- | --- | --- |
 | `packages/brand/build-assets.js` | `tsudev` | Tài sản web: logo, favicon, avatar, ảnh chia sẻ |
-| `tools/gen_icons.py` | `tsudev-cwico` | Icon desktop: bộ Tauri, tile Microsoft Store, bộ web |
+| `tools/gen_icons.py` | `tsucwico` | Icon desktop: bộ Tauri, tile Microsoft Store, bộ web |
 
 ## 8. Điều cấm
 
@@ -308,7 +308,7 @@ Một sản phẩm `MAY` có logo riêng thay logo tsudev khi **chủ dự án d
    SINH từ đó - `MUST NOT` cắt tay từng cỡ. Đổi logo = thay một tệp + chạy một lệnh.
 2. Có cấu hình sinh `assets/brand/brand.json` và **một script sinh mọi bản** có chế độ `--check`, chạy trong CI để bắt
    tệp đã commit lệch ảnh gốc. Mẫu đã chạy thật:
-   - `website/scripts/brand-assets.mjs` (Node + sharp; tsudev-cwico, tsudev-swico, tsudev-contact) - chế độ `tile` cho
+   - `website/scripts/brand-assets.mjs` (Node + sharp; tsucwico, tsuswico, tsucontact) - chế độ `tile` cho
      logo vẽ sẵn trên ô nền đặc (giữ nền, bo góc) và `no-white` cho logo nền trắng (flood fill từ mép, khử nhân với trắng);
    - `tools/brand/build_brand.py` + `assets/brand/brand.json` (tsudev-trafficmonitor) - logo nền đen.
 3. Đủ bộ tài sản bắt buộc ở mục 12 (favicon.ico 7 lớp, apple-touch nền đặc, PWA + maskable riêng, og-image) và icon
