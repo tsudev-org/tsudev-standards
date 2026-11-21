@@ -1,4 +1,4 @@
-# NHẬN DIỆN HỆ SINH THÁI TSUDEV (v3.2.1)
+# NHẬN DIỆN HỆ SINH THÁI TSUDEV (v4.0.0)
 
 > `https://tsudev.com` là nhà chung của mọi dịch vụ, sản phẩm và công cụ trong hệ
 > sinh thái. Tài liệu này quy định mọi project **tự khai mình thuộc về đâu** như
@@ -190,6 +190,13 @@ sẻ localStorage, nhưng cùng khóa và cùng hành vi giữ trải nghiệm n
 
 ### 4.2. Bảng màu và ngôn ngữ thiết kế của website (từ v3.4.0)
 
+> **Từ v5.0.0 (21/11/2026):** bảng xanh dưới đây là bản sắc của **tsudev.com** (`data-product="tsudev"`) và phần
+> nền/chữ/viền của nó đã thành **lớp nền chung** trong `tokens/design-tokens.json`. Website và app của từng sản phẩm
+> dùng **lớp bản sắc** của mình (`DESIGN_SYSTEM.md` mục 1.2, `tokens/products.css`) - không còn khái niệm "ngoại lệ":
+> TsuFiles giữ đúng bảng 4.2.1; Lotus Share chuyển sang tím ngả hồng của cánh sen (`tokens/products/lotus.json`) vì
+> trước đó trùng mã `#A970FF` với TsuFiles. "Biểu tượng dùng sắc xanh logo" ở đoạn dưới nay đọc là: biểu tượng dùng
+> `icon-info` / `icon-nav` của sản phẩm đang hiển thị. Không cần `palette.css` / `extensions.*.json` ghi đè tại repo.
+
 > **Từ v3.8.0 (quyết định chủ dự án 16/11 và 19/11/2026; nhận đề xuất tsudev-standards#55):** bảng **đen tuyền +
 > xanh logo** thay bảng tím. Biểu tượng (kể cả biểu tượng nền tảng Windows/Linux/Android/macOS và nhóm icon "thông
 > tin") `MUST` dùng sắc xanh của logo, KHÔNG còn tím. Ngoại lệ **đã chốt** (chủ dự án 11/11, xác nhận lại 19/11/2026): lotus.tsudev.com
@@ -285,7 +292,7 @@ Thiếu favicon là thiếu nhận diện, và tab trình duyệt trống là th
 - Toàn bộ `MUST` sinh từ **bản gốc chính thức** và **dây chuyền** ghi ở
   [`BRAND_ASSETS.md`](BRAND_ASSETS.md) mục 1. `MUST NOT` cắt tay, `MUST NOT` lấy
   ảnh từ một repo khác rồi phóng to.
-- Nền tối `MUST` dùng bản dark theo `BRAND_ASSETS.md` mục 4.
+- Logo `MUST` đọc được trên cả nền Sáng và Tối theo `BRAND_ASSETS.md` mục 4.
 - Biến thể ở `assets/brand/variants/` `MUST NOT` dùng trong sản phẩm. Đó là kho
   lưu, không phải kho dùng.
 

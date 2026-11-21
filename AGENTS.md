@@ -211,6 +211,10 @@ git grep -lP '\x{2014}' -- . | grep -v '^migrations/'
 
 - Mọi thay đổi giao diện phải dùng token trong `tokens/` - **cấm hard-code màu,
   cỡ chữ, radius**. Chi tiết: [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md).
+- Mỗi sản phẩm có **bản sắc riêng** (màu nhấn từ logo, bố cục, bo góc, hoạ tiết,
+  font tiêu đề) khai ở `tokens/products/<id>.json`, dùng qua
+  `<html data-product="<id>">`; nền, chữ, trạng thái và khả năng tiếp cận là chung
+  (từ `v5.0.0`, [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) mục 1.2).
 - Mọi vùng hiển thị danh sách bản ghi phải có bộ chọn số bản ghi đúng vị trí và
   đúng các mốc `10/20/50/100/200`, mặc định `10`. Chi tiết:
   [`docs/DATA_TABLE.md`](docs/DATA_TABLE.md).

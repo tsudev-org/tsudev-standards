@@ -37,8 +37,9 @@ Các bước còn lại (ghép `.gitignore`, dựng `logs/`, bật cổng kiểm
 | [`VERSION`](VERSION) | Phiên bản hiện tại của bộ quy ước |
 | [`MANIFEST.sha256`](MANIFEST.sha256) | SHA-256 của từng file quy ước, để repo con xác minh toàn vẹn |
 | [`docs/`](docs/) | 16 tài liệu chuyên đề - xem [`docs/00-INDEX.md`](docs/00-INDEX.md) |
-| [`tokens/design-tokens.json`](tokens/design-tokens.json) | Nguồn chân lý duy nhất của giao diện |
-| [`tokens/tokens.css`](tokens/tokens.css) | Bản CSS **sinh tự động** từ JSON, không sửa tay |
+| [`tokens/design-tokens.json`](tokens/design-tokens.json) | Lớp nền chung của giao diện (nền, chữ, trạng thái) |
+| [`tokens/products/`](tokens/products/) | Lớp bản sắc: mỗi sản phẩm một tệp (màu nhấn, bố cục, bo góc, hoạ tiết, font) |
+| [`tokens/tokens.css`](tokens/tokens.css), [`tokens/products.css`](tokens/products.css) | Bản CSS **sinh tự động** từ JSON, không sửa tay |
 | [`templates/`](templates/) | `.gitignore` chuẩn theo nền tảng, mẫu `logs/`, mẫu `AGENTS.md` cho repo con |
 | [`scripts/`](scripts/) | Đồng bộ, cổng kiểm, sinh token, canh tương phản |
 | [`proposals/`](proposals/) | Đề xuất đẩy ngược từ repo con |
@@ -46,12 +47,14 @@ Các bước còn lại (ghép `.gitignore`, dựng `logs/`, bật cổng kiểm
 
 ## Cổng kiểm
 
-Bộ quy ước tự canh chính mình. Bốn script chạy được cục bộ và trên CI:
+Bộ quy ước tự canh chính mình. Các script chạy được cục bộ và trên CI:
 
 ```bash
 ./scripts/check-standards.sh        # cổng kiểm tổng: gitignore, file nhạy cảm, gạch ngang, token, manifest
-node scripts/build-tokens.mjs       # sinh lại tokens.css từ design-tokens.json
-node scripts/check-contrast.mjs     # kiểm mọi cặp màu đạt ngưỡng WCAG
+node scripts/build-tokens.mjs       # sinh lại tokens.css + products.css từ JSON
+node scripts/check-contrast.mjs     # kiểm mọi cặp màu lớp nền đạt ngưỡng WCAG
+node scripts/gen-product-palette.mjs <id>  # sinh màu nhấn của một sản phẩm từ hue/chroma
+node scripts/check-products.mjs     # lớp bản sắc: WCAG, chống trùng màu/hoạ tiết, khớp tài liệu
 ./scripts/make-manifest.sh          # sinh lại MANIFEST.sha256 sau khi đổi nội dung
 ```
 
