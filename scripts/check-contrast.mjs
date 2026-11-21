@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * check-contrast.mjs - kiểm tra mọi cặp màu chữ/nền của design-tokens.json
- * đạt ngưỡng WCAG 2.1 quy định tại docs/DESIGN_SYSTEM.md mục 1.
+ * đạt ngưỡng WCAG 2.1 quy định tại docs/DESIGN_SYSTEM.md mục 1. Lớp bản sắc
+ * từng sản phẩm (tokens/products/) do scripts/check-products.mjs đo.
  *
  * Đây là cổng canh cho chính quy tắc mà bảng token v1.0.0 đã vi phạm
  * (text-muted trượt 4.5:1 ở cả ba chế độ). Không có cổng này thì quy tắc
@@ -14,24 +15,10 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { contrast } from './color-lib.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const tokens = JSON.parse(readFileSync(join(ROOT, 'tokens', 'design-tokens.json'), 'utf8'));
-
-const srgbToLinear = (c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
-
-function luminance(hex) {
-  const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
-  if (!m) throw new Error(`Mã màu không hợp lệ: ${hex}`);
-  const [r, g, b] = [0, 2, 4].map((i) => srgbToLinear(parseInt(m[1].slice(i, i + 2), 16) / 255));
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
-
-function contrast(a, b) {
-  const [la, lb] = [luminance(a), luminance(b)];
-  const [hi, lo] = la > lb ? [la, lb] : [lb, la];
-  return (hi + 0.05) / (lo + 0.05);
-}
 
 /** Nền hover là trạng thái tạm thời của một hàng, không phải bề mặt mà nút phụ
  *  hay ô nhập nằm lên - nên không nằm trong bộ nền của ranh giới thành phần. */
@@ -47,11 +34,15 @@ const CHECKS = [
   { fg: 'text-link', bgs: TEXT_BACKGROUNDS, min: 4.5, note: 'liên kết' },
   { fg: 'border-control', bgs: BORDER_BACKGROUNDS, min: 3.0, note: 'ranh giới vùng tương tác (WCAG 1.4.11)' },
   { fg: 'focus-ring', bgs: BORDER_BACKGROUNDS, min: 3.0, note: 'vòng focus (WCAG 1.4.11)' },
+  { fg: 'accent', bgs: TEXT_BACKGROUNDS, min: 4.5, note: 'nhấn phụ (dùng cả cho chữ)' },
+  { fg: 'icon-info', bgs: STABLE_BACKGROUNDS, min: 3.0, note: 'biểu tượng thông tin (WCAG 1.4.11)' },
+  { fg: 'icon-nav', bgs: STABLE_BACKGROUNDS, min: 3.0, note: 'biểu tượng điều hướng (WCAG 1.4.11)' },
 ];
 
 const PAIR_CHECKS = [
   { fg: 'on-primary', bg: 'primary', min: 4.5, note: 'chữ trên nút chính' },
   { fg: 'on-primary', bg: 'primary-hover', min: 4.5, note: 'chữ trên nút chính khi hover' },
+  { fg: 'on-primary', bg: 'primary-active', min: 4.5, note: 'chữ trên nút chính khi nhấn' },
   { fg: 'on-status', bg: 'success', min: 4.5, note: 'chữ trên nền success' },
   { fg: 'on-status', bg: 'warning', min: 4.5, note: 'chữ trên nền warning' },
   { fg: 'on-status', bg: 'danger', min: 4.5, note: 'chữ trên nền danger' },
