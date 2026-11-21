@@ -25,6 +25,19 @@
 **Việc của repo con (theo phiếu STD50, mỗi repo hai PR):** tsudev, tsucwico, tsuswico, tsucontact, tsufiles,
 lotus-share, tsudev-trafficmonitor, qulythuchi, tsudisk, sound-db, app-la-ban. Repo này không làm hộ.
 
+**Theo dõi STD50 (đo 21/11/2026 22:45 từ phiếu `logs/handover/20261121-STD50_*` của từng repo):**
+
+| Repo | Trạng thái |
+| --- | --- |
+| tsudev | ĐÓNG - PR 1 #356, PR 2 #358 |
+| lotus-share | PR 1 #114 + PR 2 #115 xong |
+| tsucwico | PR 1 đang trên nhánh `feat/pro-jws-gia-han` (commit `7f97999`) |
+| qulythuchi | phiên repo đó đang làm (AKB SES-20261121-2242-2012) |
+| tsuswico, tsucontact, tsufiles, tsudev-trafficmonitor, tsudisk, sound-db, app-la-ban | chưa nhận |
+
+Repo con đọc phiếu của chính mình; repo này chỉ cập nhật bảng khi đo lại, không nhắc hộ. Chưa repo nào phản hồi lỗi
+ngược về `tokens/products/` - có thì mở việc TS mới ở đây.
+
 ## Đang thực hiện
 
 | Task | Agent | Bắt đầu |
