@@ -8,6 +8,59 @@ Mới nhất trên cùng.
 
 ---
 
+## 5.0.0 - 21/11/2026
+
+Bản MAJOR: **mỗi sản phẩm một bản sắc riêng** trên một lớp nền chung. Chủ dự án giao agent chọn phương án (21/11/2026)
+với mục tiêu "mỗi dự án có đặc trưng nổi bật riêng - màu sắc, giao diện, bố cục". Đóng hai việc treo ở STATE: MAJOR
+"gỡ `color.warm`, nhận bảng mục 4.2 làm token chuẩn" và TS-8 (chữ "dev" hai màu).
+
+Đo trước khi làm (21/11/2026): 9 trong 11 sản phẩm dùng cùng một màu chính xanh (`#2563EB`/`#66A3F2` hoặc
+`#38BDF8`), Lotus Share và TsuFiles dùng chung đúng mã tím `#A970FF`.
+
+- **BREAKING** `tokens/design-tokens.json` v3.0.0 (lớp nền chung):
+  - Gỡ khối `color.warm` (ngừng dùng từ v3.4.0); lược đồ chỉ còn `light` + `dark`; CSS không còn `[data-theme="warm"]`.
+  - Giá trị chuẩn đổi sang nền **đen tuyền / trắng** của `ECOSYSTEM_IDENTITY.md` mục 4.2 (đã chạy ở tsudev.com từ
+    v3.8.0). Mọi giá trị nền, viền, chữ đổi; `on-status` Tối `#0C1930` → `#0A0A0A`; bóng đổ bỏ sắc navy.
+  - Thêm vai trò `accent`, `glow`, `icon-info`, `icon-nav` (đã dùng thật ở website, nay vào token chuẩn) và
+    `radius-control` (bo góc của nút, tách khỏi `radius-md`); CSS thêm `--font-display`.
+- **Mới** lớp bản sắc `tokens/products/<id>.json` (lược đồ `product.schema.json`) cho 11 sản phẩm, sinh ra
+  `tokens/products.css` dùng qua `<html data-product="<id>">`. Mỗi tệp khai: màu đo từ logo (ảnh nguồn, ngày đo, lý
+  do chọn), `hue`/`chroma` OKLCH, bố cục chữ ký, bộ bo góc, hoạ tiết hero, font tiêu đề. Danh bạ:
+  `DESIGN_SYSTEM.md` mục 1.2.
+- **Mới** `scripts/gen-product-palette.mjs`: sinh 10 vai trò nhấn cho Sáng + Tối từ `hue`/`chroma`, dò độ sáng tới
+  khi đạt WCAG - không chọn mã màu tay. `scripts/color-lib.mjs`: tương phản WCAG, OKLCH, ΔE OKLab dùng chung.
+- **Mới** cổng `scripts/check-products.mjs` (chạy trong `check-standards.sh` mục 6): đủ trường + đúng danh mục;
+  WCAG của từng sản phẩm trên lớp nền; màu chính hai sản phẩm cách nhau ≥ 20° OKLCH và ΔE ≥ 0.045 ở CẢ hai chế độ;
+  màu gần (ΔE < 0.08) thì phải khác cả bố cục lẫn bo góc; cách `danger` ≥ 15°; hoạ tiết không trùng; `colors` khớp
+  bản sinh; danh bạ trong tài liệu khớp JSON. Đã thử ngược: đặt Lotus về tím TsuFiles, trùng hoạ tiết, màu chính sát
+  đỏ, sửa tay `colors` - cả 5 ca đều đỏ.
+- `scripts/check-contrast.mjs` đo thêm `accent`, `icon-info`, `icon-nav`, `on-primary`/`primary-active`.
+- `docs/DESIGN_SYSTEM.md` v4.0.0: mục 1 viết lại thành 1.1 lớp nền chung + 1.2 lớp bản sắc (ràng buộc, cách dùng,
+  6 kiểu bố cục, 4 bộ bo góc, 13 hoạ tiết); mục 2 thêm `radius-control`; mục 7 quy trình đổi màu hai lớp.
+- `docs/BRAND_ASSETS.md` v4.0.0: mục 4-5 tả đúng logo hiện hành (13/11/2026 - một bản cho mọi nền, chữ "dev" **xanh**
+  `#21B7F6`); gỡ bảng cam của logo cũ. **TS-8 đóng**: "dev" là xanh; dải `--color-dev-*` cam ở Tsu Cwico là di sản phải
+  gỡ. Mục 12.3 đổi thành "thương hiệu mẹ là MỘT, bản sắc sản phẩm là RIÊNG".
+- `docs/ECOSYSTEM_IDENTITY.md` v4.0.0: mục 4.2 là bản sắc của tsudev.com; hết khái niệm "ngoại lệ" màu - TsuFiles giữ
+  bảng 4.2.1, Lotus Share chuyển sang tím ngả hồng cánh sen.
+- `AGENTS.md` mục 7.2, `README.md`, `docs/ONBOARDING.md`, `docs/AUTH_AND_ACCOUNT.md` v3.2.2: cập nhật theo hai lớp.
+
+### Hướng dẫn nâng cấp
+
+Mỗi repo sản phẩm có phiếu `logs/handover/20261121-STD50_ban-sac-san-pham-v5.0.0.md` ghi đúng `data-product` và việc
+riêng. Làm thành **hai PR** để mỗi phiên agent gọn ngữ cảnh:
+
+1. **PR màu + hình (một phiên):** sync `.standards/` v5.0.0; nạp `tokens.css` rồi `products.css`; đặt
+   `<html data-product="<id>">`; xoá bảng màu tự khai (`palette.css`, `extensions.*.json`, dải `--color-*` riêng);
+   giá trị đã lưu `warm` đọc thành `light`; nút dùng `var(--radius-control)`, tiêu đề dùng `var(--font-display)` (tự
+   host woff2 bộ ký tự `vietnamese`, tối đa 2 độ đậm). App desktop/di động gộp đè `products/<id>.json` lúc build.
+   Ảnh chụp trước/sau ở Sáng và Tối đính vào PR.
+2. **PR bố cục (phiên sau):** dựng phần thân trang chủ / màn hình đầu theo `layout`, thêm hoạ tiết `motif` tĩnh ở hero
+   và `og-image`. Ảnh chụp trước/sau.
+3. Repo chưa có trong danh bạ mà có giao diện: mở PR vào repo này thêm `tokens/products/<id>.json` (chạy
+   `gen-product-palette.mjs` + `build-tokens.mjs`, cổng kiểm xanh) TRƯỚC khi làm bước 1.
+
+---
+
 ## 4.5.0 - 21/11/2026
 
 Bản MINOR (chỉ thêm, không phá vỡ): ví dụ và quy tắc theo tên repo mới sau đợt đổi tên 13-16/11/2026. Nhận đề xuất
