@@ -119,6 +119,11 @@ Chi tiết: [`docs/AGENT_PROTOCOL.md`](docs/AGENT_PROTOCOL.md).
   winget, `git remote`, URL đồng bộ bộ quy ước) gãy không báo lỗi. Repo mới tạo trong
   `tsudev-org`. Chuyển repo vào org tắt secret scanning, push protection và CodeQL
   default setup - `MUST` bật lại ngay và đối chiếu trước/sau.
+  Cùng luật cho tên đã đổi **trong** `tsudev-org` (từ `v4.5.0`): `tsudev-swico` (nay
+  `tsuswico`), `tsudev-cwico` (nay `tsucwico`), `tsudev-contact` (nay `tsucontact`),
+  `tsudev-files` (nay `tsufiles`) `MUST NOT` được tạo, fork hay đổi tên lại thành, ở cả
+  `tsudev-org` lẫn `tsudev-tsudev` - updater, Scoop/winget và link Release cũ chỉ còn chạy
+  nhờ chuyển hướng của các tên này.
 
 ## 5. Chi phí 0 đồng
 
@@ -172,7 +177,7 @@ này.** Đây là quy tắc mức `MUST`, không phải khuyến nghị.
 2. **Dòng trích dẫn chính ký tự này để định nghĩa quy tắc** thì `MUST` ghi kèm mã
    điểm `U+2014` trên cùng dòng - cổng kiểm nhận diện miễn trừ theo đúng dấu này.
 3. **Dòng kế thừa NGUYÊN VĂN từ upstream ở repo fork** (từ `v3.3.0`). Repo fork
-   (ví dụ `tsudev-lotus` từ LocalSend, `tsudev-files` từ Filee) sửa em-dash trong
+   (ví dụ `tsudev-lotus` từ LocalSend, `tsufiles` từ Filee) sửa em-dash trong
    mã của upstream thì mỗi lần gộp upstream lại xung đột hàng chục file, và cổng
    kiểm đỏ thường trực thì mất tác dụng chặn với cả mã mới của fork. Cách dùng:
    - Đặt file `.standards-upstream` ở gốc repo con (repo con sở hữu, không nằm

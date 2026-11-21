@@ -3,7 +3,7 @@
 - **Mã phiếu**: 20261110-05
 - **Từ**: phiên 47 của repo `tsudev` (tsudev.com) - **Đến**: phiên kế tiếp của repo `tsudev-standards`
 - **Thời điểm**: 10/11/2026
-- **Trạng thái**: ĐÓNG phần nội dung (nhánh `feat/v3.4.0-giao-dien-den-tim`); chờ chủ project merge + gắn nhãn `v3.4.0`
+- **Trạng thái**: ĐÓNG - phát hành v3.4.0 (nhãn + Release đã có, kiểm lại 21/11/2026)
 - **Tham chiếu**: tsudev.com đã làm trước - nhánh `feat/giao-dien-tim-den-supabase` của `tsudev-org/tsudev`
   (`tokens/extensions.tsudev-web.json`, `packages/ui/src/components/ThemeToggle.tsx`, `SiteFooter.tsx`,
   `apps/frontend-main/styles/globals.css`, `apps/frontend-main/pages/_document.tsx`). Đọc các tệp đó trước khi

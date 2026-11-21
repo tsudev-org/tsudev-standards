@@ -193,7 +193,7 @@ if git rev-parse --git-dir >/dev/null 2>&1; then
 
   # Phạm vi quét: MỌI đuôi file văn bản và mã nguồn của hệ sinh thái, không chỉ
   # riêng web. Bản trước chỉ quét 10 đuôi nên em-dash lọt tự do vào .py, .cs,
-  # .html, .sql, .toml - đúng những nơi tsudev-swico và tsudev-cwico sống.
+  # .html, .sql, .toml - đúng những nơi tsuswico và tsucwico sống.
   DASH_GLOBS=(
     '*.md' '*.mdx' '*.txt' '*.rst' '*.adoc'
     '*.json' '*.jsonc' '*.yml' '*.yaml' '*.toml' '*.ini' '*.cfg' '*.conf' '*.env.example'

@@ -46,6 +46,11 @@
 
 ## Đã hoàn thành (mới nhất trên cùng)
 
+- 21/11/2026 - **`v4.5.0`**: ví dụ tên repo theo tên mới (`tsuswico`, `tsucwico`, `tsucontact`, `tsufiles`) - đóng
+  issue #54; `AGENTS.md` mục 4 cấm dùng lại tên đã đổi trong `tsudev-org`; gỡ khối mục 3 cũ sót ở
+  `ECOSYSTEM_IDENTITY.md` (mâu thuẫn `TsuDEV`). Đóng dòng trạng thái lỗi thời của phiếu `20261110-05`.
+  AKB: SES-20261121-1700-e09e.
+
 - 21/11/2026 - **`v4.4.0`**: `PACKAGING.md` v1.2.0 khớp kho gói đang chạy (dựng tập trung ở `linux-packages`,
   `catalog.json` ba kênh, vân tay ghi cứng trong `install.sh`, `verify-install` x64 + ARM64, lệnh sinh lúc build mục
   8.1) - phiếu `20261113-01`; `ECOSYSTEM_IDENTITY.md` v3.2.0 mục 4.3 menu tài khoản disclosure + cột "Tài khoản" ở chân
