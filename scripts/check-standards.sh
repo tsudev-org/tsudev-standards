@@ -355,6 +355,13 @@ if [[ $IS_CENTRAL == 1 ]]; then
     else
       fail "có cặp màu trượt WCAG - chạy: node scripts/check-contrast.mjs"
     fi
+    if [[ -f scripts/check-products.mjs ]]; then
+      if node scripts/check-products.mjs >/dev/null 2>&1; then
+        pass "lớp bản sắc sản phẩm: WCAG, không trùng màu/hoạ tiết, khớp bản sinh"
+      else
+        fail "lớp bản sắc sản phẩm lỗi - chạy: node scripts/check-products.mjs"
+      fi
+    fi
   else
     warn "thiếu node - bỏ qua kiểm tra token"
   fi
