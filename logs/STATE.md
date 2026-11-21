@@ -15,29 +15,15 @@
 - [x] **TS-18** XONG 09/11/2026 - thay bằng đồng bộ thẳng lên `v3.2.0`: tsudev #208, tsudev-contact #8,
       tsudev-cwico #35, tsudev-swico #10 (đóng #13/#9 v3.1.1 treo). Cả 4 xanh CI, `.standards/scripts/` đủ 2 file.
 
-**Chờ chủ project quyết, agent không tự quyết được:**
+**Từng chờ chủ project quyết (đã giao agent chọn 21/11/2026):**
 
-- [ ] **MAJOR kế tiếp (v5.0.0; số v4.0.0 đã dùng cho TsuDEV Pro)** Gỡ `color.warm` và nhận bảng đen + tím (`ECOSYSTEM_IDENTITY.md` mục 4.2) làm giá trị token
-      chuẩn - MAJOR, mọi repo con đổi màu theo. Chi tiết: CHANGELOG 3.4.0 mục "Dự kiến v4.0.0".
+- [x] **MAJOR v5.0.0** XONG 21/11/2026 - chủ dự án giao agent chọn phương án ("mỗi dự án có đặc trưng riêng"):
+      lớp nền chung đen tuyền + lớp bản sắc `tokens/products/` cho 11 sản phẩm, gỡ `color.warm`.
+- [x] **TS-8** ĐÓNG 21/11/2026 trong v5.0.0 - logo 13/11/2026 có chữ "dev" **xanh**; dải cam `--color-dev-*` ở
+      `tsucwico` là di sản, gỡ theo phiếu STD50 của repo đó (`BRAND_ASSETS.md` mục 5).
 
-- [ ] **TS-8** Chữ "dev" đang có **hai màu** ở hai sản phẩm, cả hai đều hợp lệ theo
-      `docs/BRAND_ASSETS.md` mục 5 nên cổng kiểm không bắt được:
-      - `tsudev` (website): `packages/ui/src/components/Logo.tsx` dùng token
-        `text-link` - ra màu **xanh**.
-      - `tsudev-cwico`: `ui/src/components/Brand.tsx` dùng dải `--color-dev-*`
-        riêng - ra màu **cam**, khớp chữ "dev" cam trong logo chính thức.
-
-      Đây là quyết định nhận diện, không phải lỗi kỹ thuật. Ba lựa chọn:
-      1. **Giữ nguyên** - ghi một dòng vào mục "Quyết định quan trọng" để phiên sau
-         không hỏi lại, rồi đóng việc này.
-      2. **Thống nhất theo cam** (khớp logo): sửa `Logo.tsx` ở website dùng dải cam
-         thay `text-link`. Cam `MUST` lấy theo bảng ở `BRAND_ASSETS.md` mục 5 -
-         `#C2410C` cho nền sáng, `#FE7B2E` cho nền tối.
-      3. **Thống nhất theo xanh** (khớp token giao diện): sửa `Brand.tsx` ở `cwico`
-         dùng `text-link`, và cân nhắc bỏ dải `--color-dev-*` cam.
-
-      Chọn 2 hoặc 3 thì `MUST` có ảnh chụp trước/sau và `MUST` tách PR riêng cho
-      từng repo. Bối cảnh đầy đủ: `logs/handover/20260824-05_logo-ban-dark.md` mục 2.
+**Việc của repo con (theo phiếu STD50, mỗi repo hai PR):** tsudev, tsucwico, tsuswico, tsucontact, tsufiles,
+lotus-share, tsudev-trafficmonitor, qulythuchi, tsudisk, sound-db, app-la-ban. Repo này không làm hộ.
 
 ## Đang thực hiện
 
@@ -45,6 +31,12 @@
 | --- | --- | --- |
 
 ## Đã hoàn thành (mới nhất trên cùng)
+
+- 21/11/2026 - **`v5.0.0`** (MAJOR): bản sắc riêng từng sản phẩm. Token nền v3.0.0 (đen tuyền, gỡ `warm`, thêm
+  `accent`/`glow`/`icon-*`/`radius-control`); `tokens/products/*.json` + `products.css` cho 11 sản phẩm (màu đo từ
+  logo, bố cục, bo góc, hoạ tiết, font); `gen-product-palette.mjs`, `check-products.mjs`, `color-lib.mjs`.
+  `DESIGN_SYSTEM.md` v4.0.0, `BRAND_ASSETS.md` v4.0.0 (đóng TS-8), `ECOSYSTEM_IDENTITY.md` v4.0.0. Phiếu STD50 sang 11
+  repo.
 
 - 21/11/2026 - **`v4.5.0`**: ví dụ tên repo theo tên mới (`tsuswico`, `tsucwico`, `tsucontact`, `tsufiles`) - đóng
   issue #54; `AGENTS.md` mục 4 cấm dùng lại tên đã đổi trong `tsudev-org`; gỡ khối mục 3 cũ sót ở
