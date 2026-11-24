@@ -8,6 +8,13 @@ Mới nhất trên cùng.
 
 ---
 
+## 5.3.0 - 24/11/2026
+
+- `CROSS_DEVICE_LOGIN.md` v1.1.0 - khớp bản cài đặt tsudev (tsudev#374): kết quả là VÉ một lần đổi thành phiên
+  tsudev.com (NextAuth `qr`) rồi OIDC + PKCE như cũ (IdP không tự đúc authorization code); bí mật thiết bị mới ở cookie
+  HttpOnly (thay DPoP cho trình duyệt); lưu ở `OidcPayload` (không migration); app native mở URL đã quét trong trình
+  duyệt hệ thống; bảng API theo hành động `/api/xd/*`; màn Đ1 ở `/settings/security#qr`.
+
 ## 5.2.0 - 24/11/2026
 
 - `BRAND_ASSETS.md` v4.2.0 mục 15.4: logo dùng trên giao diện `MUST` nền trong suốt + SVG, hai bản Tối/Sáng (nét trắng
