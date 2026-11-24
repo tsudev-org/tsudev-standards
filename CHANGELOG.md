@@ -8,6 +8,19 @@ Mới nhất trên cùng.
 
 ---
 
+## 5.4.0 - 25/11/2026
+
+Chủ dự án yêu cầu 24/11/2026 (phiếu điều phối `tsudev` `20261123-EM1`): thư gửi tới `contact@tsudev.com` không về hộp
+thư, một số địa chỉ công khai bị trả thư.
+
+- **Mới** `docs/EMAIL.md` v1.1.0 (v1.0.0 + DMARC Management đã bật, bộ lọc Gmail mục 6.1): kiến trúc nhận (Cloudflare Email Routing) / gửi (Resend), danh mục 18 địa chỉ chính
+  thức đã gửi thử, quy trình thêm/bỏ địa chỉ, giá trị DNS chuẩn (SPF, DKIM, DMARC `p=reject; sp=reject`, MTA-STS,
+  TLS-RPT, DNSSEC) chỉ phiên điều phối được sửa, `MUST NOT` trỏ `rua` DMARC vào địa chỉ chuyển tiếp về Gmail (lỗi
+  `421 4.7.28`), quy tắc `From`/`Reply-To`, bảng lỗi đã gặp, checklist.
+- **Mới** `templates/email/mta-sts-worker/`: Worker phục vụ chính sách MTA-STS (đang chạy ở `mta-sts.tsudev.com`);
+  `templates/email/gmail-filters.xml`: bộ lọc Gmail nhập một lần cho hộp thư nhận chuyển tiếp.
+- `00-INDEX.md`: thêm lối đọc "thư điện tử"; `SECURITY_BASELINE.md` mục 10.1: địa chỉ trong `SECURITY.md` theo danh mục.
+
 ## 5.3.0 - 24/11/2026
 
 - `CROSS_DEVICE_LOGIN.md` v1.1.0 - khớp bản cài đặt tsudev (tsudev#374): kết quả là VÉ một lần đổi thành phiên
