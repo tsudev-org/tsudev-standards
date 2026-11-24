@@ -8,6 +8,22 @@ Mới nhất trên cùng.
 
 ---
 
+## 5.1.0 - 24/11/2026
+
+Chủ dự án yêu cầu 24/11/2026 (phiếu điều phối `20261124-QR1`): màn đăng nhập thống nhất kiểu Quly Thu Chi + Lark,
+đăng nhập chéo thiết bị bằng QR, sửa biểu tượng trắng khó thấy, Rust + ngân sách tốc độ, Clean Codebase.
+
+- **Mới** `docs/CROSS_DEVICE_LOGIN.md` v1.0.0: hai luồng Đẩy/Kéo, mã khớp luôn hiện trên thiết bị đã đăng nhập và gõ
+  trên thiết bị mới, mô hình đe doạ T1-T9 (QRLJacking, nhầm tài khoản, đoán mã, phát lại, rò CSDL), chỉ lưu băm,
+  DPoP + PKCE, máy trạng thái một chiều, API `/api/xd`, chỉ IdP tsudev.com cài đặt.
+- `AUTH_AND_ACCOUNT.md` v3.3.0: mục 3.0 lối vào bổ sung (khoá truy cập/passkey; SSO tổ chức OIDC có điều kiện; Quét để
+  đăng nhập), bố cục 13.2 mới (chọn ngôn ngữ, lời chào, "Thêm tuỳ chọn đăng nhập", chế độ khách, dùng chung cho màn
+  Ủng hộ), mục 13.4 ô đồng ý Điều khoản không tích sẵn + bảng "Đồng ý và tiếp tục" (Nghị định 13/2023).
+- `DESIGN_SYSTEM.md` v4.1.0: ngưỡng 3:1 của biểu tượng đo trên nền thật ở MỌI trạng thái (viên chỉ báo đang chọn).
+- `LANGUAGE_SELECTION.md` v2.1.0: mục 5.1 Rust cho mã mới + đường nóng, ngân sách tốc độ web/app/desktop.
+- `PROJECT_STRUCTURE.md` v3.1.0: mục 3.1 Clean Codebase + cổng mã chết theo ngôn ngữ.
+- `BRAND_ASSETS.md` v4.1.0: liên kết về tsudev.com phải kèm dấu hiệu TsuDEV.
+
 ## 5.0.0 - 21/11/2026
 
 Bản MAJOR: **mỗi sản phẩm một bản sắc riêng** trên một lớp nền chung. Chủ dự án giao agent chọn phương án (21/11/2026)
