@@ -1,4 +1,4 @@
-# THƯ ĐIỆN TỬ `*@tsudev.com` - nhận, gửi, DNS, danh mục địa chỉ (v1.0.0)
+# THƯ ĐIỆN TỬ `*@tsudev.com` - nhận, gửi, DNS, danh mục địa chỉ (v1.1.0)
 
 > **Bất khả xâm phạm cho mọi project/tool/phần mềm TsuDEV.** Mọi địa chỉ `*@tsudev.com` xuất hiện trong mã, tài liệu,
 > website, ứng dụng, hồ sơ cửa hàng, manifest gói `MUST` có trong danh mục mục 3 và `MUST` nhận được thư. Mọi thư gửi
@@ -23,7 +23,7 @@
 ```
 Người gửi bên ngoài ──MX──▶ Cloudflare Email Routing (route1/2/3.mx.cloudflare.net)
                               ├─ luật literal (mục 3) ──forward──▶ hộp thư chủ dự án (đã xác minh)
-                              ├─ dmarc@ ──drop (báo cáo do Cloudflare DMARC Management xử lý)
+                              ├─ dmarc@ ──drop (giữ chỗ; báo cáo DMARC ⇒ Cloudflare DMARC Management)
                               └─ catch-all ──▶ Worker `qulythuchi` ──▶ chỉ nhận *@in.qulythuchi.tsudev.com,
                                                                      còn lại 550 "Unknown recipient"
 
@@ -62,7 +62,7 @@ Mọi địa chỉ dưới đây có luật `tsudev: <địa chỉ> - <mục đ�
 | `no-reply@tsudev.com`       | chuyển tiếp | Địa chỉ GỬI thư giao dịch (xác minh, quên mật khẩu, OTP) - **cách viết chuẩn**    |
 | `noreply@tsudev.com`        | chuyển tiếp | Biệt danh cũ của `no-reply@` - giữ cho mã cũ; mã mới `MUST` dùng `no-reply@`      |
 | `tls-rpt@tsudev.com`        | chuyển tiếp | Báo cáo TLS-RPT (RFC 8460) cho MTA-STS, khoảng 1-3 thư/ngày                       |
-| `dmarc@tsudev.com`          | **bỏ (drop)** | Địa chỉ `rua` dự phòng; báo cáo DMARC do Cloudflare DMARC Management nhận (mục 5.2) |
+| `dmarc@tsudev.com`          | **bỏ (drop)** | Giữ chỗ - KHÔNG nằm trong `rua`; báo cáo DMARC do Cloudflare DMARC Management nhận (mục 5.2) |
 
 Quy ước đặt tên địa chỉ mới: chữ thường, chỉ `a-z0-9-`, theo **vai trò** (`support@`, `billing@`) hoặc **sản phẩm**
 (`<san-pham>@`), `MUST NOT` theo tên người. Một sản phẩm `SHOULD` dùng chung `contact@`/`security@`/`privacy@` thay vì
@@ -87,7 +87,7 @@ tạo địa chỉ riêng, trừ khi có lý do (lọc thư theo sản phẩm).
 | TXT `cf2024-1._domainkey`        | khoá DKIM Cloudflare                                                     | Ký thư chuyển tiếp                    |
 | TXT `resend._domainkey`          | khoá DKIM Resend (`p=MIGf…CkhaB…`) - đúng **một** bản                    | Căn chỉnh DMARC cho thư gửi đi        |
 | MX + TXT `send.tsudev.com`       | `feedback-smtp.ap-northeast-1.amazonses.com`, `v=spf1 include:amazonses.com ~all` | Envelope/bounce của Resend   |
-| TXT `_dmarc`                     | `v=DMARC1; p=reject; sp=reject; adkim=r; aspf=r; rua=mailto:<Cloudflare>` | Chính sách DMARC (mục 5.2)          |
+| TXT `_dmarc`                     | `v=DMARC1; p=reject; sp=reject; adkim=r; aspf=r; rua=mailto:<mã>@dmarc-reports.cloudflare.net` | Chính sách DMARC (mục 5.2); `rua` chỉ có địa chỉ Cloudflare |
 | TXT `_mta-sts`                   | `v=STSv1; id=<YYYYMMDDTnn>`                                              | Báo có chính sách MTA-STS             |
 | `https://mta-sts.tsudev.com/.well-known/mta-sts.txt` | Worker `tsudev-mta-sts` (`templates/email/mta-sts-worker`) | Chính sách MTA-STS (RFC 8461)   |
 | TXT `_smtp._tls`                 | `v=TLSRPTv1; rua=mailto:tls-rpt@tsudev.com`                              | Báo cáo TLS (RFC 8460)                |
@@ -108,10 +108,12 @@ tạo địa chỉ riêng, trừ khi có lý do (lọc thư theo sản phẩm).
 làm Gmail trả `421 4.7.28 ... unusual rate of unsolicited mail ... temporarily rate limited` cho luồng chuyển tiếp
 `contact@ ⇒ Gmail`; Cloudflare thử lại cùng một báo cáo 23 lần, và **thư thật tới `contact@` bị hoãn/rớt xen kẽ**.
 
-- DMARC: dùng **Cloudflare DMARC Management** (miễn phí; Dashboard ⇒ `tsudev.com` ⇒ Email ⇒ DMARC Management). Tính
-  năng này tự thêm địa chỉ `…@dmarc-reports.cloudflare.net` vào `rua` và hiện biểu đồ nguồn gửi. `dmarc@tsudev.com`
-  (drop) chỉ là `rua` dự phòng, `MAY` gỡ khỏi bản ghi sau khi DMARC Management chạy.
-- TLS-RPT: lượng nhỏ (vài thư/ngày) nên chuyển tiếp được; chủ dự án `SHOULD` có bộ lọc Gmail gắn nhãn, bỏ qua hộp thư đến.
+- DMARC: **Cloudflare DMARC Management** đã bật 25/11/2026 (miễn phí; Dashboard ⇒ `tsudev.com` ⇒ Email ⇒ DMARC
+  Management - xem biểu đồ nguồn gửi, nguồn lạ trượt DMARC ở đây). Tính năng này tự thêm `…@dmarc-reports.cloudflare.net`
+  vào `rua`; khi bật lại/đổi bản ghi `MUST` kiểm `rua` chỉ còn địa chỉ đó (gỡ mọi địa chỉ `@tsudev.com`).
+- Xem DMARC Management **mỗi tháng** (phiên điều phối): nguồn gửi mới hợp lệ (dịch vụ mới) ⇒ cấu hình DKIM cho nó; nguồn
+  lạ ⇒ đang có kẻ giả mạo, `p=reject` đã chặn, ghi AKB.
+- TLS-RPT: lượng nhỏ (vài thư/ngày) nên chuyển tiếp được; bộ lọc Gmail mục 6.1 gắn nhãn và bỏ qua hộp thư đến.
 - MTA-STS đang `mode: testing` (từ 25/11/2026). Báo cáo TLS-RPT sạch ≥ 14 ngày ⇒ chuyển `enforce`, `max_age: 1209600`.
 
 ## 6. Gửi thư
@@ -131,6 +133,15 @@ làm Gmail trả `421 4.7.28 ... unusual rate of unsolicited mail ... temporaril
 - **Trả lời từ Gmail bằng địa chỉ `@tsudev.com`** (👤 chủ dự án): Gmail ⇒ Cài đặt ⇒ Tài khoản ⇒ "Gửi thư bằng địa chỉ"
   ⇒ SMTP `smtp.resend.com`, cổng `465` (SSL), tên người dùng `resend`, mật khẩu = khoá Resend "Sending access" riêng cho
   việc này. `MUST NOT` chọn "gửi qua máy chủ Gmail" (DKIM `gmail.com` ⇒ trượt DMARC ⇒ bị từ chối).
+
+### 6.1. Hộp thư nhận chuyển tiếp (Gmail của chủ dự án)
+
+- Nhập [`templates/email/gmail-filters.xml`](../templates/email/gmail-filters.xml): Gmail ⇒ Cài đặt ⇒ Xem tất cả chế
+  độ cài đặt ⇒ Bộ lọc và địa chỉ bị chặn ⇒ **Nhập bộ lọc** ⇒ chọn tệp ⇒ Mở tệp ⇒ tích tất cả ⇒ **Tạo bộ lọc** (tích
+  "Cũng áp dụng bộ lọc cho các cuộc hội thoại phù hợp"). Kết quả: không thư `*@tsudev.com` nào vào Spam; nhãn
+  `TsuDEV/An ninh`, `/Quyền riêng tư`, `/Liên hệ`, `/Hệ thống`, `/Thư trả lời`, `/Báo cáo TLS` (bỏ qua hộp thư đến).
+- Thêm địa chỉ mới vào mục 3 ⇒ thêm vào nhóm phù hợp trong tệp XML cùng PR, rồi chủ dự án nhập lại.
+- Thư `security@`/`privacy@` `SHOULD` được phản hồi trong 3 ngày làm việc (`SECURITY.md`, Nghị định 13/2023).
 
 ## 7. Website, ứng dụng, cửa hàng
 
@@ -183,5 +194,7 @@ query($z:String!,$s:Time!,$e:Time!){viewer{zones(filter:{zoneTag:$z}){
 
 ## 10. Lịch sử
 
+- **v1.1.0 - 25/11/2026**: Cloudflare DMARC Management đã bật, `rua` chỉ còn địa chỉ Cloudflare; mục 6.1 bộ lọc Gmail
+  (`templates/email/gmail-filters.xml`); rà DMARC Management hằng tháng.
 - **v1.0.0 - 25/11/2026**: bản đầu. Danh mục 18 địa chỉ (gửi thử đủ), DMARC `rua` rời `contact@`, MTA-STS (testing) +
   TLS-RPT, quy trình thêm địa chỉ, bảng lỗi đã gặp.
