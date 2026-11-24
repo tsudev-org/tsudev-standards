@@ -8,6 +8,12 @@ Mới nhất trên cùng.
 
 ---
 
+## 5.2.0 - 24/11/2026
+
+- `BRAND_ASSETS.md` v4.2.0 mục 15.4: logo dùng trên giao diện `MUST` nền trong suốt + SVG, hai bản Tối/Sáng (nét trắng
+  đổi sang màu nền gốc ở bản Sáng), bản `adaptive` làm `favicon.svg`; thay quy tắc cũ "nét trắng trên ô tối thì giữ nền".
+  Dây chuyền mẫu: `tsudev` `packages/brand/build-vector-marks.js` (tsudev#371). Icon ứng dụng hệ điều hành vẫn là ô nền đặc.
+
 ## 5.1.0 - 24/11/2026
 
 Chủ dự án yêu cầu 24/11/2026 (phiếu điều phối `20261124-QR1`): màn đăng nhập thống nhất kiểu Quly Thu Chi + Lark,
