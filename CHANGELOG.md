@@ -8,6 +8,33 @@ Mới nhất trên cùng.
 
 ---
 
+## 6.0.0 - 25/11/2026
+
+Chủ dự án yêu cầu 25/11/2026 (tsudev phiếu `20261125-UX2`, phiếu toàn hệ `20261125-UI2`): nền Sáng trắng nhìn lâu mỏi
+mắt; trang "nhúng" khi Ctrl+F5; câu giới thiệu hệ sinh thái mới; font tiêu đề chuẩn tiếng Việt.
+
+- **MAJOR - bảng Sáng "giấy" xám-xanh** (`design-tokens.json` 4.0.0): `bg-base` `#FAFAFA`→`#EEF1F5`, `bg-surface`
+  `#FFFFFF`→`#F8FAFC`, `bg-subtle` `#F4F4F5`→`#E9EDF2`, `bg-hover` `#EBEBED`→`#E6EAF0`, `border` `#E4E4E7`→`#D5DBE3`,
+  `border-strong` `#D4D4D8`→`#C3CBD6`, `border-control` `#71717A`→`#64748B`, `text-secondary` `#3F3F46`→`#334155`,
+  `text-muted` `#52525B`→`#475569`, `accent` `#0E7490`→`#0D6E89` (giữ ≥ 4.5:1 trên nền hover mới). Bảng Tối không đổi.
+  34/34 cặp màu đạt WCAG (`check-contrast.mjs`).
+- **Lớp bản sắc**: sinh lại bảng Sáng của 10 sản phẩm theo nền mới (`gen-product-palette.mjs`, màu chính đậm thêm
+  vài phần trăm để giữ AA); `tsudev.fontDisplay` `Inter`→`Be Vietnam Pro`; `trafficmonitor` đổi tên **Tsu Tramon**, repo
+  `tsudev-org/tsutramon` (giữ `id`). Bố cục `cong` cho phép lưới danh mục ở đầu trang danh bạ.
+- `ECOSYSTEM_IDENTITY.md` mục 1: mô tả chuẩn mới "TsuDEV là hệ sinh thái ứng dụng, tiện ích và công cụ số đa nền tảng".
+- `DESIGN_SYSTEM.md`: mục 4 nạp font trên web (subset `vietnamese` `MUST`, preload + dự phòng đo thật `SHOULD`); mục
+  5 "Màn đầu & thẻ" (không fade-in ở màn đầu `MUST`, không dải màu đầu thẻ, hoạ tiết theo thể loại, chuyển động
+  icon tắt dưới reduced-motion).
+
+### Hướng dẫn nâng cấp
+
+1. `sync-standards.sh` lên `v6.0.0`, sinh lại token của repo (vd. `npm run tokens:sync`).
+2. Tìm mã màu Sáng cắm cứng: `grep -rniE "#fafafa|#ffffff|#f4f4f5|#ebebed|#e4e4e7|#d4d4d8|#71717a|#3f3f46|#52525b|#0e7490"`
+   - `<meta name="theme-color">` / `site.webmanifest` / script chống nháy chế độ Sáng: `#eef1f5`.
+   - Ứng dụng desktop/di động đọc token lúc build: build lại; ảnh chụp màn hình cửa hàng chế độ Sáng chụp lại khi tiện.
+3. Chạy test tương phản của repo (nếu có) ở cả hai chế độ.
+4. Chỗ nào dùng `#FFFFFF` làm "nền thẻ" thì đổi sang `var(--bg-surface)`.
+
 ## 5.4.0 - 25/11/2026
 
 Chủ dự án yêu cầu 24/11/2026 (phiếu điều phối `tsudev` `20261123-EM1`): thư gửi tới `contact@tsudev.com` không về hộp
