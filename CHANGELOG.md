@@ -8,6 +8,14 @@ Mới nhất trên cùng.
 
 ---
 
+## 7.0.1 - 25/11/2026
+
+- `LOCAL_SYNC.md` v1.0.1: sửa công thức mã so 6 chữ số - bản 1.0.0 ghi "20 bit đầu" (cho tới 1 048 575 = 7 chữ số) và
+  thứ tự nonce mơ hồ. Nay: (4 byte đầu SHA-256, big-endian) mod 1 000 000, nonce xếp theo vân tay; vector ở
+  `tsudev-org/tsulink` `conformance/sas-vector-1.txt` (tính độc lập bằng Python, khớp Rust).
+
+---
+
 ## 7.0.0 - 25/11/2026
 
 **Thay đổi phá vỡ.** Chủ dự án 25/11/2026: (1) dữ liệu người dùng KHÔNG lên internet hay tài khoản bên thứ ba - đồng bộ
