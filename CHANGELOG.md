@@ -8,6 +8,14 @@ Mới nhất trên cùng.
 
 ---
 
+## 7.1.1 - 26/11/2026
+
+- `LOCAL_SYNC.md` v1.0.2: so mã số có **cam kết nonce** (bên được gọi gửi SHA-256(`tsulink-sas-commit|` ‖ nonce) trước
+  khi thấy nonce bên kia) - không có bước này kẻ đứng giữa thử được ~10⁶ nonce cho hai mã trùng. Công thức mã không đổi.
+  Cài đặt tham chiếu: `tsudev-org/tsulink` 0.4.0, ADR-0003.
+
+---
+
 ## 7.1.0 - 26/11/2026
 
 Chủ dự án 26/11/2026: mọi sản phẩm TsuDEV nhắc người dùng đăng nhập (tài khoản TsuDEV hoặc Google/GitHub/Apple) khi
