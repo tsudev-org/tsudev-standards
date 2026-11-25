@@ -8,6 +8,29 @@ Mới nhất trên cùng.
 
 ---
 
+## 6.4.0 - 25/11/2026
+
+Chủ dự án 25/11/2026 uỷ quyền chọn phương án cho bộ chủ đề Pro (quyền lợi **Q2**, `PRODUCT_POLICY` 3.7.1, phiếu
+`20261125-PRO3`). Gỡ chặn `tsudev-ui-flutter` (Q2 cần token từ bộ quy ước, không tự chế).
+
+- `tokens/pro-themes.json` v1.0.0 (MỚI): 5 chủ đề - **Hổ phách** (80), **Chàm đêm** (272), **Rừng thông** (150),
+  **Hoa đào** (355), **Than chì** (255, gần đơn sắc). Mỗi chủ đề 18 vai trò × 2 chế độ: nền/viền ngả sắc nhẹ (giữ độ sáng
+  OKLCH), 10 vai trò nhấn, `pro-ring-start`/`pro-ring-end` cho khung ảnh đại diện.
+- `scripts/gen-pro-themes.mjs` (MỚI): sinh màu bằng thuật toán dò WCAG của `gen-product-palette.mjs` trên nền đã ngả, đo
+  lại bằng đúng ngưỡng `check-contrast.mjs`; `--check` trong `check-standards.sh`. `tokens/pro-themes.css` (sinh) nằm trong
+  `@media not (prefers-contrast: more)` - tương phản cao luôn thắng.
+- `gen-product-palette.mjs`: `palette(H, C, base)` nhận lớp nền tuỳ chọn; `check-contrast.mjs` xuất `auditColors()` +
+  bộ ngưỡng (không đổi kết quả với sản phẩm hiện có).
+- `DESIGN_SYSTEM.md` v4.2.0 mục **1.3** (chủ đề Pro, quy tắc dùng, biểu tượng app thay thế, cách dùng web/Flutter), mục 7;
+  `PRODUCT_POLICY.md` 3.7.1 dòng Q2 trỏ tới bộ chủ đề.
+
+### Hướng dẫn nâng cấp
+
+`tsudev-ui-flutter` / `@tsudev/ui`: thêm `TsuProTheme` + bộ chọn ở Cài đặt → Giao diện theo mục 1.3. App/website: chỉ
+dùng qua thư viện chung khi có; web tự viết nạp `pro-themes.css` sau `products.css`. Không bắt buộc làm ngay.
+
+---
+
 ## 6.3.0 - 25/11/2026
 
 Chủ dự án 25/11/2026: Apple Developer Program đăng ký **tháng 02/2027**; tới lúc đó mọi project ưu tiên phương án tối ưu

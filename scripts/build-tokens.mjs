@@ -16,6 +16,8 @@ const JSON_PATH = join(ROOT, 'tokens', 'design-tokens.json');
 const CSS_PATH = join(ROOT, 'tokens', 'tokens.css');
 const PRODUCTS_DIR = join(ROOT, 'tokens', 'products');
 const PRODUCTS_CSS_PATH = join(ROOT, 'tokens', 'products.css');
+const PRO_JSON_PATH = join(ROOT, 'tokens', 'pro-themes.json');
+const PRO_CSS_PATH = join(ROOT, 'tokens', 'pro-themes.css');
 
 const t = JSON.parse(readFileSync(JSON_PATH, 'utf8'));
 
@@ -164,11 +166,35 @@ for (const p of products) {
 }
 const productsCss = pl.join('\n') + '\n';
 
+/* ---------------- tokens/pro-themes.css - chủ đề Pro (Q2) ---------------- */
+const pro = JSON.parse(readFileSync(PRO_JSON_PATH, 'utf8'));
+const xl = [];
+xl.push('/* ============================================================');
+xl.push(`   tsudev-pro-themes v${pro.meta.version} - CHỦ ĐỀ PRO (Q2) - SINH TỰ ĐỘNG, KHÔNG SỬA TAY`);
+xl.push('   Nguồn: tokens/pro-themes.json   Sinh lại: node scripts/gen-pro-themes.mjs && node scripts/build-tokens.mjs');
+xl.push('   Cách dùng: nạp SAU products.css; CHỈ khi JWS quyền lợi có Pro mới đặt');
+xl.push('   <html data-pro-theme="<id>">. Tương phản cao của hệ điều hành luôn thắng (khối @media).');
+xl.push('   ============================================================ */');
+xl.push('@media not (prefers-contrast: more) {');
+for (const th of pro.themes) {
+  xl.push('');
+  xl.push(`  /* ${th.name.vi} / ${th.name.en} - hue ${th.hue}, chroma ${th.chroma}, ngả nền ${th.tint} */`);
+  xl.push(`  :root[data-pro-theme="${th.id}"] {`);
+  for (const [k, v] of Object.entries(th.colors.light)) xl.push(`    --${k}: ${v};`);
+  xl.push('  }');
+  xl.push(`  :root[data-pro-theme="${th.id}"][data-theme="dark"] {`);
+  for (const [k, v] of Object.entries(th.colors.dark)) xl.push(`    --${k}: ${v};`);
+  xl.push('  }');
+}
+xl.push('}');
+const proCss = xl.join('\n') + '\n';
+
 if (process.argv.includes('--check')) {
   let bad = 0;
   for (const [path, want, src] of [
     [CSS_PATH, css, 'tokens/design-tokens.json'],
     [PRODUCTS_CSS_PATH, productsCss, 'tokens/products/*.json'],
+    [PRO_CSS_PATH, proCss, 'tokens/pro-themes.json'],
   ]) {
     let current = '';
     try {
@@ -185,9 +211,10 @@ if (process.argv.includes('--check')) {
     console.error('      Chạy: node scripts/build-tokens.mjs');
     process.exit(1);
   }
-  console.log('OK: tokens.css và products.css khớp nguồn JSON');
+  console.log('OK: tokens.css, products.css và pro-themes.css khớp nguồn JSON');
 } else {
   writeFileSync(CSS_PATH, css, 'utf8');
   writeFileSync(PRODUCTS_CSS_PATH, productsCss, 'utf8');
+  writeFileSync(PRO_CSS_PATH, proCss, 'utf8');
   console.log(`Đã sinh ${CSS_PATH} và ${PRODUCTS_CSS_PATH}`);
 }
