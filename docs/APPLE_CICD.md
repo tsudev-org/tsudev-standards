@@ -1,4 +1,4 @@
-# QUY TRÌNH APPLE (iOS, iPadOS, macOS) - CI/CD, KÝ, TESTFLIGHT (v1.0.0)
+# QUY TRÌNH APPLE (iOS, iPadOS, macOS) - CI/CD, KÝ, TESTFLIGHT (v1.1.0)
 
 > **Bắt buộc cho mọi project TsuDEV có bản iOS/iPadOS/macOS.** Phát triển, ký và phân phối cho hệ sinh thái Apple từ
 > Ubuntu/WSL2 (không cần Mac) qua GitHub Actions macOS → TestFlight / App Store Connect; macOS qua Developer ID +
@@ -6,7 +6,7 @@
 
 | Mục | Giá trị |
 | :-- | :-- |
-| **Phiên bản** | 1.0.0 - bộ quy ước v6.2.0 (25/11/2026) |
+| **Phiên bản** | 1.1.0 - bộ quy ước v6.3.0 (25/11/2026): thêm mục 3.1 giai đoạn chuyển tiếp tới khi có Apple Developer Program (dự kiến 02/2027) |
 | **Hợp nhất từ** | (1) "Quy trình chuẩn hoá Cloud CI/CD Apple cho AI Agent" v2.0; (2) `TSUDEV_Apple_CICD_SOP_v3.md` v3.0; (3) "Đặc tả triển khai đa nền tảng Apple miễn phí & mã nguồn mở" v3.0 - đối chiếu với bộ quy ước **tsudev-standards v6.1.0** và mã thật trong `~/projects/*` |
 | **Thay thế** | Ba tài liệu trên (không đưa vào repo). Khác nhau ⇒ theo tài liệu này (lý do ở mục 2) |
 | **Tệp đi kèm** | `scripts/apple/setup_apple_signing.sh`, `scripts/apple/apple-apps.tsv`, `templates/apple/apple-testflight.yml` (tệp gọi), `templates/apple/apple-ios-testflight.reusable.yml` (bản sao để đọc; bản chạy ở `tsudev-org/.github`) |
@@ -20,7 +20,7 @@
 
 ## 0. MỤC LỤC
 
-1. Luật cứng · 2. Hợp nhất và các xung đột đã gỡ · 3. Giới hạn trung thực, ma trận thiết bị · 4. Hiện trạng hệ ·
+1. Luật cứng · 2. Hợp nhất và các xung đột đã gỡ · 3. Giới hạn trung thực, ma trận thiết bị (3.1 giai đoạn chuyển tiếp) · 4. Hiện trạng hệ ·
 5. Kiến trúc đích · 6. Việc 👤 · 7. Kho khoá, bí mật, script `setup_apple_signing.sh` · 8. Workflow ·
 9. Chuẩn hoá cấu hình app · 10. Trình tự thực thi · 11. Xử lý lỗi · 12. Bảo mật · 13. Chi phí · 14. Bảo trì ·
 15. Hoàn thành và báo cáo · 16. Thay đổi cần duyệt ở bộ quy ước · 17. Kiểm chứng đã chạy ·
@@ -95,6 +95,50 @@ Phụ lục A (website/PWA trên Safari) · B (Codemagic, Xcode Cloud) · C (l�
 | Mac Intel | Chỉ bản macOS riêng (Developer ID, universal) | App iOS không chạy trên Mac Intel |
 | Apple Vision Pro | App iPad tương thích | Bật ở App Store Connect |
 | Apple Watch, Apple TV | Ngoài phạm vi | Cần target riêng |
+
+### 3.1. GIAI ĐOẠN CHUYỂN TIẾP - trước khi có Apple Developer Program (H1, dự kiến 02/2027)
+
+Quyết định chủ dự án 25/11/2026: H1 đăng ký **tháng 02/2027**. Tới lúc đó mọi project ưu tiên phương án **0 đồng** nhưng
+người dùng iPhone/iPad, Mac vẫn tải, cài và dùng được bình thường. Không có cách hợp lệ nào để phát app iOS gốc cho người
+khác mà không có tài khoản trả phí (Apple ID miễn phí chỉ ký 7 ngày, chỉ cho máy của chính người dựng, cần Mac) và R6 vẫn
+cấm IPA/AltStore/dịch vụ ký ⇒ kênh chính cho iPhone/iPad là **bản web cài được (PWA)** trên Safari.
+
+| Nền tảng | Kênh trong giai đoạn chuyển tiếp | Chi phí |
+| :-- | :-- | :-: |
+| iPhone, iPad (iOS/iPadOS 16.4+; iPhone 8 = 16.7) | PWA tự host: Safari → Chia sẻ → **Thêm vào Màn hình chính**; chạy toàn màn hình, có biểu tượng, dùng ngoại tuyến (service worker) | 0 đồng (Cloudflare Workers/Pages gói miễn phí) |
+| Mac | PWA (Safari 17+ "Thêm vào Dock") **hoặc** DMG ký ad-hoc trên Release (mục 8.5 nhánh "thiếu Team ID"), hướng dẫn "Cài đặt hệ thống → Quyền riêng tư & Bảo mật → Vẫn mở" | 0 đồng |
+| Android, Windows, Linux | Không đổi (`DISTRIBUTION_TRUST`) | - |
+
+`MUST` trong giai đoạn này:
+
+1. Mỗi app có `ios/` có **bản web** dùng được trên Safari iOS, tên miền `*.tsudev.com` của sản phẩm (đường dẫn `/app/`
+   như qulythuchi, tsuscan), theo Phụ lục A: `manifest.webmanifest`/`manifest.json` có `display: "standalone"`,
+   `apple-touch-icon` 180×180 nền đặc, `theme-color` sáng/tối, safe-area, service worker cho tài nguyên tĩnh, CSP giữ nguyên.
+2. Trang tải của sản phẩm và README có mục **"iPhone / iPad"**: nút mở bản web + 3 bước "Thêm vào Màn hình chính" (vi/en),
+   ghi rõ "bản trên App Store sẽ có sau". `MUST NOT` hứa ngày cụ thể, `MUST NOT` đăng `.ipa`.
+3. Chỉ khai tính năng **chạy thật trên Safari**; tính năng không có trên web (xem bảng dưới) ghi rõ "chưa có trên
+   iPhone/iPad bản web". Kiểm trên Safari iOS thật hoặc BrowserStack/LambdaTest gói miễn phí trước khi ghi ✅.
+4. Dữ liệu: gọi `navigator.storage.persist()`; app E2EE có xuất/nhập tệp và (Pro) đồng bộ - không coi IndexedDB là nơi
+   lưu duy nhất (Safari có thể xoá dữ liệu trang ít dùng).
+5. TsuDEV Pro trên bản web: mua tại `tsudev.com/pro?app=<ma>` (`PRODUCT_POLICY` 3.7, 0.6 phiếu PRO3) - bản web không
+   thuộc App Store nên không dùng StoreKit; khi có app iOS gốc thì dùng StoreKit `com.tsudev.pro.nam` như mục 9.
+6. Phần repo của AP2 (PrivacyInfo, khai mã hoá, `apple.yml` không ký, tệp gọi `apple-testflight.yml` với
+   `team-id-pin: ''`) **vẫn làm** - không tốn tiền (repo công khai, runner macOS miễn phí) và để tới 02/2027 chỉ còn H1-H9.
+
+Giới hạn kỹ thuật đã biết của web trên iOS (kiểm lại trên máy thật trước khi khai):
+
+| Khả năng | Trên Safari / PWA iOS |
+| :-- | :-- |
+| Camera, micro (`getUserMedia`) | Có, cần HTTPS + người dùng cho phép; trong PWA đã thêm vào Màn hình chính cũng chạy |
+| La bàn (`DeviceOrientationEvent`) | Có, phải gọi `DeviceOrientationEvent.requestPermission()` trong thao tác chạm; hướng Bắc lấy `webkitCompassHeading` |
+| Thông báo đẩy | Chỉ iOS/iPadOS 16.4+ và chỉ khi đã "Thêm vào Màn hình chính" |
+| Wasm, WebCrypto, libsodium.js, SQLite wasm | Có |
+| Tìm máy cùng mạng LAN (multicast/mDNS), mở cổng TCP/UDP nghe | **Không** - app chuyển tệp LAN (lotus-share) chỉ có chiều nhận qua "chia sẻ qua liên kết" mở bằng Safari |
+| Tiện ích màn hình chính (widget), Share Extension, chạy nền | **Không** |
+| Đo âm thanh chính xác | Micro có AGC/lọc ồn của hệ thống; xin `echoCancellation/noiseSuppression/autoGainControl: false` và ghi rõ sai số trên web |
+
+Kết thúc giai đoạn: khi H1 xong ⇒ làm mục 10 (Pilot sound-db). Bản web **giữ lại** (người dùng iPhone cũ, Mac Intel),
+trang tải thêm nút App Store.
 
 ---
 
@@ -427,13 +471,14 @@ Mẫu báo cáo: `| Repo | Bundle | Secrets | App Record | apple.yml | TestFligh
 
 ---
 
-## 16. ĐÃ ÁP DỤNG Ở BỘ QUY ƯỚC v6.2.0
+## 16. ĐÃ ÁP DỤNG Ở BỘ QUY ƯỚC v6.2.0 / v6.3.0
 
 1. Tài liệu này + `scripts/apple/` + `templates/apple/`; trỏ từ `DISTRIBUTION_TRUST` 1.2/1.4, `STORE_SUBMISSION` 4.3,
    `AGENTS.md`, `00-INDEX.md`.
 2. `VERSIONING.md`: `NN = 99` dành cho bản TestFlight liên tục; số build bản liên tục = `run_number + offset`.
 3. Vai trò khoá API = **Admin** (Team Key) - thay câu "App Manager" ở hướng dẫn cũ (phiếu AP1 mục 2.3).
 4. `tsudev-org/.github`: `apple-ios-testflight.yml`.
+5. v6.3.0: mục 3.1 giai đoạn chuyển tiếp (PWA cho iPhone/iPad, DMG ad-hoc cho Mac) tới khi có H1; phiếu `20261125-AP3`.
 
 ---
 
@@ -456,7 +501,7 @@ Mẫu báo cáo: `| Repo | Bundle | Secrets | App Record | apple.yml | TestFligh
 
 ## PHỤ LỤC A - WEBSITE / PWA TRÊN SAFARI (iPhone, iPad, Mac)
 
-Cho website TsuDEV (`*.tsudev.com`) - không thay app gốc, không lách App Store:
+Cho website TsuDEV (`*.tsudev.com`) và bản web của app. Trước H1 đây là **kênh chính cho iPhone/iPad** (mục 3.1); sau H1 chạy song song app gốc. Không lách App Store:
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
