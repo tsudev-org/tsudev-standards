@@ -8,6 +8,21 @@ Mới nhất trên cùng.
 
 ---
 
+## 7.1.0 - 26/11/2026
+
+Chủ dự án 26/11/2026: mọi sản phẩm TsuDEV nhắc người dùng đăng nhập (tài khoản TsuDEV hoặc Google/GitHub/Apple) khi
+thiết bị có internet mà chưa đăng nhập, để khôi phục tài khoản/quyền lợi, báo cáo sự cố gắn tài khoản và để máy chủ đánh
+giá trạng thái tài khoản (vi phạm điều khoản ⇒ `suspended`). Phiếu `20261126-LG3`.
+
+- `AUTH_AND_ACCOUNT.md` v3.5.0: mục 14.4 MỚI - điều kiện hiện R1-R6 (internet theo tín hiệu hệ điều hành, không thăm dò
+  mạng; không ở Chế độ ngoại tuyến hoàn toàn; điểm dừng tự nhiên; ≥ 30 giây sau khi sẵn sàng; không chồng modal khoá),
+  nhịp 1 lần/phiên → 24 giờ → 3 ngày → 7 ngày + "Không nhắc trong 30 ngày" (lưu cục bộ, không gửi đi), modal nguyên văn
+  vi/en, cấm mẫu giao diện lừa dối, trợ năng; luồng đăng nhập qua trình duyệt hệ thống + PKCE (không WebView, không ô mật
+  khẩu trong modal); trạng thái tài khoản do máy chủ quyết; CLI một dòng gợi ý; ca kiểm thử 17 + checklist.
+- `PRODUCT_POLICY.md` v2.1.0: mục 7.7 dẫn tới cơ chế nhắc; `/privacy` có neo `#dang-nhap`.
+
+---
+
 ## 7.0.1 - 25/11/2026
 
 - `LOCAL_SYNC.md` v1.0.1: sửa công thức mã so 6 chữ số - bản 1.0.0 ghi "20 bit đầu" (cho tới 1 048 575 = 7 chữ số) và
