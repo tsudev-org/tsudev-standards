@@ -66,7 +66,7 @@ cho tới khi có Apple Developer Program:
   `xcrun notarytool submit --wait` + `xcrun stapler staple`, bật **Hardened Runtime**, entitlements tối thiểu; bước đó
   tự bỏ qua khi thiếu bí mật `APPLE_*`.
 - Ngày có tài khoản (v1.3.0): ký Developer ID + công chứng theo [`APPLE_CICD.md`](APPLE_CICD.md) mục 8.5 (bí mật ở
-  environment `apple`, chứng chỉ Developer ID tạo bằng `scripts/apple/setup_apple_secrets.sh csr-devid`/`import-devid`).
+  environment `apple`, chứng chỉ Developer ID tạo bằng `scripts/apple/setup_apple_signing.sh csr-devid`/`import-devid`).
 
 ### 1.3. Android
 
@@ -99,7 +99,7 @@ theo [`PRODUCT_POLICY.md`](PRODUCT_POLICY.md) mục 2.1, để đầu 2027 chỉ
 - `MUST NOT` phát `.ipa` qua GitHub Release, nguồn AltStore/SideStore hay bất kỳ kênh ngoài App Store/TestFlight
   (v1.3.0). `.ipa` không ký của CI chỉ là artifact ngắn hạn để chủ dự án tự ký cho máy của mình.
 - Ngày có tài khoản: dựng, ký, tải lên TestFlight theo [`APPLE_CICD.md`](APPLE_CICD.md) (workflow dùng chung
-  `tsudev-org/.github`, script `scripts/apple/setup_apple_secrets.sh`, phiếu toàn hệ `20261125-AP2`).
+  `tsudev-org/.github`, script `scripts/apple/setup_apple_signing.sh`, phiếu toàn hệ `20261125-AP2`).
 
 ### 1.5. Tải từ trình duyệt
 

@@ -18,11 +18,11 @@ hàng, Bundle ID theo nhóm, tên bí mật khác hệ, `macos-latest`/Xcode bet
   hiện trạng 5 app iOS, kiến trúc L1 `apple.yml` (không ký) / L2 TestFlight / L3 macOS Developer ID, việc 👤 H1-H9,
   bí mật `APPLE_*` ở **environment `apple`** (chỉ `main` + `v*`), Team ID ghim trong workflow, phiên bản, chuẩn hoá cấu
   hình (PrivacyInfo, khai mã hoá theo từng app, StoreKit cho Pro), trình tự có cổng + Pilot, xử lý lỗi, bảo mật, bảo trì.
-- `scripts/apple/setup_apple_secrets.sh` (MỚI): OpenSSL + App Store Connect API (JWT ES256 bằng Python) cấp chứng chỉ
+- `scripts/apple/setup_apple_signing.sh` (MỚI): OpenSSL + App Store Connect API (JWT ES256 bằng Python) cấp chứng chỉ
   Apple Distribution, `.p12` tương thích macOS, Developer ID qua CSR, đăng ký Bundle ID, đặt environment + bí mật hàng loạt
   bằng `gh`, kiểm, xem build, sao lưu `age`. `scripts/apple/apple-apps.tsv`: registry 5 app.
 - `templates/apple/apple-testflight.yml` (tệp gọi) + bản sao `apple-ios-testflight.reusable.yml` của workflow dùng
-  chung `tsudev-org/.github` (#6, `eed8795`).
+  chung `tsudev-org/.github` (#6, #7; `179e771`).
 - `VERSIONING.md` v3.1.0: `NN = 99` dành cho bản TestFlight liên tục. `DISTRIBUTION_TRUST.md` v1.3.0: cấm `.ipa` ngoài
   App Store/TestFlight, trỏ quy trình. `STORE_SUBMISSION.md` v1.3.0 mục 4.3 trỏ quy trình. `AGENTS.md`, `00-INDEX.md`.
 

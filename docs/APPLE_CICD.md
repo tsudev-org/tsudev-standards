@@ -9,7 +9,7 @@
 | **Phiên bản** | 1.0.0 - bộ quy ước v6.2.0 (25/11/2026) |
 | **Hợp nhất từ** | (1) "Quy trình chuẩn hoá Cloud CI/CD Apple cho AI Agent" v2.0; (2) `TSUDEV_Apple_CICD_SOP_v3.md` v3.0; (3) "Đặc tả triển khai đa nền tảng Apple miễn phí & mã nguồn mở" v3.0 - đối chiếu với bộ quy ước **tsudev-standards v6.1.0** và mã thật trong `~/projects/*` |
 | **Thay thế** | Ba tài liệu trên (không đưa vào repo). Khác nhau ⇒ theo tài liệu này (lý do ở mục 2) |
-| **Tệp đi kèm** | `scripts/apple/setup_apple_secrets.sh`, `scripts/apple/apple-apps.tsv`, `templates/apple/apple-testflight.yml` (tệp gọi), `templates/apple/apple-ios-testflight.reusable.yml` (bản sao để đọc; bản chạy ở `tsudev-org/.github`) |
+| **Tệp đi kèm** | `scripts/apple/setup_apple_signing.sh`, `scripts/apple/apple-apps.tsv`, `templates/apple/apple-testflight.yml` (tệp gọi), `templates/apple/apple-ios-testflight.reusable.yml` (bản sao để đọc; bản chạy ở `tsudev-org/.github`) |
 | **Đối tượng** | Lập trình viên và agent (Claude Code...) chạy trên Ubuntu/WSL2 của máy Windows; **không cần Mac** |
 | **Đích** | Mã ở `~/projects/<repo>` → GitHub → GitHub Actions macOS → ký "Apple Distribution" → **TestFlight / App Store Connect**; macOS → Developer ID + công chứng (notarize) |
 | **Đã kiểm chứng** | Mục 17: script chạy thật với máy chủ App Store Connect giả lập (JWT ES256, cấp chứng chỉ, `.p12`), YAML + `bash -n` mọi khối lệnh, logic phiên bản. **Chưa chạy trên tài khoản Apple thật** ⇒ Pilot (mục 10, Phase 3) là cổng bắt buộc |
@@ -21,7 +21,7 @@
 ## 0. MỤC LỤC
 
 1. Luật cứng · 2. Hợp nhất và các xung đột đã gỡ · 3. Giới hạn trung thực, ma trận thiết bị · 4. Hiện trạng hệ ·
-5. Kiến trúc đích · 6. Việc 👤 · 7. Kho khoá, bí mật, script `setup_apple_secrets.sh` · 8. Workflow ·
+5. Kiến trúc đích · 6. Việc 👤 · 7. Kho khoá, bí mật, script `setup_apple_signing.sh` · 8. Workflow ·
 9. Chuẩn hoá cấu hình app · 10. Trình tự thực thi · 11. Xử lý lỗi · 12. Bảo mật · 13. Chi phí · 14. Bảo trì ·
 15. Hoàn thành và báo cáo · 16. Thay đổi cần duyệt ở bộ quy ước · 17. Kiểm chứng đã chạy ·
 Phụ lục A (website/PWA trên Safari) · B (Codemagic, Xcode Cloud) · C (lệnh nhanh) · D (nguồn)
@@ -41,7 +41,7 @@ Phụ lục A (website/PWA trên Safari) · B (Codemagic, Xcode Cloud) · C (l�
 | R7 | Hàng loạt luôn theo `--dry-run` → **Pilot 1 repo** → đợt ≤ 3 repo. |
 | R8 | Repo đang có phiên Claude khác (`ListAgents`) ⇒ **không sửa hộ**: viết phiếu vào `logs/handover/` của repo đó + `SendMessage`. Không đụng repo UBND/xanuicam, b4djl1h-cmdb, mieubathuong. Không tạo/đổi tên repo thành tên cũ bị cấm trong `~/.claude/CLAUDE.md`. |
 | R9 | Không dùng `pull_request_target`; job có bí mật chỉ chạy ở environment `apple` (nhánh `main` + nhãn `v*`). |
-| R10 | Chỉ báo "thành công" khi có **bằng chứng**: `gh run view` = `success` **và** `setup_apple_secrets.sh builds <bundle>` thấy build mới. |
+| R10 | Chỉ báo "thành công" khi có **bằng chứng**: `gh run view` = `success` **và** `setup_apple_signing.sh builds <bundle>` thấy build mới. |
 | R11 | Commit/PR **không** ghi đồng tác giả AI hay "Generated with" (sản phẩm đứng tên chủ dự án). Commit theo Conventional Commits tiếng Việt như repo đang dùng. |
 | R12 | Tôn trọng bảo vệ nhánh: bị từ chối ⇒ nhánh + PR, chờ CI xanh, không vượt. |
 | R13 | **0 đồng**: ngoại lệ DUY NHẤT đã có trong bộ quy ước là Apple Developer Program 99 USD/năm (`DISTRIBUTION_TRUST` bảng phí, 👤 trả). Không bật gói trả phí nào khác (Codemagic trả phí, phút macOS cho repo riêng tư, GitHub Team...). |
@@ -120,7 +120,7 @@ Phụ lục A (website/PWA trên Safari) · B (Codemagic, Xcode Cloud) · C (l�
  Ubuntu/WSL2 (~/projects)                    GitHub (tsudev-org, repo công khai = phút macOS miễn phí)
  ┌──────────────────────────┐   git push    ┌──────────────────────────────────────────────────────────────┐
  │ mã app (Flutter + Rust)  │ ─────────────▶│ L1 apple.yml  (PR/push/tuần): dựng KHÔNG ký, Simulator iPhone │
- │ setup_apple_secrets.sh   │               │    + iPad 13", kiểm tĩnh, .ipa không ký (artifact 14 ngày)    │
+ │ setup_apple_signing.sh   │               │    + iPad 13", kiểm tĩnh, .ipa không ký (artifact 14 ngày)    │
  │  ├ OpenSSL: khoá + CSR   │  gh api/secret│ L2 apple-testflight.yml (nhãn v* | push main nếu bật):        │
  │  ├ ASC API: cấp chứng chỉ│ ─────────────▶│    environment `apple` → workflow dùng chung                  │
  │  └ đặt secret/variable   │               │    tsudev-org/.github/apple-ios-testflight.yml@SHA            │
@@ -154,7 +154,7 @@ Phụ lục A (website/PWA trên Safari) · B (Codemagic, Xcode Cloud) · C (l�
 
 ---
 
-## 7. KHO KHOÁ, BÍ MẬT VÀ SCRIPT `setup_apple_secrets.sh`
+## 7. KHO KHOÁ, BÍ MẬT VÀ SCRIPT `setup_apple_signing.sh`
 
 ### 7.1. Cài đặt (Ubuntu/WSL2)
 
@@ -169,7 +169,7 @@ Chạy script từ **bản sao trung tâm** của bộ quy ước (registry nằ
 ```bash
 STD=~/projects/tsudev-standards/tsudev-standards
 git -C "$STD" pull --ff-only
-bash -n "$STD/scripts/apple/setup_apple_secrets.sh" && "$STD/scripts/apple/setup_apple_secrets.sh" doctor
+bash -n "$STD/scripts/apple/setup_apple_signing.sh" && "$STD/scripts/apple/setup_apple_signing.sh" doctor
 ```
 
 ### 7.2. Tên bí mật và nơi đặt (KHÔNG thêm tên khác)
@@ -189,7 +189,10 @@ Environment `apple` chỉ cho **nhánh `main` + nhãn `v*`** ⇒ nhánh khác, P
 
 Kho khoá trên máy: `~/.config/tsudev/keys/apple/` gồm `asc.env`, `AuthKey_<ID>.p8`, `distribution.{key,csr,cer,pem,p12}`, `developer-id.{key,csr,cer,pem,p12}`, `p12_password`, `team_id`. Sao lưu: `backup --to /mnt/e/tsudev-sao-luu/apple` (mã hoá `age`, passphrase 👤 giữ). Lotus-share cũ dùng `~/.config/lotus-share/keys/apple/` - khi có tài khoản dùng kho chung này, không tạo hai bộ.
 
-### 7.3. Script `scripts/apple/setup_apple_secrets.sh`
+### 7.3. Script `scripts/apple/setup_apple_signing.sh`
+
+Tên tệp cố ý KHÔNG chứa chữ `secret`: mẫu `.gitignore` của hệ chặn `*secret*` (chống commit nhầm bí mật) - đừng đổi
+tên ngược lại hay thêm ngoại lệ.
 
 Lệnh: `doctor`, `init`, `cert-dist`, `csr-devid`, `import-devid`, `register-bundles`, `push`, `verify`, `builds`,
 `status`, `backup` (`--help` in đủ). Chỉ cần `openssl` 3, `curl`, `python3` + `python3-cryptography`, `gh`, `base64`
@@ -204,7 +207,7 @@ iOS. Thêm/sửa dòng ⇒ PR bộ quy ước, chủ dự án xác nhận Bundle
 ### 7.5. Cách dùng (đúng thứ tự)
 
 ```bash
-S=~/projects/tsudev-standards/tsudev-standards/scripts/apple/setup_apple_secrets.sh
+S=~/projects/tsudev-standards/tsudev-standards/scripts/apple/setup_apple_signing.sh
 KEY_ID=ABCDE12345                                                  # 👤 đọc ở App Store Connect (H2) - thay giá trị
 ISSUER_ID=00000000-0000-0000-0000-000000000000                     # 👤 (H2) - thay giá trị
 $S doctor                                                          # công cụ, đồng hồ, gh
@@ -229,7 +232,7 @@ Sao sang repo còn thiếu theo phiếu AP1 mục 1: dựng iOS **không ký**, 
 
 ### 8.2. L2 - workflow dùng chung `tsudev-org/.github/.github/workflows/apple-ios-testflight.yml`
 
-Bản chạy nằm ở `tsudev-org/.github` (PR `tsudev-org/.github#6`, commit `eed8795ffb60d59a5a9e7890dbc606d1f4e3b00b`); bản sao để đọc: `templates/apple/apple-ios-testflight.reusable.yml`.
+Bản chạy nằm ở `tsudev-org/.github` (PR `tsudev-org/.github#6`, `#7`; commit `179e7710c115adce84430655b0dfa916cb04a846`); bản sao để đọc: `templates/apple/apple-ios-testflight.reusable.yml`.
 Các bước: kiểm Team ID ghim = `vars.APPLE_TEAM_ID` → chọn `Xcode_<xcode-version>` (chặn beta/RC, ≥ 26) → Flutter
 ghim nhãn + commit → `rustup target add aarch64-apple-ios` nếu có Rust → kiểm tĩnh (Info.plist, PrivacyInfo, khai
 mã hoá có mặt, deployment target trong [15.0, 16.0], bundle id) → tính phiên bản (8.4) → keychain tạm + `.p8` →
@@ -264,7 +267,7 @@ Apple Developer Program - tệp gọi vẫn được gộp trước, job tự b�
 
 1. Thêm `environment: apple` cho job macOS trong `release-lotus.yml` (bí mật chuyển từ repo sang environment).
 2. Thay job `ios` trong `release-lotus.yml` bằng tệp gọi `apple-testflight.yml` (app-dir `app`, extension `com.tsudev.lotusshare.ShareExtension`, `flutter-version` 3.47.9) - tránh tải lên hai lần.
-3. `tools/day-khoa-apple.sh` ⇒ dùng `setup_apple_secrets.sh push --repos tsudev-org/lotus-share` (cùng tên bí mật, thêm environment).
+3. `tools/day-khoa-apple.sh` ⇒ dùng `setup_apple_signing.sh push --repos tsudev-org/lotus-share` (cùng tên bí mật, thêm environment).
 
 ---
 
@@ -312,7 +315,7 @@ Khoá **phải có mặt** (workflow chặn nếu thiếu) để TestFlight khô
 
 ## 10. TRÌNH TỰ THỰC THI (có cổng)
 
-**Phase 0 - Môi trường.** `akb start`; `ListAgents`; `setup_apple_secrets.sh doctor`; quét lại hiện trạng (mục 4) → cập nhật `apple-apps.tsv`. Đồng hồ lệch ⇒ `sudo hwclock -s`. *Cổng: doctor không lỗi.*
+**Phase 0 - Môi trường.** `akb start`; `ListAgents`; `setup_apple_signing.sh doctor`; quét lại hiện trạng (mục 4) → cập nhật `apple-apps.tsv`. Đồng hồ lệch ⇒ `sudo hwclock -s`. *Cổng: doctor không lỗi.*
 
 **Phase 1 - Việc 👤 (H1-H9).** In bảng mục 6, nhận đủ kết quả. *STOP tới khi đủ.*
 
@@ -321,7 +324,7 @@ Khoá **phải có mặt** (workflow chặn nếu thiếu) để TestFlight khô
 **Phase 3 - Pilot (1 repo).** Đề xuất **sound-db** (không phần mở rộng, không quyền đặc biệt). Lotus-share để sau khi multicast được duyệt (AP1 mục 4.3 gợi ý lotus trước - đổi vì chờ duyệt multicast lâu; 👤 có thể chọn khác).
 
 ```bash
-S=~/projects/tsudev-standards/tsudev-standards/scripts/apple/setup_apple_secrets.sh; R=tsudev-org/sound-db
+S=~/projects/tsudev-standards/tsudev-standards/scripts/apple/setup_apple_signing.sh; R=tsudev-org/sound-db
 # (a) mục 9 cho repo (PrivacyInfo, khai mã hoá) - PR riêng, CI apple.yml xanh
 $S register-bundles --repos $R            # 👤 tạo App Record nếu chưa có
 $S push --repos $R && $S verify --repos $R
@@ -438,7 +441,7 @@ Mẫu báo cáo: `| Repo | Bundle | Secrets | App Record | apple.yml | TestFligh
 
 | Phép kiểm | Kết quả |
 | :-- | :-- |
-| `bash -n` script (`scripts/apple/setup_apple_secrets.sh`) | đạt |
+| `bash -n` script (`scripts/apple/setup_apple_signing.sh`) | đạt |
 | `init` với máy chủ App Store Connect giả lập kiểm chữ ký JWT ES256 (kid, iss, aud, hạn ≤ 20 phút) | đạt |
 | `cert-dist`: CSR → cấp chứng chỉ → `.p12` (3DES + SHA1, MAC sha1) → trích Team ID; chạy lại ⇒ bỏ qua | đạt; mọi tệp 600, thư mục 700 |
 | `csr-devid` + `import-devid`; `.cer` không khớp khoá ⇒ chặn; Team khác ⇒ chặn | đạt |
@@ -477,7 +480,7 @@ Cho website TsuDEV (`*.tsudev.com`) - không thay app gốc, không lách App St
 ## PHỤ LỤC C - LỆNH NHANH
 
 ```bash
-S=~/projects/tsudev-standards/tsudev-standards/scripts/apple/setup_apple_secrets.sh
+S=~/projects/tsudev-standards/tsudev-standards/scripts/apple/setup_apple_signing.sh
 R=tsudev-org/sound-db; MA=sounddb; RUN=1234567890                    # thay theo repo / lần chạy
 $S doctor; $S status
 $S push --dry-run; $S verify

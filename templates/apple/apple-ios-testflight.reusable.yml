@@ -5,7 +5,7 @@
 #   uses: tsudev-org/.github/.github/workflows/apple-ios-testflight.yml@<SHA ghim>
 #   secrets: inherit
 # Bí mật nằm ở environment `apple` CỦA REPO GỌI (chỉ nhánh main + nhãn v*), đặt bằng
-# `scripts/apple/setup_apple_secrets.sh push` của bộ quy ước. `team-id-pin` trống ⇒ job không chạy (chưa có tài khoản).
+# `scripts/apple/setup_apple_signing.sh push` của bộ quy ước. `team-id-pin` trống ⇒ job không chạy (chưa có tài khoản).
 
 name: Apple iOS TestFlight (dùng chung)
 
@@ -180,7 +180,7 @@ jobs:
         run: |
           set -euo pipefail
           [[ -n "${APPLE_DIST_P12_BASE64-}" && -n "${APPLE_P12_PASSWORD-}" && -n "${APPLE_ASC_KEY_P8_BASE64-}" ]] \
-            || { echo "::error::Thiếu secret ở environment apple - chạy setup_apple_secrets.sh push"; exit 1; }
+            || { echo "::error::Thiếu secret ở environment apple - chạy setup_apple_signing.sh push"; exit 1; }
           p8="$RUNNER_TEMP/AuthKey_${APPLE_ASC_KEY_ID}.p8"
           (umask 077; printf '%s' "$APPLE_ASC_KEY_P8_BASE64" | base64 --decode > "$p8")
           grep -q 'BEGIN PRIVATE KEY' "$p8" || { echo "::error::APPLE_ASC_KEY_P8_BASE64 không phải khoá .p8"; exit 1; }
@@ -268,7 +268,7 @@ jobs:
             > "$RUNNER_TEMP/xcodebuild-upload.log" 2>&1 \
             || { tail -n 80 "$RUNNER_TEMP/xcodebuild-upload.log"; exit 1; }
           tail -n 5 "$RUNNER_TEMP/xcodebuild-upload.log"
-          echo "Đã tải lên. Kiểm trên Ubuntu: setup_apple_secrets.sh builds $BUNDLE_ID" >> "$GITHUB_STEP_SUMMARY"
+          echo "Đã tải lên. Kiểm trên Ubuntu: setup_apple_signing.sh builds $BUNDLE_ID" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Lưu log xcodebuild khi lỗi
         if: failure()

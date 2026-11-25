@@ -23,7 +23,7 @@ jobs:
   ios:
     # Nhãn v* luôn lên TestFlight; push main chỉ khi bật biến APPLE_TESTFLIGHT_ON_PUSH=true.
     if: vars.APPLE_TEAM_ID != '' && (github.ref_type == 'tag' || github.event_name == 'workflow_dispatch' || vars.APPLE_TESTFLIGHT_ON_PUSH == 'true')
-    uses: tsudev-org/.github/.github/workflows/apple-ios-testflight.yml@eed8795ffb60d59a5a9e7890dbc606d1f4e3b00b # tsudev-org/.github#6
+    uses: tsudev-org/.github/.github/workflows/apple-ios-testflight.yml@179e7710c115adce84430655b0dfa916cb04a846 # tsudev-org/.github#7
     with:
       app-dir: apps/app
       bundle-id: com.tsudev.qulythuchi
