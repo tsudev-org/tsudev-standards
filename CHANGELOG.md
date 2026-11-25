@@ -8,6 +8,38 @@ Mới nhất trên cùng.
 
 ---
 
+## 7.0.0 - 25/11/2026
+
+**Thay đổi phá vỡ.** Chủ dự án 25/11/2026: (1) dữ liệu người dùng KHÔNG lên internet hay tài khoản bên thứ ba - đồng bộ
+chỉ trực tiếp giữa thiết bị qua Wi-Fi nội bộ/Bluetooth/mã QR; bỏ quyền lợi Pro Q3 "đồng bộ + sao lưu đám mây" và TsuDEV
+Sync; (2) nguyên tắc vàng: có bản mới ⇒ bản cũ bị khoá ngay bằng modal (chỉ còn Cập nhật + Xuất dữ liệu); app bị sửa
+không kết nối được hệ thống; (3) dự án PRIVATE làm rối mã mạnh, không hỏng tính năng, an toàn với antivirus; (4) đăng
+nhập bên thứ ba chỉ để định danh, ghi nhận đóng góp/sản phẩm đã dùng, chống lạm dụng. Phiếu `20261125-SYN1`, `20261125-INT1`.
+
+- `docs/APP_INTEGRITY.md` v1.0.0 (MỚI): luật I1-I7 (máy chủ tự quyết, cổng phiên bản, chứng thực, cập nhật đã ký, không
+  gửi dữ liệu, dữ liệu là của người dùng, không né antivirus); bản kê phiên bản có chữ ký Ed25519 + chốt chặn theo kênh +
+  `426`; modal khoá và modal "không chính thức" nguyên văn vi/en; Android Key Attestation (mọi kênh) + Play Integrity
+  (Play) + App Attest (iOS sau H1) gắn với khoá DPoP; bảng làm rối mã/gia cố theo công nghệ, danh sách cấm, cổng kiểm
+  bản PRIVATE (test trên bản đã làm rối, Defender/ClamAV cục bộ, VirusTotal chỉ tra hash).
+- `docs/LOCAL_SYNC.md` v1.0.0 (MỚI): Tsu Link trên nền giao thức Lotus v2 - L1-L7 (không internet, ghép đôi bắt buộc,
+  mTLS 1.3 ghim vân tay, chỉ nghe khi mở màn, cùng phiên bản, miễn phí, thư viện chung); ghép đôi QR 120 giây / so 6 chữ
+  số / BLE; CRDT (Automerge, HLC); iOS PWA qua WebRTC host-only (thử nghiệm); sao lưu `.tsubak` dùng lại bộ mật mã cũ;
+  thư viện `tsudev-org/tsulink`.
+- `PRODUCT_POLICY.md` v2.0.0: mục 7 viết lại (N2 không gửi dữ liệu cho mọi gói; N3 Tsu Link); Q3 bỏ khỏi 3.7.1; 7.3
+  "nhiều thiết bị" bỏ; 7.4 DPoP thành `MUST`, bỏ hợp đồng TsuDEV Sync; **điều khoản 7.5 và nhắc 7.6 đổi nguyên văn**;
+  7.7 MỚI mục đích đăng nhập + bảng dữ liệu/hạn lưu theo Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15; checklist mục 8.
+- `AUTH_AND_ACCOUNT.md` v3.4.0 (hạng B/C không gửi dữ liệu, mã cài đặt cho 7.7, chế độ ngoại tuyến + cổng phiên bản);
+  `DISTRIBUTION_TRUST.md` v1.4.0 (làm rối chỉ PRIVATE theo APP_INTEGRITY, packer vẫn cấm); `FREE_TIER_STACK.md` v2.2.0
+  mục 3.1; `SECURITY_BASELINE.md` v3.1.0 trỏ hai tài liệu mới; `00-INDEX.md`, `AGENTS.md`.
+
+### Hướng dẫn nâng cấp
+
+Mọi repo: đọc `APP_INTEGRITY.md` + `LOCAL_SYNC.md`, làm phiếu `20261125-INT1` và `20261125-SYN1` (bản sao ở
+`logs/handover/`). Repo có đồng bộ đám mây (qulythuchi, sound-db): gỡ ở bản kế tiếp. Màn mua/nhắc gia hạn: đổi nguyên văn
+7.5/7.6 (Flutter: `tsudev_ui` bản kế tiếp). tsudev.com: `/pro`, `/terms`, `/chinh-sach-thanh-toan`, `/privacy` theo mục 7.
+
+---
+
 ## 6.6.0 - 25/11/2026
 
 Chủ dự án duyệt 25/11/2026 câu định vị mới cho màn mua Pro (có dự án PRIVATE - mục 3.7.7).
