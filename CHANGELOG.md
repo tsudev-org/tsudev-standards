@@ -8,6 +8,25 @@ Mới nhất trên cùng.
 
 ---
 
+## 6.1.0 - 25/11/2026
+
+Chủ dự án quyết 25/11/2026 (phiếu `20261125-PRO3`): mọi sản phẩm TsuDEV miễn phí, mã nguồn mở để cộng đồng dùng và
+đóng góp; **giữ TsuDEV Pro 490.000 ₫/1 năm** nhưng định vị là **gói không bắt buộc để ủng hộ tác giả**.
+
+- `PRODUCT_POLICY.md` v1.3.0, mục mới **3.7**: danh sách quyền lợi đóng Q1 huy hiệu Pro, Q2 giao diện Pro, Q3 đồng bộ
+  + sao lưu đám mây; những gì `MUST` miễn phí mãi (tiếp cận, Sáng/Tối, xuất tệp, bảo mật); quy tắc mời mua không thao
+  túng; màn mua bắt buộc câu định vị + điều khoản + ô xác nhận (vi/en nguyên văn); gọi Pro là "gói dịch vụ" trong văn
+  bản pháp lý, cấm "phi lợi nhuận/non-profit" khi chưa có pháp nhân; chỉ tsudev.com nhận thanh toán web, thông báo Bộ
+  Công Thương, logo BCT chỉ trên tên miền được duyệt; dự án tự bán sau này cần hồ sơ riêng; mã kiểm Pro không làm rối.
+- Checklist mục 8 thêm một dòng cho 3.7.
+
+### Hướng dẫn nâng cấp
+
+Repo có màn Pro/website sản phẩm: làm theo phiếu `20261125-PRO3` (bản sao ở `logs/handover/` của repo). Không đổi giá,
+mã cửa hàng, JWS hay hợp đồng mục 7.4.
+
+---
+
 ## 6.0.0 - 25/11/2026
 
 Chủ dự án yêu cầu 25/11/2026 (tsudev phiếu `20261125-UX2`, phiếu toàn hệ `20261125-UI2`): nền Sáng trắng nhìn lâu mỏi
