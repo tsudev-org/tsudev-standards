@@ -1,0 +1,6 @@
+# repo	app_dir	bundle_id	extensions (phẩy; - = không có). Dòng bắt đầu bằng # bị bỏ qua.
+tsudev-org/lotus-share	app	com.tsudev.lotusshare	com.tsudev.lotusshare.ShareExtension
+tsudev-org/qulythuchi	apps/app	com.tsudev.qulythuchi	com.tsudev.qulythuchi.QuickWidget
+tsudev-org/sound-db	apps/app	com.tsudev.sounddb	-
+tsudev-org/tsuscan	apps/app	com.tsudev.tsuscan	-
+tsudev-tsudev/app-la-ban	app	com.tsudev.laban	-
