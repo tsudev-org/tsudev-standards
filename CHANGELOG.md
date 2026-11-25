@@ -8,6 +8,24 @@ Mới nhất trên cùng.
 
 ---
 
+## 6.3.0 - 25/11/2026
+
+Chủ dự án 25/11/2026: Apple Developer Program đăng ký **tháng 02/2027**; tới lúc đó mọi project ưu tiên phương án tối ưu
+chi phí nhưng app cho hệ Apple (đặc biệt iPhone/iPad) vẫn tải, cài, dùng được bình thường. Phiếu toàn hệ `20261125-AP3`.
+
+- `docs/APPLE_CICD.md` v1.1.0: mục **3.1 giai đoạn chuyển tiếp** - iPhone/iPad dùng **PWA** tự host ("Thêm vào Màn hình
+  chính", 0 đồng), Mac dùng PWA hoặc DMG ký ad-hoc; yêu cầu bản web cho mọi app có `ios/`, mục "iPhone / iPad" ở trang
+  tải + README, chỉ khai tính năng chạy thật trên Safari, `storage.persist()`, Pro web qua `tsudev.com/pro`; bảng giới hạn
+  web trên iOS (LAN/multicast, widget, chạy nền không có; la bàn cần xin quyền). R6 không đổi (vẫn cấm IPA/AltStore).
+  Phụ lục A: PWA là kênh chính cho iPhone/iPad trước H1.
+
+### Hướng dẫn nâng cấp
+
+Repo có `ios/`: làm phiếu `20261125-AP3` (bản sao ở `logs/handover/` của repo) cùng lúc với phần repo của AP2. Repo không
+có `ios/`: không phải làm gì.
+
+---
+
 ## 6.2.0 - 25/11/2026
 
 Chủ dự án yêu cầu 25/11/2026: một quy trình Apple thống nhất cho mọi project (phiếu toàn hệ `20261125-AP2`, kế tiếp
