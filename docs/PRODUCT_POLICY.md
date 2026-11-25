@@ -1,7 +1,8 @@
-# CHÍNH SÁCH SẢN PHẨM TOÀN HỆ TSUDEV (v1.3.0)
+# CHÍNH SÁCH SẢN PHẨM TOÀN HỆ TSUDEV (v1.4.0)
 
 > Áp dụng cho MỌI phần mềm / tool / app / trò chơi / website sản phẩm của hệ sinh thái TsuDEV, ở mọi giai đoạn xây
 > dựng và phát triển. Quyết định của chủ dự án ngày **19/11/2026**. Tài liệu này nói **sản phẩm phải như thế nào**;
+> **v1.4.0 (25/11/2026, phiếu `20261125-ECO2`)**: nhãn **OPEN / PRIVATE** theo trạng thái thật của repo GitHub - mục 3.7.7.
 > **v1.3.0 (25/11/2026, phiếu `20261125-PRO3`)**: mọi sản phẩm miễn phí, mã nguồn mở; **Pro là gói KHÔNG bắt buộc để
 > ủng hộ tác giả** - quyền lợi, lời mời mua, màn thanh toán và nghĩa vụ pháp lý ở **mục 3.7**.
 > cách đưa sản phẩm tới người dùng không bị chặn ở [`DISTRIBUTION_TRUST.md`](DISTRIBUTION_TRUST.md); cách agent hỗ
@@ -196,6 +197,27 @@ Theo thứ tự, TRƯỚC nút thanh toán:
   tự cấp được; Q2 chạy trên máy nên bản fork có thể tự bật - chấp nhận, đúng tinh thần mã nguồn mở.
 - Bản fork không được dùng tên "TsuDEV Pro" và không được dùng máy chủ quyền lợi/đồng bộ của tsudev.com cho người dùng
   của họ (Điều khoản sử dụng).
+
+#### 3.7.7. Nhãn OPEN / PRIVATE (v1.4.0 - chủ dự án 25/11/2026, phiếu `20261125-ECO2`)
+
+Mọi nơi giới thiệu dự án (tsudev.com `/apps`, trang chủ, website sản phẩm, trang "Giới thiệu" trong app) gắn đúng một
+nhãn theo **trạng thái hiển thị thật của repo GitHub** chứa mã nguồn:
+
+| Repo GitHub | Nhãn | Được hiện | `MUST NOT` |
+| --- | --- | --- | --- |
+| **Public** | **OPEN** | Nút/liên kết tới repo, Releases, giấy phép, "mã nguồn mở", số người đóng góp | - |
+| **Private** | **PRIVATE** | Chỉ phần **giới thiệu**: tên, mô tả, ảnh, nền tảng, website sản phẩm, lệnh cài/tải từ kênh công khai (repo `*-releases` công khai, `PACKAGING.md`) | Nút/liên kết tới repo nguồn hay tổ chức chứa repo private, chữ "mã nguồn mở"/"open source", tệp mã nguồn đính kèm, liên kết studio/nội bộ |
+
+- Nguồn sự thật là GitHub, **không khai tay**: build đọc `visibility` của từng repo (`gh api repos/<owner>/<repo>
+  --jq .visibility`, chạy trong CI hoặc script chụp như `contributors.json`, không gọi GitHub lúc người dùng tải
+  trang) và test chặn: khai `OPEN` mà repo private, hoặc `PRIVATE` mà còn liên kết repo. Repo đổi trạng thái ⇒ build
+  kế tiếp tự đổi nhãn.
+- Chuyển repo private → public là quyết định của chủ dự án (rà bí mật/lịch sử trước - `SECURITY_BASELINE`).
+- Nhãn là thông tin, không phải nút: chữ hiển thị tiếng Anh `OPEN` / `PRIVATE`, nhãn đọc màn hình tiếng Việt ("mã nguồn
+  mở" / "mã nguồn riêng tư"). Chữ trên nhãn `MUST` đạt **≥ 4.5:1 trên MỌI điểm** của nền (kể cả nền chuyển sắc và lớp
+  kính), ở cả Sáng/Tối; hiệu ứng kính/bóng/chuyển động tắt khi `prefers-reduced-transparency`, `prefers-reduced-motion`,
+  `prefers-contrast: more` (`ACCESSIBILITY.md`).
+- Câu định vị mục 3.7.3 và mọi câu "miễn phí, mã nguồn mở" chỉ được nói về dự án mang nhãn **OPEN**.
 
 ## 4. Huy hiệu Pro / Ủng hộ
 
