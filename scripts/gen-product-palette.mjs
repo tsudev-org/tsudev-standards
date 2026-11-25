@@ -24,7 +24,7 @@ const DIR = join(ROOT, 'tokens', 'products');
 const base = JSON.parse(readFileSync(join(ROOT, 'tokens', 'design-tokens.json'), 'utf8')).color;
 
 const TEXT_BGS = ['bg-base', 'bg-surface', 'bg-subtle', 'bg-hover'];
-const minOn = (fg, theme) => Math.min(...TEXT_BGS.map((b) => contrast(fg, base[theme][b])));
+const minOn = (fg, theme, b = base) => Math.min(...TEXT_BGS.map((k) => contrast(fg, b[theme][k])));
 
 /** Dò L từ start theo bước step tới khi ok(hex) đúng. */
 function seek(H, C, start, step, ok) {
@@ -35,17 +35,18 @@ function seek(H, C, start, step, ok) {
   throw new Error(`Không tìm được độ sáng đạt WCAG cho H=${H} C=${C}`);
 }
 
-export function palette(H, C) {
-  const ink = base.dark['on-primary'];
-  const white = base.light['on-primary'];
+/** `b` = lớp nền để đo (mặc định lớp nền chung; chủ đề Pro truyền nền đã ngả sắc). */
+export function palette(H, C, b = base) {
+  const ink = b.dark['on-primary'];
+  const white = b.light['on-primary'];
   // ---- Tối: nút sáng, chữ mực đen. Dò từ tối lên sáng, dừng ở L thấp nhất đạt
   // để màu còn đậm sắc nhất có thể.
-  const dP = seek(H, C, 0.6, 0.005, (h) => contrast(ink, h) >= 8.0 && minOn(h, 'dark') >= 4.5);
+  const dP = seek(H, C, 0.6, 0.005, (h) => contrast(ink, h) >= 8.0 && minOn(h, 'dark', b) >= 4.5);
   const dActive = seek(H, C, dP.L - 0.07, 0.005, (h) => contrast(ink, h) >= 6.0);
-  const dLink = seek(H, C * 0.85, dP.L + 0.05, 0.005, (h) => minOn(h, 'dark') >= 7.0);
+  const dLink = seek(H, C * 0.85, dP.L + 0.05, 0.005, (h) => minOn(h, 'dark', b) >= 7.0);
   // Nhấn phụ CÙNG sắc độ, sáng hơn (Tối) / đậm hơn (Sáng). Không lệch sắc độ:
   // vòng màu đã chia cho 11 sản phẩm, lệch 25° là đụng màu chính của sản phẩm kế bên.
-  const dAccent = seek(H, C * 0.7, dP.L + 0.08, 0.005, (h) => minOn(h, 'dark') >= 10.0);
+  const dAccent = seek(H, C * 0.7, dP.L + 0.08, 0.005, (h) => minOn(h, 'dark', b) >= 10.0);
   const dark = {
     'text-link': dLink.hex,
     primary: dP.hex,
@@ -59,7 +60,7 @@ export function palette(H, C) {
     'icon-nav': dLink.hex,
   };
   // ---- Sáng: nút đậm, chữ trắng. Dò từ sáng xuống tối, dừng ở L cao nhất đạt.
-  const lP = seek(H, C, 0.7, -0.005, (h) => contrast(white, h) >= 5.0 && minOn(h, 'light') >= 4.5);
+  const lP = seek(H, C, 0.7, -0.005, (h) => contrast(white, h) >= 5.0 && minOn(h, 'light', b) >= 4.5);
   const lHover = oklchToHex(lP.L - 0.06, C, H);
   const light = {
     'text-link': lHover,
@@ -68,7 +69,7 @@ export function palette(H, C) {
     'primary-active': oklchToHex(lP.L - 0.12, C, H),
     'on-primary': white,
     'focus-ring': lP.hex,
-    accent: seek(H, C, lP.L - 0.08, -0.005, (h) => minOn(h, 'light') >= 7.0).hex,
+    accent: seek(H, C, lP.L - 0.08, -0.005, (h) => minOn(h, 'light', b) >= 7.0).hex,
     glow: rgba(lP.hex, 0.1),
     'icon-info': lP.hex,
     'icon-nav': lHover,

@@ -22,11 +22,11 @@ const tokens = JSON.parse(readFileSync(join(ROOT, 'tokens', 'design-tokens.json'
 
 /** Nền hover là trạng thái tạm thời của một hàng, không phải bề mặt mà nút phụ
  *  hay ô nhập nằm lên - nên không nằm trong bộ nền của ranh giới thành phần. */
-const TEXT_BACKGROUNDS = ['bg-base', 'bg-surface', 'bg-subtle', 'bg-hover'];
-const STABLE_BACKGROUNDS = ['bg-base', 'bg-surface', 'bg-subtle'];
-const BORDER_BACKGROUNDS = ['bg-base', 'bg-surface', 'bg-subtle'];
+export const TEXT_BACKGROUNDS = ['bg-base', 'bg-surface', 'bg-subtle', 'bg-hover'];
+export const STABLE_BACKGROUNDS = ['bg-base', 'bg-surface', 'bg-subtle'];
+export const BORDER_BACKGROUNDS = ['bg-base', 'bg-surface', 'bg-subtle'];
 
-const CHECKS = [
+export const CHECKS = [
   { fg: 'text-primary', bgs: STABLE_BACKGROUNDS, min: 10.0, note: 'chữ chính trên bề mặt ổn định' },
   { fg: 'text-primary', bgs: ['bg-hover'], min: 7.0, note: 'chữ chính trên nền hover (ngưỡng AAA)' },
   { fg: 'text-secondary', bgs: TEXT_BACKGROUNDS, min: 4.5, note: 'chữ phụ' },
@@ -39,7 +39,7 @@ const CHECKS = [
   { fg: 'icon-nav', bgs: STABLE_BACKGROUNDS, min: 3.0, note: 'biểu tượng điều hướng (WCAG 1.4.11)' },
 ];
 
-const PAIR_CHECKS = [
+export const PAIR_CHECKS = [
   { fg: 'on-primary', bg: 'primary', min: 4.5, note: 'chữ trên nút chính' },
   { fg: 'on-primary', bg: 'primary-hover', min: 4.5, note: 'chữ trên nút chính khi hover' },
   { fg: 'on-primary', bg: 'primary-active', min: 4.5, note: 'chữ trên nút chính khi nhấn' },
@@ -49,47 +49,70 @@ const PAIR_CHECKS = [
   { fg: 'on-status', bg: 'info', min: 4.5, note: 'chữ trên nền info' },
 ];
 
-let failed = 0;
-const rows = [];
-
-for (const [theme, colors] of Object.entries(tokens.color)) {
+/** Đo một bảng màu đầy đủ (một chế độ) theo CHECKS + PAIR_CHECKS - dùng lại cho chủ đề Pro. */
+export function auditColors(colors) {
+  const out = [];
   for (const { fg, bgs, min, note } of CHECKS) {
-    if (!colors[fg]) {
-      console.error(`LỖI: chế độ ${theme} thiếu token ${fg}`);
-      failed++;
-      continue;
-    }
     let worst = Infinity;
     let worstBg = '';
     for (const bg of bgs) {
       const r = contrast(colors[fg], colors[bg]);
       if (r < worst) { worst = r; worstBg = bg; }
     }
-    const ok = worst >= min;
-    if (!ok) failed++;
-    rows.push({ theme, pair: `${fg} / ${worstBg}`, ratio: worst, min, ok, note });
+    out.push({ pair: `${fg} / ${worstBg}`, ratio: worst, min, ok: worst >= min, note });
   }
   for (const { fg, bg, min, note } of PAIR_CHECKS) {
     if (!colors[fg] || !colors[bg]) continue;
     const r = contrast(colors[fg], colors[bg]);
-    const ok = r >= min;
-    if (!ok) failed++;
-    rows.push({ theme, pair: `${fg} / ${bg}`, ratio: r, min, ok, note });
+    out.push({ pair: `${fg} / ${bg}`, ratio: r, min, ok: r >= min, note });
   }
+  return out;
 }
 
-const w = (s, n) => String(s).padEnd(n);
-console.log(`${w('Chế độ', 8)}${w('Cặp màu (thấp nhất)', 34)}${w('Tỉ số', 9)}${w('Ngưỡng', 9)}Kết quả`);
-console.log('-'.repeat(75));
-for (const r of rows) {
-  console.log(
-    `${w(r.theme, 8)}${w(r.pair, 34)}${w(r.ratio.toFixed(2), 9)}${w(r.min.toFixed(1), 9)}${r.ok ? 'ĐẠT' : 'TRƯỢT  <- ' + r.note}`,
-  );
-}
-console.log('-'.repeat(75));
+const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
+if (isMain) {
+  let failed = 0;
+  const rows = [];
 
-if (failed > 0) {
-  console.error(`\n${failed} cặp màu không đạt ngưỡng WCAG của DESIGN_SYSTEM.md mục 1.`);
-  process.exit(1);
+  for (const [theme, colors] of Object.entries(tokens.color)) {
+    for (const { fg, bgs, min, note } of CHECKS) {
+      if (!colors[fg]) {
+        console.error(`LỖI: chế độ ${theme} thiếu token ${fg}`);
+        failed++;
+        continue;
+      }
+      let worst = Infinity;
+      let worstBg = '';
+      for (const bg of bgs) {
+        const r = contrast(colors[fg], colors[bg]);
+        if (r < worst) { worst = r; worstBg = bg; }
+      }
+      const ok = worst >= min;
+      if (!ok) failed++;
+      rows.push({ theme, pair: `${fg} / ${worstBg}`, ratio: worst, min, ok, note });
+    }
+    for (const { fg, bg, min, note } of PAIR_CHECKS) {
+      if (!colors[fg] || !colors[bg]) continue;
+      const r = contrast(colors[fg], colors[bg]);
+      const ok = r >= min;
+      if (!ok) failed++;
+      rows.push({ theme, pair: `${fg} / ${bg}`, ratio: r, min, ok, note });
+    }
+  }
+
+  const w = (s, n) => String(s).padEnd(n);
+  console.log(`${w('Chế độ', 8)}${w('Cặp màu (thấp nhất)', 34)}${w('Tỉ số', 9)}${w('Ngưỡng', 9)}Kết quả`);
+  console.log('-'.repeat(75));
+  for (const r of rows) {
+    console.log(
+      `${w(r.theme, 8)}${w(r.pair, 34)}${w(r.ratio.toFixed(2), 9)}${w(r.min.toFixed(1), 9)}${r.ok ? 'ĐẠT' : 'TRƯỢT  <- ' + r.note}`,
+    );
+  }
+  console.log('-'.repeat(75));
+
+  if (failed > 0) {
+    console.error(`\n${failed} cặp màu không đạt ngưỡng WCAG của DESIGN_SYSTEM.md mục 1.`);
+    process.exit(1);
+  }
+  console.log(`\nToàn bộ ${rows.length} cặp màu đạt ngưỡng WCAG.`);
 }
-console.log(`\nToàn bộ ${rows.length} cặp màu đạt ngưỡng WCAG.`);
