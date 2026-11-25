@@ -1,4 +1,4 @@
-# CHÍNH SÁCH SẢN PHẨM TOÀN HỆ TSUDEV (v1.4.0)
+# CHÍNH SÁCH SẢN PHẨM TOÀN HỆ TSUDEV (v1.4.1)
 
 > Áp dụng cho MỌI phần mềm / tool / app / trò chơi / website sản phẩm của hệ sinh thái TsuDEV, ở mọi giai đoạn xây
 > dựng và phát triển. Quyết định của chủ dự án ngày **19/11/2026**. Tài liệu này nói **sản phẩm phải như thế nào**;
@@ -153,10 +153,13 @@ bản miễn phí.
 Theo thứ tự, TRƯỚC nút thanh toán:
 
 1. **Câu định vị** (nguyên văn):
-   - vi: "Mọi ứng dụng TsuDEV miễn phí và mã nguồn mở. TsuDEV Pro không bắt buộc: bạn chọn Pro để ủng hộ tác giả duy
-     trì và phát triển dự án, đổi lại tài khoản nhận thêm các quyền lợi dưới đây."
-   - en: "Every TsuDEV app is free and open source. TsuDEV Pro is optional: choose Pro to support the author in
-     maintaining and developing the project, and your account gets the extra benefits below."
+   - vi: "Ứng dụng TsuDEV miễn phí; dự án gắn nhãn OPEN công khai mã nguồn trên GitHub. TsuDEV Pro không bắt buộc:
+     bạn chọn Pro để ủng hộ tác giả duy trì và phát triển dự án, đổi lại tài khoản nhận thêm các quyền lợi dưới đây."
+   - en: "TsuDEV apps are free; projects labelled OPEN publish their source code on GitHub. TsuDEV Pro is optional:
+     choose Pro to support the author in maintaining and developing the project, and your account gets the extra
+     benefits below."
+   - (v1.4.1, chủ dự án duyệt 25/11/2026) thay câu "Mọi ứng dụng TsuDEV miễn phí và mã nguồn mở" vì có dự án PRIVATE
+     (mục 3.7.7). Mọi nơi hiển thị câu này `MUST` dùng nguyên văn mới.
 2. Danh sách quyền lợi **đang hoạt động thật** (Q1-Q3; quyền lợi chưa làm xong `MUST NOT` hiện).
 3. Điều khoản kỳ hạn nguyên văn mục 7.5 + liên kết **Chính sách thanh toán, hoàn tiền và khiếu nại**
    (`tsudev.com/chinh-sach-thanh-toan`) và Điều khoản.

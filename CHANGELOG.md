@@ -8,6 +8,21 @@ Mới nhất trên cùng.
 
 ---
 
+## 6.6.0 - 25/11/2026
+
+Chủ dự án duyệt 25/11/2026 câu định vị mới cho màn mua Pro (có dự án PRIVATE - mục 3.7.7).
+
+- `PRODUCT_POLICY.md` v1.4.1 mục 3.7.3: vi "Ứng dụng TsuDEV miễn phí; dự án gắn nhãn OPEN công khai mã nguồn trên GitHub.
+  TsuDEV Pro không bắt buộc: …"; en "TsuDEV apps are free; projects labelled OPEN publish their source code on GitHub.
+  TsuDEV Pro is optional: …" (phần sau dấu hai chấm không đổi).
+
+### Hướng dẫn nâng cấp
+
+Nơi hiển thị câu định vị (tsudev.com `/pro`, `tsudev_ui` `ProPurchaseSheet`, màn mua tự viết): đổi sang nguyên văn mới.
+Flutter: nâng `tsudev_ui` lên v0.7.1.
+
+---
+
 ## 6.5.0 - 25/11/2026
 
 Chủ dự án 25/11/2026: tsudev.com gắn nhãn **OPEN** cho dự án có repo GitHub công khai, **PRIVATE** cho repo riêng tư;
