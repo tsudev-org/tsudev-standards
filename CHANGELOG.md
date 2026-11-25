@@ -8,6 +8,21 @@ Mới nhất trên cùng.
 
 ---
 
+## 6.5.0 - 25/11/2026
+
+Chủ dự án 25/11/2026: tsudev.com gắn nhãn **OPEN** cho dự án có repo GitHub công khai, **PRIVATE** cho repo riêng tư;
+dự án private chỉ hiển thị để giới thiệu, không đính kèm mã nguồn, không nút tới repo GitHub. Phiếu `20261125-ECO2`.
+
+- `PRODUCT_POLICY.md` v1.4.0 mục **3.7.7**: bảng OPEN/PRIVATE, nguồn sự thật = `visibility` của GitHub lúc build (không
+  khai tay, test chặn lệch), chữ nhãn ≥ 4.5:1 trên mọi điểm của nền chuyển sắc/kính, tắt hiệu ứng theo
+  `prefers-reduced-transparency/motion`, `prefers-contrast: more`; câu "miễn phí, mã nguồn mở" chỉ cho dự án OPEN.
+
+### Hướng dẫn nâng cấp
+
+Website/app có trang giới thiệu dự án: đối chiếu nhãn với `visibility` thật; dự án private bỏ mọi liên kết repo.
+
+---
+
 ## 6.4.0 - 25/11/2026
 
 Chủ dự án 25/11/2026 uỷ quyền chọn phương án cho bộ chủ đề Pro (quyền lợi **Q2**, `PRODUCT_POLICY` 3.7.1, phiếu
