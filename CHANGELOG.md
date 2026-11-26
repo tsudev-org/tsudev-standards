@@ -8,6 +8,26 @@ Mới nhất trên cùng.
 
 ---
 
+## 8.2.0 - 26/11/2026
+
+Chủ dự án 26/11/2026: khắc phục triệt để việc agent làm lộ token/secret trong lúc làm việc (ví dụ `cut -d= -f1` trên
+tệp chỉ chứa token thô in nguyên token) - quy tắc **Zero Secret Exposure** áp cho mọi phiên, subagent, `claude -p`, và
+**thi hành bằng hook**, không chỉ bằng chữ.
+
+- `SECURITY_BASELINE.md` **v3.2.0**: mục 12.1 MỚI "Zero Secret Exposure - HARD STOP": cấm xuất giá trị bí mật ở mọi
+  đầu ra; cấm lệnh đọc/xử lý chuỗi trên tệp/biến bí mật (cả ngoài dự án); chỉ xem tên khoá + siêu dữ liệu; bảng 4 tình
+  huống bắt buộc dừng và báo chủ dự án (a: tệp bí mật không theo `KEY=VALUE`; b: output lộ chuỗi giống bí mật; c: bí
+  mật đã vào git/log; d: task cần xem giá trị); máy phát triển `MUST` cài bộ hook.
+- `scripts/agent-hooks/` MỚI (bản gốc): `secret-guard.py` (PreToolUse chặn + PostToolUse phát hiện), `secret-inspect.py`,
+  `secretlib.py`, `phase-context.py`, `statusline.py` (của v8.1.0), kiểm thử `test-secret-guard.py` (42 ca, dữ liệu giả),
+  `README.md` cách cài.
+- `AGENTS.md` **v3.4.0** mục 4: thêm quy tắc cứng Zero Secret Exposure.
+
+**Hướng dẫn nâng cấp** (MINOR - siết quy tắc agent, không đổi API sản phẩm): máy phát triển cài hook theo
+`scripts/agent-hooks/README.md`; chuyển mọi tệp bí mật tự tạo sang `KEY=VALUE`, quyền `600`.
+
+---
+
 ## 8.1.0 - 26/11/2026
 
 Chủ dự án 26/11/2026: chuẩn hoá cách mọi phiên agent trên máy phát triển **chọn mô hình, chia Phase và giữ ngữ cảnh

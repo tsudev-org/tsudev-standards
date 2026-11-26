@@ -1,4 +1,4 @@
-# AGENTS.md - Bộ quy ước dùng chung tsudev (v3.3.0)
+# AGENTS.md - Bộ quy ước dùng chung tsudev (v3.4.0)
 
 > **ĐÂY LÀ NGUỒN CHÂN LÝ.** Bộ quy ước được biên tập tại repo
 > `tsudev-org/tsudev-standards`. Repo con mang một BẢN SAO CHỈ-ĐỌC tại
@@ -121,6 +121,10 @@ Chi tiết: [`docs/AGENT_PROTOCOL.md`](docs/AGENT_PROTOCOL.md).
 - Không tắt kiểm tra HTTPS/SSL, không hạ cấp thuật toán mã hóa, không mở cổng
   hay quyền rộng hơn mức task cần.
 - Không nới lỏng bảo mật để cho mã chạy được. Gặp bế tắc thì báo cáo, không tự quyết.
+- **Zero Secret Exposure** (từ `v8.2.0`): `MUST NOT` in giá trị bí mật ở bất kỳ đâu, `MUST NOT`
+  `cat`/`grep`/`cut`/`printenv`... trên tệp hay biến bí mật (kể cả ngoài dự án); chỉ xem tên khoá bằng
+  `secret-inspect.py`. Tệp bí mật không theo `KEY=VALUE` = **HARD STOP, báo chủ dự án**. Chi tiết:
+  [`docs/SECURITY_BASELINE.md`](docs/SECURITY_BASELINE.md) mục 12.1.
 - **Tên repo GitHub cũ là bất khả xâm phạm.** Repo hệ tsudev nằm trong Organization
   `tsudev-org` (chuyển từ tài khoản `tsudev-tsudev` ngày 09/11/2026). `MUST NOT` tạo,
   fork hay đổi tên một repo thành tên repo cũ dưới `tsudev-tsudev` - GitHub bỏ chuyển

@@ -37,6 +37,9 @@ jobs:
       - name: Ngoại lệ upstream của mục 7.1 hoạt động đúng
         run: ./scripts/test-upstream-exempt.sh
 
+      - name: Hook Zero Secret Exposure chặn đúng (SECURITY_BASELINE 12.1)
+        run: python3 scripts/agent-hooks/test-secret-guard.py
+
       - name: Script phải chạy được trên shell chuẩn
         run: |
           for f in scripts/*.sh; do
