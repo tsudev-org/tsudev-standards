@@ -106,9 +106,10 @@ Kế hoạch cũ dạng bảng hoặc emoji vẫn dùng được; khi sửa kế
 
 ### 4.3. Quản lý ngữ cảnh (MUST)
 
-- Ngưỡng tự nén của máy là **200K token** (`autoCompactWindow`), không phải cửa sổ 1M của mô hình: mỗi lượt gửi lại
-  toàn bộ ngữ cảnh, ngữ cảnh lớn nhân chi phí của mọi lượt sau.
-- Status line hiện `ctx %` theo ngưỡng 200K: **vàng >= 50%**, **đỏ >= 75%**. Vàng/đỏ giữa Phase: chốt tiến độ vào tệp
+- Ngưỡng tự nén của máy là **300K token** (`autoCompactWindow`), không phải cửa sổ 1M của mô hình: mỗi lượt gửi lại
+  toàn bộ ngữ cảnh, ngữ cảnh lớn nhân chi phí của mọi lượt sau và làm giảm mức tuân thủ quy ước. 300K = chi phí cố
+  định của phiên (prompt hệ thống, công cụ, `CLAUDE.md`/`AGENTS.md`, khoảng 30-60K) + đủ chỗ cho một Phase lớn.
+- Status line hiện `ctx %` theo ngưỡng tự nén: **vàng >= 70%**, **đỏ >= 90%**, trên 100% = phiên mở trước khi đổi cấu hình. Vàng/đỏ giữa Phase: chốt tiến độ vào tệp
   rồi đề nghị `/compact giữ Phase <id>, tệp đang sửa, lỗi chưa xử lý`. Xong Phase: `/clear` (không tốn token).
 - Việc không liên quan tới việc đang làm: `/clear` trước.
 - Đọc tệp theo đoạn cần thiết; lọc output dài (`tail`, `grep`); tìm kiếm rộng giao subagent để chỉ kết luận vào ngữ
