@@ -5,9 +5,9 @@ Bản gốc của các hook cài trên máy phát triển tại `~/.claude/hooks
 | Tệp | Vai trò | Chuẩn |
 | --- | --- | --- |
 | `noleaklib.py` | Nhận diện tệp/chuỗi bí mật, đọc siêu dữ liệu an toàn (không bao giờ trả về giá trị) | `SECURITY_BASELINE.md` 12.1 |
-| `noleak-guard.py` | Hook `PreToolUse` (chặn lệnh/tệp có thể lộ bí mật) + `PostToolUse` (phát hiện chuỗi dạng khoá thật trong output) | 12.1 |
+| `noleak-guard.py` | Hook `PreToolUse` (chặn lệnh/tệp có thể lộ bí mật) + `PostToolUse` (phát hiện chuỗi dạng khoá thật trong output; tự `chmod 600` tệp bí mật vừa ghi) | 12.1, 12.2 |
 | `noleak-inspect.py` | Công cụ cho agent: in tên khoá + độ dài + quyền + định dạng; mã thoát 3 khi tệp không theo `KEY=VALUE`. `--to-env TEN <tệp>`: đổi tệp token thô 1 dòng thành `TEN='...'` (quyền 600, nạp lại so sha256) - chỉ khi chủ dự án ủy quyền | 12.1 mục 4a |
-| `phase-context.py` | Hook `SessionStart` (`startup\|clear\|compact\|resume`): nạp lại Phase đang mở của `docs/PLAN.md`, STATE, phiếu mới nhất | `AGENT_PROTOCOL.md` 4.2 |
+| `phase-context.py` | Hook `SessionStart` (`startup\|clear\|compact\|resume`): nạp lại Phase đang mở của `docs/PLAN.md`, STATE, phiếu mới nhất; rà bảo mật repo (tự `chmod 600`, cảnh báo token thô/tệp bí mật bị theo dõi), nhắc phiếu xoay khoá `*-XK*` còn MỞ | `AGENT_PROTOCOL.md` 4.2, `SECURITY_BASELINE.md` 12.2-12.3 |
 | `statusline.py` | Status line: mô hình, repo@nhánh, `ctx %` theo `autoCompactWindow` (vàng 70%, đỏ 90%) | `AGENT_PROTOCOL.md` 4.3 |
 | `test-noleak-guard.py` | Kiểm thử bằng dữ liệu giả | - |
 

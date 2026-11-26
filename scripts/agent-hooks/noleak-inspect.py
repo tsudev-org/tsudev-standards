@@ -33,14 +33,13 @@ def to_env(var, path):
         lines = [ln for ln in f.read().splitlines() if ln.strip() and not ln.lstrip().startswith("#")]
     val = lines[0].rstrip("\r\n")
     h0 = hashlib.sha256(val.encode()).hexdigest()
-    quoted = "'" + val.replace("'", "'\\''") + "'"
+    quoted = val if re.fullmatch(r"[A-Za-z0-9_./:@%+-]+", val) else "'" + val.replace("'", "'\\''") + "'"
     st = os.stat(p)
     d = os.path.dirname(p)
     fd, tmp = tempfile.mkstemp(dir=d, prefix=".noleak-")
     try:
         os.fchmod(fd, 0o600)
         with os.fdopen(fd, "w", encoding="utf-8") as f:
-            f.write(f"# Doi tu dinh dang token tho sang KEY=VALUE (Zero Secret Exposure) - nap: set -a; . {os.path.basename(p)}; set +a\n")
             f.write(f"{var}={quoted}\n")
         chk = subprocess.run(["bash", "-c", f'set -a; . "$1"; set +a; printf %s "${{{var}}}" | sha256sum', "_", tmp],
                              capture_output=True, text=True, timeout=10)
