@@ -1,4 +1,4 @@
-# AGENTS.md - Bộ quy ước dùng chung tsudev (v3.2.0)
+# AGENTS.md - Bộ quy ước dùng chung tsudev (v3.3.0)
 
 > **ĐÂY LÀ NGUỒN CHÂN LÝ.** Bộ quy ước được biên tập tại repo
 > `tsudev-org/tsudev-standards`. Repo con mang một BẢN SAO CHỈ-ĐỌC tại
@@ -77,6 +77,10 @@ chuyên đề. Bản đồ đầy đủ: [`docs/00-INDEX.md`](docs/00-INDEX.md).
   đường dẫn.
 - Task lớn phải chia nhỏ; làm xong phần nào chốt phần đó vào log ngay, để mất
   phiên không mất công.
+- **Mô hình + Phase + ngữ cảnh** (từ `v8.1.0`): Sonnet thực thi, lên Opus khi việc khó
+  (`EnterPlanMode` hoặc subagent `model: "opus"`); một ngữ cảnh một Phase của
+  `docs/PLAN.md`, xong Phase thì đánh `[x]`, cập nhật STATE, commit rồi dừng chờ `/clear`.
+  Chi tiết: [`docs/AGENT_PROTOCOL.md`](docs/AGENT_PROTOCOL.md) mục 4.1-4.3.
 
 ## 3. Đội ngũ agent và chống giẫm chân
 
