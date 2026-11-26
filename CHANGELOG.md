@@ -18,7 +18,7 @@ gọn** để chạy nhiều dự án song song với chi phí thấp nhất mà
   PLAN, lỗi chưa rõ nguyên nhân, xung đột/race, bảo mật, dữ liệu production, rà soát phát hành - qua `EnterPlanMode`
   hoặc subagent `model: "opus"`; `MUST NOT` hạ mô hình để tiết kiệm). Mục 4.2 MỚI "Chu trình Phase" (một ngữ cảnh một
   Phase; xong thì `[x]` -> STATE -> commit -> dừng chờ `/clear`). Mục 4.3 MỚI "Quản lý ngữ cảnh" (ngưỡng 200K,
-  vàng 50%/đỏ 75%, `/compact` có chỉ dẫn, `CLAUDE.md`/`AGENTS.md` dưới 200 dòng, `.claude/rules` có `paths:`).
+  vàng 50%/đỏ 75%, `/compact` có chỉ dẫn, `CLAUDE.md`/`AGENTS.md` dưới 200 dòng, `.claude/rules` có `paths:`; tiết kiệm chỉ cắt lãng phí, `MUST NOT` cắt phạm vi/nghiệm thu/test/bảo mật).
 - `docs/templates/PLAN.md` MỚI: mẫu kế hoạch Phase + checklist + nghiệm thu + mô hình.
 - `AGENTS.md` **v3.3.0** mục 2: thêm gạch đầu dòng trỏ mục 4.1-4.3.
 

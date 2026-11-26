@@ -117,6 +117,9 @@ Kế hoạch cũ dạng bảng hoặc emoji vẫn dùng được; khi sửa kế
   một vùng mã chuyển sang `.claude/rules/*.md` có `paths:`, quy trình dùng thỉnh thoảng chuyển thành skill, ghi chú
   cho người bảo trì đặt trong `<!-- -->` (không tốn token).
 - `CLAUDE.md` có mục `# Compact instructions` nói rõ cần giữ gì khi nén.
+- **Tiết kiệm chỉ cắt lãng phí, không cắt mục tiêu**: `MUST NOT` bỏ bớt phạm vi, mục checklist, tiêu chí nghiệm thu,
+  test, cổng kiểm hay bước bảo mật của task/Phase để đỡ token. Ngữ cảnh sắp đầy thì chốt tiến độ vào tệp và đề nghị
+  `/compact`, không vội kết thúc Phase.
 
 ## 5. Đóng phiên và bàn giao
 
