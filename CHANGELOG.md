@@ -8,6 +8,36 @@ Mới nhất trên cùng.
 
 ---
 
+## 8.0.0 - 26/11/2026
+
+Chủ dự án 26/11/2026 (phiếu `20261126-LG4`, thay `20261126-LG3`): mục tiêu và định hướng của mọi sản phẩm TsuDEV là
+**không quảng cáo, không thông báo làm phiền** - bỏ hẳn cơ chế tự hiện modal/thông báo nhắc đăng nhập để người dùng dùng
+sản phẩm êm nhất có thể.
+
+- `AUTH_AND_ACCOUNT.md` **v4.0.0**: mục 14.4 viết lại thành "Lối đăng nhập chủ động - không nhắc tự động": cấm N1-N6
+  (modal/bottom sheet/màn chen ngang, toast/biểu ngữ, thông báo hệ điều hành/email/huy hiệu số, chấm đỏ thu hút, dòng gợi
+  ý CLI, Google One Tap/Credential Manager tự hiện/`prompt=none` dò ngầm) cho mọi lối vào (TsuDEV, Google, GitHub,
+  Apple, nhà cung cấp mục 3.0); bỏ R1-R6, nhịp 24 giờ/3 ngày/7 ngày, "Không nhắc 30 ngày", dòng gợi ý CLI 14.4.6; giữ lối
+  vào cố định thụ động ở Cài đặt › Tài khoản + đăng nhập theo ngữ cảnh chỉ khi người dùng bấm; xoá khoá cục bộ
+  `tsu.signin_reminder.*`; ca kiểm thử 17 và checklist đổi theo.
+- `PRODUCT_POLICY.md` **v3.0.0**: mục 3.8 MỚI "Không thông báo làm phiền" - cấm tự hiện lời mời đăng nhập, Pro, Ủng hộ,
+  đánh giá app (kể cả In-App Review API), hộp thoại "tính năng mới", mời theo dõi/khảo sát; không xin quyền thông báo lúc
+  mở đầu. Ngoại lệ có chủ đích: modal khoá cập nhật/bản không chính thức (`APP_INTEGRITY.md`), trạng thái `suspended`
+  trong mục Tài khoản, nhắc gia hạn/hết kỳ Pro mục 7.6. Mục 7.7 bỏ câu "MUST nhắc bằng modal".
+- `AGENTS.md` mục 7.2: quy tắc nhắc đăng nhập đổi thành "không quảng cáo, không thông báo làm phiền".
+
+**Hướng dẫn nâng cấp** (MAJOR - siết thành `MUST NOT`):
+
+1. Flutter: KHÔNG gọi `TsuSignInReminder.maybeShow`; nâng `tsudev_ui` lên bản có `TsuAccountTile`/`TsuSignInSheet` khi
+   phát hành (phiếu LG4 mục 1), gọi `removeLegacyLocalKeys` lúc khởi động để xoá `tsu.signin_reminder.*`.
+2. Web: gỡ mọi `<tsu-signin-reminder>` đã gắn; dùng mục Tài khoản/ảnh đại diện thụ động.
+3. Desktop/CLI: không dựng hộp thoại nhắc; CLI bỏ dòng gợi ý đăng nhập.
+4. Rà mọi lời mời Pro/Ủng hộ/đánh giá app tự hiện ⇒ gỡ (mục 3.8); thêm ca kiểm thử 17 mới.
+
+Chưa repo app nào gắn modal LG3 (26/11/2026) nên đa số repo chỉ cần đồng bộ `.standards` và không gắn thêm.
+
+---
+
 ## 7.2.0 - 26/11/2026
 
 Chủ dự án 26/11/2026: xây trạm điều hành tập trung cho mọi website/dữ liệu/tài nguyên của hệ sinh thái và cổng đăng
