@@ -1,4 +1,4 @@
-# CHUẨN BẢO MẬT BẮT BUỘC - mọi project/tool/phần mềm tsudev (v3.1.0)
+# CHUẨN BẢO MẬT BẮT BUỘC - mọi project/tool/phần mềm tsudev (v3.2.0)
 
 > **Bất khả xâm phạm.** File này là chuẩn tối thiểu, không phải danh sách gợi ý.
 >
@@ -458,6 +458,39 @@ kỳ repo tsudev nào `MUST`:
    phạm vi tính năng, không rút gọn cổng kiểm.
 7. **Khi phát hiện lỗ hổng trong mã có sẵn**, báo cáo ngay cho chủ project kèm
    đánh giá mức độ theo `SECURITY.md` mục 5, kể cả khi nó nằm ngoài task đang làm.
+
+### 12.1. Zero Secret Exposure - HARD STOP (MUST - chủ dự án 26/11/2026)
+
+Áp dụng cho mọi agent: phiên chính, subagent, phiên `claude -p`, workflow tự động; với mọi tệp, **kể cả tệp nằm ngoài
+thư mục dự án** (`~/.config/**`, `~/.ssh/**`, tệp token ở thư mục nhà...).
+
+1. `MUST NOT` xuất giá trị token, secret, API key, private key, mật khẩu ra stdout, terminal, log, tệp được git theo
+   dõi, commit, PR, issue, release, báo cáo, AKB, phiếu bàn giao, tin nhắn giữa các phiên - kể cả một phần (vài ký tự
+   đầu/cuối) hay đã mã hoá base64/hex.
+2. `MUST NOT` dùng lệnh đọc/xử lý chuỗi trên tệp hoặc biến bí mật: `cat`, `head`, `tail`, `less`, `grep` (trừ `-q`,
+   `-c`, `-l`), `sed`, `awk`, `cut`, `sort`, `xxd`, `base64`, `jq`, công cụ đọc tệp của agent, tìm kiếm chế độ in nội
+   dung; `printenv`, `env`, `set`, `export -p`, `echo`/`printf` biến bí mật; `gh auth token` đứng riêng,
+   `gh auth status -t`, `git credential fill`, `curl -v` kèm header xác thực. Ví dụ điển hình gây lộ: `cut -d= -f1`
+   trên tệp chỉ chứa chuỗi token thô (không có `=`) in nguyên token.
+3. Được phép: xem **tên khoá + siêu dữ liệu** bằng `scripts/agent-hooks/noleak-inspect.py <tệp>` (tên khoá, độ dài giá
+   trị, quyền tệp, định dạng); kiểm tra biến bằng `[ -n "$X" ] && echo "co, dai ${#X}"`; dùng giá trị bằng cách nạp vào
+   môi trường (`set -a; . <tệp>; set +a`) hoặc thay thế lệnh (`GH_TOKEN=$(gh auth token) <lệnh>`), không in.
+4. **HARD STOP - dừng ngay và báo chủ dự án** (đường dẫn + tình trạng, không kèm giá trị), không thử cách đọc khác:
+
+   | # | Tình huống | Báo gì |
+   | --- | --- | --- |
+   | a | Tệp bí mật **không theo `KEY=VALUE`** - chỉ chứa chuỗi token thô, không có `=` (`noleak-inspect` báo `RAW_TOKEN`/`MIXED_RAW`, mã thoát 3), trong hay ngoài dự án | Đường dẫn + "thiếu định dạng `KEY=VALUE`" + số dòng; chờ chủ dự án tự sửa thành `TEN_BIEN=gia_tri`. Tệp do công cụ tự quản (vd. `~/.supabase/access-token`): không đọc, để công cụ tự dùng |
+   | b | Output công cụ có chuỗi giống bí mật (hook báo `[Zero Secret Exposure]`) | Loại bí mật + lệnh/tệp nguồn; đề nghị thu hồi/xoay khoá nếu là khoá thật |
+   | c | Bí mật đã nằm trong git, log, tệp công khai | Coi là đã lộ, xử lý theo mục 9.2 (thu hồi trước), không tự viết lại lịch sử |
+   | d | Task chỉ làm được nếu xem giá trị bí mật | Hỏi chủ dự án cách làm khác |
+
+5. Ghi bí mật mới chỉ vào tệp đã gitignore (`.env`, `.dev.vars`) đúng định dạng `KEY=VALUE`, quyền `600`; hoặc kho bí
+   mật của nền tảng (`wrangler secret put`, GitHub Secrets) nhập qua stdin. Dữ liệu test dùng giá trị rõ là giả.
+6. **Thi hành bằng máy, không chỉ bằng chữ**: máy phát triển chạy Claude Code `MUST` cài bộ hook
+   `scripts/agent-hooks/` (cách cài: [`scripts/agent-hooks/README.md`](../scripts/agent-hooks/README.md)) - `PreToolUse`
+   chặn các lệnh mục 2 và tệp mục 4a trước khi chạy, `PostToolUse` phát hiện chuỗi dạng khoá thật trong output.
+   Hook chặn thì agent `MUST NOT` lách (đổi lệnh, đổi công cụ, dùng python/node, giao subagent); làm theo chỉ dẫn
+   trong lý do chặn. Kiểm thử: `python3 scripts/agent-hooks/test-noleak-guard.py`.
 
 ---
 
