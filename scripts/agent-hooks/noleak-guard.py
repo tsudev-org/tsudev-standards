@@ -178,14 +178,46 @@ def check_file_tool(tool, ti):
                  "dung gia tri ro rang la gia (vd. `test-token-not-real`).")
 
 
+def harden_written(data):
+    """Bao ve luc nghi (SECURITY_BASELINE 12.2): tep bi mat vua ghi -> tu chmod 600. Tra ve danh sach da siet."""
+    tool = data.get("tool_name", "")
+    ti = data.get("tool_input") or {}
+    cwd = data.get("cwd") or os.getcwd()
+    paths = []
+    if tool in ("Write", "Edit", "MultiEdit", "NotebookEdit"):
+        paths.append(ti.get("file_path") or ti.get("notebook_path") or "")
+    elif tool == "Bash":
+        c = strip_heredocs(ti.get("command", ""))
+        paths += re.findall(r"(?<![<0-9&])>>?\s*([^\s<>|;&()]+)", c)
+        paths += [w for m in re.finditer(r"\btee\s+((?:-\w+\s+)*)([^|;&]+)", c) for w in m.group(2).split()]
+    done = []
+    for p in paths:
+        p = p.strip("'\"")
+        if not p or p.startswith(("/dev/", "&")) or not is_secret_path(p):
+            continue
+        full = os.path.expanduser(p if os.path.isabs(os.path.expanduser(p)) else os.path.join(cwd, p))
+        try:
+            st = os.lstat(full)
+            if os.path.isfile(full) and not os.path.islink(full) and st.st_mode & 0o077:
+                os.chmod(full, 0o600)
+                done.append(p)
+        except OSError:
+            pass
+    return done
+
+
 def post(data):
+    fixed = harden_written(data)
     resp = data.get("tool_response")
     try:
         text = resp if isinstance(resp, str) else json.dumps(resp, ensure_ascii=False)
     except Exception:
-        return
+        text = ""
     hits = find_secrets(text or "")
     if not hits:
+        if fixed:
+            print(json.dumps({"hookSpecificOutput": {"hookEventName": "PostToolUse", "additionalContext":
+                  "[Zero Secret Exposure 12.2] Da tu chmod 600 tep bi mat vua ghi: " + ", ".join(fixed[:5])}}, ensure_ascii=False))
         return
     kinds = ", ".join(f"{k} x{n}" for k, n in hits)
     msg = ("[Zero Secret Exposure - HARD STOP] Output cong cu vua roi co chuoi giong bi mat: " + kinds + ". "

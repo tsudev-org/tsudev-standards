@@ -46,6 +46,61 @@ def first_open_phase(path):
     return found, open_count, first_item
 
 
+def security_audit(root):
+    """SECURITY_BASELINE 12.2: tu siet quyen tep bi mat (600), canh bao token tho / tep bi mat bi git theo doi,
+    nhac phieu xoay khoa (logs/handover/*-XK*) con MO. Khong bao gio in gia tri."""
+    lines = []
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        sys.dont_write_bytecode = True
+        from noleaklib import inspect_file, is_secret_path
+    except Exception:
+        return lines
+    for t in sorted(glob.glob(os.path.join(root, "logs", "handover", "*-XK*.md"))):
+        try:
+            head = open(t, encoding="utf-8").read(1500)
+        except Exception:
+            continue
+        if re.search(r"Trạng thái\**:\**\s*(MỞ|ĐANG)", head):
+            lines.append(f"- ⚠ PHIEU XOAY KHOA DANG MO: `{os.path.relpath(t, root)}` - MUST nhac chu du an ngay dau phien "
+                         "(xoay/thu hoi bi mat da lo) truoc khi lam task; KHONG doc/in gia tri.")
+    if not os.path.isdir(os.path.join(root, ".git")) and not os.path.isfile(os.path.join(root, ".git")):
+        return lines
+    fixed, raw, tracked = [], [], []
+    for f in git(root, "ls-files", "--others", "--ignored", "--exclude-standard", "--directory").splitlines()[:5000]:
+        if not f or f.endswith("/"):
+            continue
+        p = os.path.join(root, f)
+        if not is_secret_path(p) or not os.path.isfile(p) or os.path.islink(p):
+            continue
+        try:
+            if os.stat(p).st_mode & 0o077:
+                os.chmod(p, 0o600)
+                fixed.append(f)
+            if not p.endswith((".pem", ".p12", ".pfx", ".keystore", ".jks", ".gpg", ".key", ".b64", ".json", ".sql", ".sh")) \
+                    and inspect_file(p).get("format") in ("RAW_TOKEN", "MIXED_RAW"):
+                raw.append(f)
+        except OSError:
+            pass
+    for f in git(root, "ls-files").splitlines():
+        if f and is_secret_path(os.path.join(root, f)) and not f.endswith((".crt", ".cer")) \
+                and not re.search(r"(^|/)\.env\.(production|development|staging|test)$", f) and "corpus" not in f:
+            p = os.path.join(root, f)
+            if f.endswith((".pem", ".key")) and inspect_file(p).get("format") != "pem-private-key":
+                continue  # chung chi / khoa CONG KHAI
+            if f.endswith(".gpg") and "keyring" in f:
+                continue  # keyring cong khai (APT)
+            tracked.append(f)
+    if fixed:
+        lines.append(f"- [12.2] Da tu chmod 600 {len(fixed)} tep bi mat bi mo quyen: {', '.join(fixed[:4])}")
+    if raw:
+        lines.append(f"- [12.1 HARD STOP] Tep bi mat KHONG theo KEY=VALUE: {', '.join(raw[:4])} - bao chu du an, khong doc.")
+    if tracked:
+        lines.append(f"- [12.2] Tep ten bi mat DANG bi git theo doi (kiem tra co phai bi mat that): {', '.join(tracked[:4])}"
+                     + (f" (+{len(tracked) - 4})" if len(tracked) > 4 else ""))
+    return lines
+
+
 def main():
     try:
         data = json.load(sys.stdin)
@@ -77,6 +132,8 @@ def main():
     ho = sorted(glob.glob(os.path.join(root, "logs", "handover", "*.md")))
     if ho:
         out.append(f"- Phieu ban giao moi nhat: `{os.path.relpath(ho[-1], root)}`")
+
+    out += security_audit(root)
 
     if not out and source == "startup":
         return  # repo khong theo quy trinh Phase: khong chen gi khi mo phien

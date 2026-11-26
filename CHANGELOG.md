@@ -8,6 +8,28 @@ Mới nhất trên cùng.
 
 ---
 
+## 8.3.0 - 26/11/2026
+
+Chủ dự án 26/11/2026: mọi tệp/thư mục chứa bí mật phải được bảo vệ tuyệt đối khi lưu trữ; phát hiện nguy cơ lộ thì báo
+ngay để xoay; kiến trúc bảo mật là ràng buộc của mọi task/phase.
+
+- `SECURITY_BASELINE.md` **v3.3.0**: mục 12.2 MỚI "Bảo vệ bí mật lúc lưu trữ" (quyền 600/700, không bản rõ trên ổ
+  Windows/đám mây, `KEY=VALUE`, sao lưu mã hoá `age`, token tối thiểu quyền + có hạn, OIDC cho CI); 12.3 MỚI "Phát hiện -
+  báo - xoay" (báo ngay + phiếu `XK`, hook nhắc mọi phiên, agent chỉ tự xoay khi được ủy quyền rõ, không bao giờ tự xoay
+  khoá ký phát hành); 12.4 MỚI "Kiến trúc bảo mật là ràng buộc của mọi task/phase" (thay đổi làm yếu bảo mật -> ADR +
+  chủ dự án duyệt).
+- `docs/templates/XOAY_KHOA.md` MỚI: mẫu phiếu xoay khoá.
+- `scripts/agent-hooks/`: `noleak-guard.py` tự `chmod 600` tệp bí mật vừa ghi; `phase-context.py` rà bảo mật repo khi mở
+  phiên + nhắc phiếu `*-XK*` còn MỞ; `noleaklib.py` nhận diện thêm `*.env`, `.envrc`, `*.jwk`, `~/.config/tsudev/`,
+  `secrets-local/`, bỏ qua khoá công khai và tệp build Flutter; `noleak-inspect.py --to-env` không thêm dòng chú thích,
+  chỉ đặt nháy khi cần. Kiểm thử 52 ca.
+- `AGENTS.md` **v3.5.0** mục 4: quy tắc cứng bí mật lúc lưu trữ + xoay khoá.
+
+**Hướng dẫn nâng cấp** (MINOR): cài lại hook (`scripts/agent-hooks/README.md`); chuyển bản rõ bí mật khỏi ổ Windows/đám
+mây; tạo phiếu `XK` cho bí mật từng lộ.
+
+---
+
 ## 8.2.1 - 26/11/2026
 
 - `SECURITY_BASELINE.md` **v3.2.1** mục 12.1-4a: khi chủ dự án ủy quyền rõ, agent đổi tệp token thô sang `KEY=VALUE`

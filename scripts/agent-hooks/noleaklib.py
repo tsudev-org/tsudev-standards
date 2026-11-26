@@ -15,7 +15,7 @@ SAFE_SUFFIX = re.compile(
 TEMPLATE = re.compile(r"\.(example|sample|template|dist|defaults|schema)(\.[a-z]+)?$", re.I)
 
 SECRET_BASENAME = re.compile(
-    r"^(\.env(\..+)?|\.dev\.vars(\..+)?|\.npmrc|\.pypirc|\.netrc|\.git-credentials|\.credentials\.json|"
+    r"^(\.env(\..+)?|[^/]+\.env(\.[^/]+)?|\.envrc|.*\.jwk|\.dev\.vars(\..+)?|\.npmrc|\.pypirc|\.netrc|\.git-credentials|\.credentials\.json|"
     r"credentials(\.json|\.toml|\.ya?ml)?|hosts\.ya?ml|key\.properties|rclone\.conf|"
     r"id_(rsa|dsa|ecdsa|ed25519)(_[\w-]+)?|.*\.(pem|key|p12|pfx|jks|keystore|p8|ppk|gpg|kdbx|secret|secrets)(\.b64|\.base64)?|"
     r"service[-_]?account.*\.json|.*(token|secrets?|passwd|password|apikey|api[-_]key|credentials?)(\.[\w]+)?)$",
@@ -23,7 +23,7 @@ SECRET_BASENAME = re.compile(
 
 SECRET_DIR_PARTS = (
     "/.ssh/", "/.config/gh/", "/.aws/", "/.config/.wrangler/", "/.wrangler/config/", "/.docker/config",
-    "/.kube/", "/.gnupg/", "/.config/gcloud/", "/.azure/", "/.android/", "/secrets/", "/.secrets/",
+    "/.kube/", "/.gnupg/", "/.config/tsudev/", "/secrets-local/", "/.config/gcloud/", "/.azure/", "/.android/", "/.secrets/",
 )
 DIR_SAFE = re.compile(r"(\.pub|known_hosts(\.old)?|/\.ssh/config|authorized_keys)$")
 
@@ -36,6 +36,10 @@ def is_secret_path(p: str) -> bool:
     base = os.path.basename(p.rstrip("/"))
     if not base or TEMPLATE.search(base) or base.endswith(".pub"):
         return False
+    if "/ephemeral/" in p or base == "flutter_native_integration.env":
+        return False  # tep build Flutter tu sinh
+    if re.search(r"(^|[-_.])pub(lic)?([-_.]|$)", base, re.I) and re.search(r"\.(jwk|pem|key|asc)$", base, re.I):
+        return False  # khoa CONG KHAI
     norm = "/" + p.lstrip("/")
     if any(d in norm for d in SECRET_DIR_PARTS) and not DIR_SAFE.search(norm):
         return True

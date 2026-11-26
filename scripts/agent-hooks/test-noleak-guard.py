@@ -51,4 +51,20 @@ for i,(g,e) in enumerate(extra):
     if g!=e: bad.append(("inspect",i,e,g))
 print(f"inspect: {sum(1 for g,e in extra if g==e)}/{len(extra)} dat")
 
+# 12.2: tu chmod 600 khi ghi tep bi mat + SessionStart siet quyen / nhac phieu XK
+R=tempfile.mkdtemp(); os.makedirs(R+'/logs/handover')
+subprocess.run(['git','init','-q',R]); open(R+'/.gitignore','w').write('.env*\n')
+open(R+'/.env','w').write('A=1\n'); os.chmod(R+'/.env',0o644)
+open(R+'/logs/handover/20261126-XK1_t.md','w').write('# P\n- **Trạng thái**: MỞ\n')
+pc=subprocess.run(['python3',os.path.join(HERE,'phase-context.py')],input=json.dumps({"cwd":R,"source":"startup"}),capture_output=True,text=True).stdout
+open(R+'/.env.local','w').write('B=2\n'); os.chmod(R+'/.env.local',0o644)
+subprocess.run(['python3',G],input=json.dumps({"hook_event_name":"PostToolUse","tool_name":"Bash","cwd":R,"tool_input":{"command":"printf B=2 > .env.local"},"tool_response":{"stdout":""}}),capture_output=True,text=True)
+open(R+'/notes.md','w').write('x'); os.chmod(R+'/notes.md',0o644)
+subprocess.run(['python3',G],input=json.dumps({"hook_event_name":"PostToolUse","tool_name":"Write","cwd":R,"tool_input":{"file_path":R+'/notes.md'},"tool_response":{}}),capture_output=True,text=True)
+m=lambda f: oct(os.stat(R+'/'+f).st_mode&0o777)
+x=[("XOAY KHOA" in pc,True),(m('.env'),'0o600'),(m('.env.local'),'0o600'),(m('notes.md'),'0o644')]
+for i,(g,e) in enumerate(x):
+    if g!=e: bad.append(("12.2",i,e,g))
+print(f"12.2: {sum(1 for g,e in x if g==e)}/{len(x)} dat")
+
 sys.exit(1 if bad else 0)
