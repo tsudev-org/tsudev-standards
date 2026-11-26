@@ -17,7 +17,7 @@ TEMPLATE = re.compile(r"\.(example|sample|template|dist|defaults|schema)(\.[a-z]
 SECRET_BASENAME = re.compile(
     r"^(\.env(\..+)?|\.dev\.vars(\..+)?|\.npmrc|\.pypirc|\.netrc|\.git-credentials|\.credentials\.json|"
     r"credentials(\.json|\.toml|\.ya?ml)?|hosts\.ya?ml|key\.properties|rclone\.conf|"
-    r"id_(rsa|dsa|ecdsa|ed25519)(_[\w-]+)?|.*\.(pem|key|p12|pfx|jks|keystore|p8|ppk|gpg|kdbx|secret|secrets)|"
+    r"id_(rsa|dsa|ecdsa|ed25519)(_[\w-]+)?|.*\.(pem|key|p12|pfx|jks|keystore|p8|ppk|gpg|kdbx|secret|secrets)(\.b64|\.base64)?|"
     r"service[-_]?account.*\.json|.*(token|secrets?|passwd|password|apikey|api[-_]key|credentials?)(\.[\w]+)?)$",
     re.I)
 
