@@ -216,7 +216,7 @@ Phần lớn mã chạy trong sản phẩm là mã của người khác. Đối 
 ## 6. Xác thực, phiên và phân quyền
 
 > Mục này là **ngưỡng kỹ thuật tối thiểu**. Kiến trúc tài khoản của hệ sinh thái
-> (ba lối vào Google/GitHub/tsudev, gộp danh tính, cơ chế Xác minh tài khoản,
+> (một cổng đăng nhập duy nhất, ba lối vào, gộp danh tính, cơ chế Xác minh tài khoản,
 > trạng thái và ma trận quyền) nằm ở
 > [`AUTH_AND_ACCOUNT.md`](AUTH_AND_ACCOUNT.md). Làm chức năng đăng nhập thì
 > `MUST` đọc cả hai: tài liệu này cho ngưỡng, tài liệu kia cho kiến trúc.

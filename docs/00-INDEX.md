@@ -97,6 +97,7 @@
 | [`APPLE_CICD.md`](APPLE_CICD.md) | Apple iOS/iPadOS/macOS: CI/CD từ Ubuntu, ký, TestFlight, bí mật `APPLE_*`, script `scripts/apple/` | Bất khả xâm phạm |
 | [`RICH_TEXT_EDITOR.md`](RICH_TEXT_EDITOR.md) | Trình soạn thảo nội dung | Bất khả xâm phạm |
 | [`SEARCH_AND_FILTER.md`](SEARCH_AND_FILTER.md) | Tìm kiếm và lọc tiếng Việt | Bất khả xâm phạm |
+| [`templates/RA_SOAT_DANG_NHAP.md`](templates/RA_SOAT_DANG_NHAP.md) | Phiếu rà soát một cổng đăng nhập ở repo sản phẩm | Mẫu |
 | [`ONBOARDING.md`](ONBOARDING.md) | Triển khai và bộ câu lệnh agent | Hướng dẫn |
 | [`templates/HANDOVER.md`](templates/HANDOVER.md) | Mẫu phiếu bàn giao | Mẫu |
 | [`templates/ADR.md`](templates/ADR.md) | Mẫu ghi quyết định kiến trúc | Mẫu |

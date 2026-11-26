@@ -3,6 +3,10 @@
 > Agent đọc file này ở đầu mỗi phiên và cập nhật ở cuối mỗi phiên.
 > Quy trình: `docs/AGENT_PROTOCOL.md`.
 
+> **27/11/2026**: bản `v9.0.0` - một cổng đăng nhập duy nhất (`AUTH_AND_ACCOUNT.md` mục 2.1), cổng kiểm
+> `check-central-login.sh`, mẫu `RA_SOAT_DANG_NHAP.md`. Việc còn: mỗi repo sản phẩm đồng bộ (chạy sync hai lượt) và tự
+> rà theo hướng dẫn nâng cấp trong CHANGELOG; kiểm Apple Guideline 4.8/5.1.1(v) trước lần nộp App Store đầu.
+
 > **09/11/2026**: bản `v3.2.0` - repo ở `tsudev-org`, thêm quy tắc tên repo cũ (AGENTS.md mục 4). Phiếu
 > [`20261109-01`](handover/20261109-01_v3.2.0-tsudev-org.md). Hàng đợi bên dưới từ 25/08 - đo lại trước khi làm.
 

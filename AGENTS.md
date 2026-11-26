@@ -1,4 +1,4 @@
-# AGENTS.md - Bộ quy ước dùng chung tsudev (v3.5.0)
+# AGENTS.md - Bộ quy ước dùng chung tsudev (v4.0.0)
 
 > **ĐÂY LÀ NGUỒN CHÂN LÝ.** Bộ quy ước được biên tập tại repo
 > `tsudev-org/tsudev-standards`. Repo con mang một BẢN SAO CHỈ-ĐỌC tại
@@ -234,9 +234,10 @@ git grep -lP '\x{2014}' -- . | grep -v '^migrations/'
 - Mọi vùng hiển thị danh sách bản ghi phải có bộ chọn số bản ghi đúng vị trí và
   đúng các mốc `10/20/50/100/200`, mặc định `10`. Chi tiết:
   [`docs/DATA_TABLE.md`](docs/DATA_TABLE.md).
-- Mọi sản phẩm có tài khoản phải đủ ba lối vào (Google, GitHub, tài khoản tsudev)
-  và cơ chế Xác minh tài khoản. Chi tiết:
-  [`docs/AUTH_AND_ACCOUNT.md`](docs/AUTH_AND_ACCOUNT.md).
+- **Một cổng đăng nhập duy nhất** của `tsudev.com` (từ `v9.0.0`): website sản phẩm không có trang đăng nhập; app cài
+  đặt không có ô nhập tài khoản hay nút/SDK Google, Apple, GitHub - chỉ có nút mở trình duyệt. Ba lối vào và Xác minh
+  tài khoản nằm ở cổng. Agent ở repo sản phẩm `MUST` tự rà (`.standards/scripts/check-central-login.sh`), lập phiếu
+  `RA_SOAT_DANG_NHAP` và sửa vi phạm. Chi tiết: [`docs/AUTH_AND_ACCOUNT.md`](docs/AUTH_AND_ACCOUNT.md) mục 2.1.
 - Mọi sản phẩm **không quảng cáo, không thông báo làm phiền**: `MUST NOT` tự hiện modal,
   thông báo, biểu ngữ hay chấm đỏ mời đăng nhập (TsuDEV/Google/GitHub/Apple), mời Pro,
   xin Ủng hộ hay xin đánh giá. Đăng nhập chỉ mở khi người dùng bấm (Cài đặt › Tài khoản
