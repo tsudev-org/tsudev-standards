@@ -8,6 +8,26 @@ Mới nhất trên cùng.
 
 ---
 
+## 8.1.0 - 26/11/2026
+
+Chủ dự án 26/11/2026: chuẩn hoá cách mọi phiên agent trên máy phát triển **chọn mô hình, chia Phase và giữ ngữ cảnh
+gọn** để chạy nhiều dự án song song với chi phí thấp nhất mà không hạ chất lượng (cấu hình máy: `opusplan`, tự nén ở
+200K, hook `SessionStart` nạp lại Phase đang mở, status line `ctx %`).
+
+- `AGENT_PROTOCOL.md` **v2.3.0**: mục 4.1 MỚI "Chọn mô hình theo độ khó" (Sonnet thực thi; lên Opus cho kiến trúc,
+  PLAN, lỗi chưa rõ nguyên nhân, xung đột/race, bảo mật, dữ liệu production, rà soát phát hành - qua `EnterPlanMode`
+  hoặc subagent `model: "opus"`; `MUST NOT` hạ mô hình để tiết kiệm). Mục 4.2 MỚI "Chu trình Phase" (một ngữ cảnh một
+  Phase; xong thì `[x]` -> STATE -> commit -> dừng chờ `/clear`). Mục 4.3 MỚI "Quản lý ngữ cảnh" (ngưỡng 200K,
+  vàng 50%/đỏ 75%, `/compact` có chỉ dẫn, `CLAUDE.md`/`AGENTS.md` dưới 200 dòng, `.claude/rules` có `paths:`).
+- `docs/templates/PLAN.md` MỚI: mẫu kế hoạch Phase + checklist + nghiệm thu + mô hình.
+- `AGENTS.md` **v3.3.0** mục 2: thêm gạch đầu dòng trỏ mục 4.1-4.3.
+
+**Hướng dẫn nâng cấp** (MINOR - bổ sung, không phá vỡ): đồng bộ `.standards/`; kế hoạch mới viết theo
+`templates/PLAN.md`; kế hoạch cũ dạng bảng/emoji chuyển dần khi sửa. Repo có `CLAUDE.md`/`AGENTS.md` trên 200 dòng lập
+việc thu gọn theo mục 4.3.
+
+---
+
 ## 8.0.0 - 26/11/2026
 
 Chủ dự án 26/11/2026 (phiếu `20261126-LG4`, thay `20261126-LG3`): mục tiêu và định hướng của mọi sản phẩm TsuDEV là
