@@ -8,6 +8,24 @@ Mới nhất trên cùng.
 
 ---
 
+## 7.2.0 - 26/11/2026
+
+Chủ dự án 26/11/2026: xây trạm điều hành tập trung cho mọi website/dữ liệu/tài nguyên của hệ sinh thái và cổng đăng
+nhập/xác thực tập trung có tên miền con riêng, học kiến trúc đã chạy thật ở hệ `ubnd` (SSO `id.`, Cloudflare Access
+trước trang quản trị + lớp kiểm JWT thứ hai, khoá origin bằng chữ ký biên, cảnh báo an ninh).
+
+- `CONTROL_PLANE.md` v1.0.0 MỚI: ba vùng (`tsudev.com` công khai chỉ đọc, `id.tsudev.com` xác thực, `console.tsudev.com`
+  điều hành); issuer OIDC và rpId passkey KHÔNG đổi; bảy lớp khoá của `console.` (Access, kiểm JWT Access, đăng nhập 2FA,
+  vai trò từ DB, khẳng định danh tính `aud=console`, step-up cho thao tác nguy hiểm, nhật ký chuỗi băm); hợp đồng cho
+  website sản phẩm (không trang quản trị riêng, `site.json`, lệnh điều hành ký + chống phát lại); khoá origin
+  `X-Tsu-Edge`; cảnh báo; chuyển dần `ghi` → `chan` theo số đo; checklist. Cài đặt tham chiếu: tsudev ADR-0005.
+- `ECOSYSTEM_IDENTITY.md` v4.1.0: ba vai của tsudev.com ánh xạ vào ba vùng tên miền.
+
+**Hướng dẫn nâng cấp** (MINOR - không phá vỡ): repo website sản phẩm có trang quản trị riêng ⇒ mở phiếu chuyển sang
+`console.` khi tsudev hoàn thành phase CP6 (sổ website + kênh lệnh ký); trước đó chỉ cần không thêm trang quản trị mới.
+
+---
+
 ## 7.1.1 - 26/11/2026
 
 - `LOCAL_SYNC.md` v1.0.2: so mã số có **cam kết nonce** (bên được gọi gửi SHA-256(`tsulink-sas-commit|` ‖ nonce) trước
