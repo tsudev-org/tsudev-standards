@@ -4,17 +4,17 @@ Bản gốc của các hook cài trên máy phát triển tại `~/.claude/hooks
 
 | Tệp | Vai trò | Chuẩn |
 | --- | --- | --- |
-| `secretlib.py` | Nhận diện tệp/chuỗi bí mật, đọc siêu dữ liệu an toàn (không bao giờ trả về giá trị) | `SECURITY_BASELINE.md` 12.1 |
-| `secret-guard.py` | Hook `PreToolUse` (chặn lệnh/tệp có thể lộ bí mật) + `PostToolUse` (phát hiện chuỗi dạng khoá thật trong output) | 12.1 |
-| `secret-inspect.py` | Công cụ cho agent: in tên khoá + độ dài + quyền + định dạng; mã thoát 3 khi tệp không theo `KEY=VALUE` | 12.1 mục 4a |
+| `noleaklib.py` | Nhận diện tệp/chuỗi bí mật, đọc siêu dữ liệu an toàn (không bao giờ trả về giá trị) | `SECURITY_BASELINE.md` 12.1 |
+| `noleak-guard.py` | Hook `PreToolUse` (chặn lệnh/tệp có thể lộ bí mật) + `PostToolUse` (phát hiện chuỗi dạng khoá thật trong output) | 12.1 |
+| `noleak-inspect.py` | Công cụ cho agent: in tên khoá + độ dài + quyền + định dạng; mã thoát 3 khi tệp không theo `KEY=VALUE` | 12.1 mục 4a |
 | `phase-context.py` | Hook `SessionStart` (`startup\|clear\|compact\|resume`): nạp lại Phase đang mở của `docs/PLAN.md`, STATE, phiếu mới nhất | `AGENT_PROTOCOL.md` 4.2 |
 | `statusline.py` | Status line: mô hình, repo@nhánh, `ctx %` theo `autoCompactWindow` (vàng 70%, đỏ 90%) | `AGENT_PROTOCOL.md` 4.3 |
-| `test-secret-guard.py` | Kiểm thử bằng dữ liệu giả | - |
+| `test-noleak-guard.py` | Kiểm thử bằng dữ liệu giả | - |
 
 ## Cài đặt
 
 ```bash
-python3 scripts/agent-hooks/test-secret-guard.py          # phải in "N/N dat"
+python3 scripts/agent-hooks/test-noleak-guard.py          # phải in "N/N dat"
 install -d ~/.claude/hooks
 install -m 755 scripts/agent-hooks/*.py ~/.claude/hooks/
 ```
@@ -35,9 +35,9 @@ Thêm vào `~/.claude/settings.json` (gộp với khoá đã có, không ghi đ�
     "SessionStart": [{ "matcher": "startup|clear|compact|resume",
       "hooks": [{ "type": "command", "command": "python3 ~/.claude/hooks/phase-context.py", "timeout": 10 }] }],
     "PreToolUse": [{ "matcher": "Bash|Read|Grep|Write|Edit|MultiEdit|NotebookEdit",
-      "hooks": [{ "type": "command", "command": "python3 ~/.claude/hooks/secret-guard.py", "timeout": 10 }] }],
+      "hooks": [{ "type": "command", "command": "python3 ~/.claude/hooks/noleak-guard.py", "timeout": 10 }] }],
     "PostToolUse": [{ "matcher": "*",
-      "hooks": [{ "type": "command", "command": "python3 ~/.claude/hooks/secret-guard.py", "timeout": 10 }] }]
+      "hooks": [{ "type": "command", "command": "python3 ~/.claude/hooks/noleak-guard.py", "timeout": 10 }] }]
   }
 }
 ```

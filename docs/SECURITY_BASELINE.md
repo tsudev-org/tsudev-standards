@@ -472,14 +472,14 @@ thư mục dự án** (`~/.config/**`, `~/.ssh/**`, tệp token ở thư mục n
    dung; `printenv`, `env`, `set`, `export -p`, `echo`/`printf` biến bí mật; `gh auth token` đứng riêng,
    `gh auth status -t`, `git credential fill`, `curl -v` kèm header xác thực. Ví dụ điển hình gây lộ: `cut -d= -f1`
    trên tệp chỉ chứa chuỗi token thô (không có `=`) in nguyên token.
-3. Được phép: xem **tên khoá + siêu dữ liệu** bằng `scripts/agent-hooks/secret-inspect.py <tệp>` (tên khoá, độ dài giá
+3. Được phép: xem **tên khoá + siêu dữ liệu** bằng `scripts/agent-hooks/noleak-inspect.py <tệp>` (tên khoá, độ dài giá
    trị, quyền tệp, định dạng); kiểm tra biến bằng `[ -n "$X" ] && echo "co, dai ${#X}"`; dùng giá trị bằng cách nạp vào
    môi trường (`set -a; . <tệp>; set +a`) hoặc thay thế lệnh (`GH_TOKEN=$(gh auth token) <lệnh>`), không in.
 4. **HARD STOP - dừng ngay và báo chủ dự án** (đường dẫn + tình trạng, không kèm giá trị), không thử cách đọc khác:
 
    | # | Tình huống | Báo gì |
    | --- | --- | --- |
-   | a | Tệp bí mật **không theo `KEY=VALUE`** - chỉ chứa chuỗi token thô, không có `=` (`secret-inspect` báo `RAW_TOKEN`/`MIXED_RAW`, mã thoát 3), trong hay ngoài dự án | Đường dẫn + "thiếu định dạng `KEY=VALUE`" + số dòng; chờ chủ dự án tự sửa thành `TEN_BIEN=gia_tri`. Tệp do công cụ tự quản (vd. `~/.supabase/access-token`): không đọc, để công cụ tự dùng |
+   | a | Tệp bí mật **không theo `KEY=VALUE`** - chỉ chứa chuỗi token thô, không có `=` (`noleak-inspect` báo `RAW_TOKEN`/`MIXED_RAW`, mã thoát 3), trong hay ngoài dự án | Đường dẫn + "thiếu định dạng `KEY=VALUE`" + số dòng; chờ chủ dự án tự sửa thành `TEN_BIEN=gia_tri`. Tệp do công cụ tự quản (vd. `~/.supabase/access-token`): không đọc, để công cụ tự dùng |
    | b | Output công cụ có chuỗi giống bí mật (hook báo `[Zero Secret Exposure]`) | Loại bí mật + lệnh/tệp nguồn; đề nghị thu hồi/xoay khoá nếu là khoá thật |
    | c | Bí mật đã nằm trong git, log, tệp công khai | Coi là đã lộ, xử lý theo mục 9.2 (thu hồi trước), không tự viết lại lịch sử |
    | d | Task chỉ làm được nếu xem giá trị bí mật | Hỏi chủ dự án cách làm khác |
@@ -490,7 +490,7 @@ thư mục dự án** (`~/.config/**`, `~/.ssh/**`, tệp token ở thư mục n
    `scripts/agent-hooks/` (cách cài: [`scripts/agent-hooks/README.md`](../scripts/agent-hooks/README.md)) - `PreToolUse`
    chặn các lệnh mục 2 và tệp mục 4a trước khi chạy, `PostToolUse` phát hiện chuỗi dạng khoá thật trong output.
    Hook chặn thì agent `MUST NOT` lách (đổi lệnh, đổi công cụ, dùng python/node, giao subagent); làm theo chỉ dẫn
-   trong lý do chặn. Kiểm thử: `python3 scripts/agent-hooks/test-secret-guard.py`.
+   trong lý do chặn. Kiểm thử: `python3 scripts/agent-hooks/test-noleak-guard.py`.
 
 ---
 

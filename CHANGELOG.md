@@ -18,8 +18,8 @@ tệp chỉ chứa token thô in nguyên token) - quy tắc **Zero Secret Exposu
   đầu ra; cấm lệnh đọc/xử lý chuỗi trên tệp/biến bí mật (cả ngoài dự án); chỉ xem tên khoá + siêu dữ liệu; bảng 4 tình
   huống bắt buộc dừng và báo chủ dự án (a: tệp bí mật không theo `KEY=VALUE`; b: output lộ chuỗi giống bí mật; c: bí
   mật đã vào git/log; d: task cần xem giá trị); máy phát triển `MUST` cài bộ hook.
-- `scripts/agent-hooks/` MỚI (bản gốc): `secret-guard.py` (PreToolUse chặn + PostToolUse phát hiện), `secret-inspect.py`,
-  `secretlib.py`, `phase-context.py`, `statusline.py` (của v8.1.0), kiểm thử `test-secret-guard.py` (42 ca, dữ liệu giả),
+- `scripts/agent-hooks/` MỚI (bản gốc): `noleak-guard.py` (PreToolUse chặn + PostToolUse phát hiện), `noleak-inspect.py`,
+  `noleaklib.py`, `phase-context.py`, `statusline.py` (của v8.1.0), kiểm thử `test-noleak-guard.py` (42 ca, dữ liệu giả),
   `README.md` cách cài.
 - `AGENTS.md` **v3.4.0** mục 4: thêm quy tắc cứng Zero Secret Exposure.
 
