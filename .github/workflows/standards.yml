@@ -37,6 +37,9 @@ jobs:
       - name: Ngoại lệ upstream của mục 7.1 hoạt động đúng
         run: ./scripts/test-upstream-exempt.sh
 
+      - name: Cổng kiểm một cổng đăng nhập bắt đúng (AUTH_AND_ACCOUNT 2.1)
+        run: ./scripts/test-check-central-login.sh
+
       - name: Hook Zero Secret Exposure chặn đúng (SECURITY_BASELINE 12.1)
         run: python3 scripts/agent-hooks/test-noleak-guard.py
 

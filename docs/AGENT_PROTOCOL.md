@@ -1,4 +1,4 @@
-# GIAO THỨC LÀM VIỆC CỦA AGENT (v2.3.0)
+# GIAO THỨC LÀM VIỆC CỦA AGENT (v2.4.0)
 
 > Tài liệu này mô tả **cách vận hành một phiên làm việc** cho cả lập trình viên
 > và agent AI: mở phiên, khóa file, bàn giao, đóng phiên. Quy ước nội dung nằm ở
@@ -28,6 +28,9 @@ tiết kiệm token, không lặp lại nội dung đã có trong file quy ướ
 
 Agent `MUST` thực hiện đúng thứ tự: đọc quy ước -> đọc trạng thái -> đọc phiếu
 bàn giao -> nhận việc -> khóa file -> mới bắt đầu sửa.
+
+Repo sản phẩm chưa có phiếu `RA_SOAT_DANG_NHAP` cho bộ quy ước MAJOR hiện hành: `MUST` làm bước tự kiểm một cổng đăng
+nhập ở [`AUTH_AND_ACCOUNT.md`](AUTH_AND_ACCOUNT.md) mục 2.1.
 
 Trên máy phát triển có kho tri thức AKB ([`KNOWLEDGE_BASE.md`](KNOWLEDGE_BASE.md)), ngay sau khi nhận việc agent
 `MUST` chạy `akb start "<mục tiêu phiên>"` (đọc phần liên quan trong danh sách in ra) và, với việc cụ thể (lỗi, thư

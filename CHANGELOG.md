@@ -8,6 +8,32 @@ Mới nhất trên cùng.
 
 ---
 
+## 9.0.0 - 27/11/2026
+
+Chủ dự án 27/11/2026: mọi sản phẩm TsuDEV chỉ đăng nhập qua một cổng của `tsudev.com`; app cài đặt không có cơ chế
+nhập tài khoản trực tiếp.
+
+- `AUTH_AND_ACCOUNT.md` **v5.0.0**: mục 2.1 MỚI "Một cổng đăng nhập duy nhất" (website sản phẩm không trang đăng nhập;
+  app/CLI không ô nhập, không nút/SDK nhà cung cấp, không WebView; phiên về app qua trình duyệt hệ thống + PKCE hoặc
+  device code; xoá tài khoản trong app; agent tự kiểm, tự sửa). Bỏ quyền tạm dùng xác thực cục bộ. Mục 3, 4, 13, 14.4,
+  16, 17 sửa theo.
+- `CONTROL_PLANE.md` **v2.0.0**, `CROSS_DEVICE_LOGIN.md` **v1.2.0** (mã khớp chỉ gõ trên trang cổng),
+  `AGENT_PROTOCOL.md` **v2.4.0**, `AGENTS.md` **v4.0.0**.
+- MỚI `scripts/check-central-login.sh` (+ test) - cổng kiểm repo con gọi ở chế độ cảnh báo;
+  `docs/templates/RA_SOAT_DANG_NHAP.md`.
+
+**Hướng dẫn nâng cấp** (MAJOR, repo sản phẩm):
+
+1. Chạy `./scripts/sync-standards.sh --ref v9.0.0`, rồi chạy lại một lần nữa (lượt đầu dùng script cũ nên chưa chép
+   `check-central-login.sh` vào `.standards/scripts/`).
+2. Chạy `.standards/scripts/check-central-login.sh`, lập phiếu từ `.standards/docs/templates/RA_SOAT_DANG_NHAP.md`.
+3. Đăng ký `client_id` OIDC + `redirect_uri` với tsudev.com nếu chưa có; thay màn đăng nhập bằng hai nút mục 2.1; gỡ
+   SDK nhà cung cấp, trang đăng nhập, bảng mật khẩu (di trú tài khoản trước).
+4. Ngoại lệ hợp lệ (khoá cục bộ, thông tin đăng nhập LAN...) khai vào `.central-login-allow` kèm lý do.
+5. Chạy `check-central-login.sh --strict` và đưa vào CI của repo.
+
+---
+
 ## 8.3.0 - 26/11/2026
 
 Chủ dự án 26/11/2026: mọi tệp/thư mục chứa bí mật phải được bảo vệ tuyệt đối khi lưu trữ; phát hiện nguy cơ lộ thì báo
