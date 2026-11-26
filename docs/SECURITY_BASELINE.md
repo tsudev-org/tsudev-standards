@@ -1,4 +1,4 @@
-# CHUẨN BẢO MẬT BẮT BUỘC - mọi project/tool/phần mềm tsudev (v3.2.0)
+# CHUẨN BẢO MẬT BẮT BUỘC - mọi project/tool/phần mềm tsudev (v3.2.1)
 
 > **Bất khả xâm phạm.** File này là chuẩn tối thiểu, không phải danh sách gợi ý.
 >
@@ -479,7 +479,7 @@ thư mục dự án** (`~/.config/**`, `~/.ssh/**`, tệp token ở thư mục n
 
    | # | Tình huống | Báo gì |
    | --- | --- | --- |
-   | a | Tệp bí mật **không theo `KEY=VALUE`** - chỉ chứa chuỗi token thô, không có `=` (`noleak-inspect` báo `RAW_TOKEN`/`MIXED_RAW`, mã thoát 3), trong hay ngoài dự án | Đường dẫn + "thiếu định dạng `KEY=VALUE`" + số dòng; chờ chủ dự án tự sửa thành `TEN_BIEN=gia_tri`. Tệp do công cụ tự quản (vd. `~/.supabase/access-token`): không đọc, để công cụ tự dùng |
+   | a | Tệp bí mật **không theo `KEY=VALUE`** - chỉ chứa chuỗi token thô, không có `=` (`noleak-inspect` báo `RAW_TOKEN`/`MIXED_RAW`, mã thoát 3), trong hay ngoài dự án | Đường dẫn + "thiếu định dạng `KEY=VALUE`" + số dòng; chờ chủ dự án tự sửa thành `TEN_BIEN=gia_tri`, hoặc - khi chủ dự án ủy quyền rõ - đổi bằng `noleak-inspect.py --to-env TEN_BIEN <tệp>` (tự kiểm chứng không mất dữ liệu, không in giá trị) sau khi đã tìm và sửa mọi nơi đọc tệp đó. Tệp do công cụ tự quản (vd. `~/.supabase/access-token`): không đọc, để công cụ tự dùng |
    | b | Output công cụ có chuỗi giống bí mật (hook báo `[Zero Secret Exposure]`) | Loại bí mật + lệnh/tệp nguồn; đề nghị thu hồi/xoay khoá nếu là khoá thật |
    | c | Bí mật đã nằm trong git, log, tệp công khai | Coi là đã lộ, xử lý theo mục 9.2 (thu hồi trước), không tự viết lại lịch sử |
    | d | Task chỉ làm được nếu xem giá trị bí mật | Hỏi chủ dự án cách làm khác |

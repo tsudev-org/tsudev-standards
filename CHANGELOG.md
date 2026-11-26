@@ -8,6 +8,16 @@ Mới nhất trên cùng.
 
 ---
 
+## 8.2.1 - 26/11/2026
+
+- `SECURITY_BASELINE.md` **v3.2.1** mục 12.1-4a: khi chủ dự án ủy quyền rõ, agent đổi tệp token thô sang `KEY=VALUE`
+  bằng `noleak-inspect.py --to-env` sau khi đã sửa mọi nơi đọc tệp.
+- `scripts/agent-hooks/`: `noleak-inspect.py --to-env` (ghi nguyên tử, quyền 600, đặt giá trị trong nháy đơn, nạp lại
+  bằng bash so sha256, không in giá trị); sửa lỗi in khoá tệp JSON; `noleaklib.py` nhận diện khoá bọc base64
+  (`*.keystore.b64`, `*.pem.base64`). Kiểm thử thêm 6 ca.
+
+---
+
 ## 8.2.0 - 26/11/2026
 
 Chủ dự án 26/11/2026: khắc phục triệt để việc agent làm lộ token/secret trong lúc làm việc (ví dụ `cut -d= -f1` trên

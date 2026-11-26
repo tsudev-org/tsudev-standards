@@ -34,4 +34,21 @@ cases=[
  ("DENY",B("git commit -F - <<'EOF'\nfix key sk-ant-"+"x"*30+"\nEOF")),("ok",B("cat > notes.md <<'EOF'\nkhong dung printenv\nEOF")),
 ]
 bad=[(i,e,g) for i,(e,g) in enumerate(cases) if e!=g]; print(f"{len(cases)-len(bad)}/{len(cases)} dat"); print("SAI:",bad)
+# noleak-inspect: --to-env (doi tep token tho -> KEY=VALUE, khong mat du lieu) + JSON + .b64
+import hashlib
+I=os.path.join(HERE,'noleak-inspect.py')
+raw="fa'ke $HOME \"x\" `y` ;notreal"
+open(S+'/pw','w').write(raw+'\n')
+r1=subprocess.run(["python3",I,"--to-env","FAKE_PW",S+'/pw'],capture_output=True,text=True)
+chk=subprocess.run(["bash","-c",'set -a; . "$1"; set +a; printf %s "$FAKE_PW" | sha256sum',"_",S+'/pw'],capture_output=True,text=True).stdout.split()[0]
+open(S+'/j.json','w').write('{"access_token":"x","ab":"y"}')
+r2=subprocess.run(["python3",I,S+'/j.json'],capture_output=True,text=True)
+sys.path.insert(0,HERE); from noleaklib import is_secret_path
+extra=[("ok" if r1.returncode==0 else "FAIL","ok"),(chk==hashlib.sha256(raw.encode()).hexdigest(),True),
+       ("raw" in r1.stdout or raw in r1.stdout,False),(r2.returncode==0 and "- ab" in r2.stdout,True),
+       (is_secret_path("ptsam.keystore.b64"),True),(is_secret_path("data.b64"),False)]
+for i,(g,e) in enumerate(extra):
+    if g!=e: bad.append(("inspect",i,e,g))
+print(f"inspect: {sum(1 for g,e in extra if g==e)}/{len(extra)} dat")
+
 sys.exit(1 if bad else 0)
