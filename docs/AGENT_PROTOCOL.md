@@ -142,6 +142,11 @@ không mất ngữ cảnh làm việc**, không phải tăng hạn mức bằng 
   không gọi API không công khai); status line ghi cache `~/.cache/tsudev/cc-usage/<profile>.json` (chỉ % và giờ reset,
   `600`). Số liệu chỉ mới khi tài khoản đó có phiên chạy. Gói/gia hạn do chủ dự án nhập tay (`cc set`) vào
   `~/.config/cc/accounts.json`. Agent `MUST NOT` lấy hạn mức bằng cách đọc token hay gọi API ngoài đường này.
+- Quản lý tài khoản: `cc login <số|tên>` (đăng nhập một lần, điền sẵn email), `cc logout <số|tên>` (hỏi xác nhận, chỉ
+  xoá đăng nhập của profile đó), `cc add <email>` / `cc rm <số|tên>` (sửa `~/.config/cc/accounts.list`, `rm` không xoá
+  thư mục profile). `cc ls` gọi `claude auth status --json` để đối chiếu email thật của từng profile với danh sách và
+  báo `SAI` khi đăng nhập nhầm; loại gói lấy từ đây, ngày gia hạn vẫn nhập tay. Các lệnh này do chủ dự án chạy, agent
+  không chạy thay.
 - Mỗi profile liên kết (symlink) `CLAUDE.md`, `settings.json`, `hooks/`, `skills/`, `plugins/` về `~/.claude` để hook
   bảo mật (`noleak-guard`), quy ước Phase và status line **áp dụng như nhau cho mọi tài khoản**. Token
   (`.credentials.json`), lịch sử và `projects/` (kèm memory) **riêng từng tài khoản**.
