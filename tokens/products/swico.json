@@ -1,7 +1,7 @@
 {
   "$schema": "./product.schema.json",
   "id": "swico",
-  "name": "Tsu Swico",
+  "name": "TsuSwico",
   "repo": "tsudev-org/tsuswico",
   "seed": {
     "hex": "#2A323B",

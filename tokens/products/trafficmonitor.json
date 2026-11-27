@@ -1,7 +1,7 @@
 {
   "$schema": "./product.schema.json",
   "id": "trafficmonitor",
-  "name": "Tsu Tramon",
+  "name": "TsuTramon",
   "repo": "tsudev-org/tsutramon",
   "seed": {
     "hex": "#FE7107",

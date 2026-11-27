@@ -1,4 +1,4 @@
-# QUY ƯỚC GIAO DIỆN TOÀN PROJECT (DESIGN SYSTEM) - v4.2.0
+# QUY ƯỚC GIAO DIỆN TOÀN PROJECT (DESIGN SYSTEM) - v4.3.0
 
 > Áp dụng cho MỌI website, tool, phần mềm desktop (Electron/C#/Python/C++), app trong hệ sinh thái.
 > Nguồn giá trị duy nhất: `tokens/design-tokens.json` (lớp nền chung), `tokens/products/<id>.json` (lớp bản sắc) và
@@ -95,20 +95,21 @@ chủ dự án đã chốt tay (TsuDEV - `ECOSYSTEM_IDENTITY.md` mục 4.2; TsuF
 
 | `data-product` | Sản phẩm | Hue | Nút chính Tối / Sáng | Bố cục | Bo góc | Hoạ tiết | Font tiêu đề |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `contact` | Tsu Contact | 350 | `#F182BA` / `#AB437B` | cong-cu | tron | the-xep | Nunito |
+| `contact` | TsuContact | 350 | `#F182BA` / `#AB437B` | cong-cu | tron | the-xep | Nunito |
 | `compass` | La bàn | 47 | `#FF843F` / `#AE4C05` | do-luong | tron | vong-dong-tam | Montserrat |
-| `swico` | Tsu Swico | 68 | `#E49324` / `#955C04` | cong-cu | sac | mach-in | Space Grotesk |
-| `trafficmonitor` | Tsu Tramon | 105 | `#B3A90F` / `#716A04` | trinh-dien | mem | duong-bieu-do | JetBrains Mono |
+| `swico` | TsuSwico | 68 | `#E49324` / `#955C04` | cong-cu | sac | mach-in | Space Grotesk |
+| `trafficmonitor` | TsuTramon | 105 | `#B3A90F` / `#716A04` | trinh-dien | mem | duong-bieu-do | JetBrains Mono |
 | `sounddb` | Sound Db | 130 | `#7DB530` / `#4B7403` | do-luong | chuan | song-am | Space Grotesk |
 | `qulythuchi` | Quly Thu Chi | 160 | `#39BA81` / `#05794F` | bang-dieu-khien | mem | cot-tang-truong | Be Vietnam Pro |
 | `disk` | TsuDisk | 183 | `#24B9A8` / `#04776B` | cong-cu | chuan | khoi-phan-vung | Montserrat |
-| `cwico` | Tsu Cwico | 212 | `#0EB5CE` / `#087485` | trinh-dien | sac | luoi-quet | Be Vietnam Pro |
-| `tsudev` | TsuDEV (tsudev.com) | 233 | `#38BDF8` / `#0868C4` | cong | chuan | quang-sang | Be Vietnam Pro |
+| `cwico` | TsuCwico | 212 | `#0EB5CE` / `#087485` | trinh-dien | sac | luoi-quet | Be Vietnam Pro |
+| `tsudev` | TsuDEV (tsudev.com, cũ - kế nhiệm `tsumind`) | 233 | `#38BDF8` / `#0868C4` | cong | chuan | quang-sang | Be Vietnam Pro |
+| `tsumind` | TsuMIND (tsumind.com) | 249 | `#4DAAFF` / `#046CB6` | cong | chuan | quang-sang | Exo 2 |
 | `files` | TsuFiles | 293 | `#A970FF` / `#7C3AED` | cong-cu | mem | quy-dao | Lexend |
 | `lotus` | Lotus Share | 320 | `#E47DFB` / `#A03BB6` | trinh-dien | tron | canh-sen | Quicksand |
 
-Chọn sắc độ khi logo không tự quyết được (ghi trong `seed.note` của từng tệp): Tsu Contact (bạc hà trùng TsuDisk),
-TrafficMonitor (dùng chung logo cú TsuDEV), Tsu Swico (logo đơn sắc), La bàn (vòng xanh hoàng gia cách xanh TsuDEV 10°
+Chọn sắc độ khi logo không tự quyết được (ghi trong `seed.note` của từng tệp): TsuContact (bạc hà trùng TsuDisk),
+TrafficMonitor (dùng chung logo cú TsuDEV), TsuSwico (logo đơn sắc), La bàn (vòng xanh hoàng gia cách xanh TsuDEV 10°
 ở chế độ Sáng - lấy cam của kim la bàn), Lotus Share (trước 21/11/2026 dùng chung `#A970FF` với TsuFiles - lấy tím ngả
 hồng của cánh sen).
 
@@ -224,6 +225,31 @@ Viền luôn **phẳng 1px solid** màu `border` (viền được focus/hover d�
 - Modal: padding `24px`, cách nhau giữa field trong form `16px`, giữa section `32px`. Modal nhỏ rộng 400-480px, modal lớn 640-800px, luôn căn giữa màn hình trên lớp `overlay`.
 - Đổ bóng tối giản: `shadow-sm` (button/input) → `shadow-md` (dropdown/toast) → `shadow-lg` (modal). Không dùng bóng màu.
 
+### 3.1. Khung bố cục chung mọi app/website (từ v10.1.0)
+
+Mọi website và app trong hệ sinh thái TsuMIND dùng cùng một khung để người dùng chuyển sản phẩm không phải học lại:
+
+| Vùng | Quy chuẩn |
+| --- | --- |
+| Header | Cao 56-64px (web), dính đầu trang bằng `z-index.sticky`; trái: logo sản phẩm (cao 28-40px) về trang chủ sản phẩm; giữa/phải: điều hướng chính; ngoài cùng bên phải: khu vực tài khoản (`ECOSYSTEM_IDENTITY.md` mục 4.3). Di động: điều hướng thu vào nút menu, không bao giờ tràn ngang |
+| Nội dung | Một cột chính rộng tối đa 1200px căn giữa, lề 16px (di động) / 24px (máy tính); văn bản dài ≤ 72ch |
+| Chân trang | Theo `ECOSYSTEM_IDENTITY.md` mục 4 + khối "Thuộc hệ sinh thái TsuMIND" (mục 4.4); hàng cuối: bản quyền trái, bộ chọn giao diện phải |
+| Nút | Một nút Primary mỗi vùng hành động; thứ tự [Huỷ] [Primary] căn phải; nút nguy hiểm dùng `danger`, không đặt cạnh Primary cùng màu |
+
+**Lớp chồng (overlay) - `MUST`:**
+
+- **Một lớp tại một thời điểm.** `MUST NOT` mở modal chồng modal, popup chồng popup. Cần bước tiếp theo thì thay nội
+  dung trong cùng modal (bước 1 → 2) hoặc đóng modal hiện tại rồi mở cái mới.
+- **Thứ tự lớp chỉ lấy từ token** `z-index` (`dropdown` 1000 < `sticky` 1020 < `modal-overlay` 1040 < `modal` 1050 <
+  `toast` 1080 < `tooltip` 1090). `MUST NOT` hard-code `z-index` (kể cả `9999`); cần lớp mới thì thêm token ở
+  `design-tokens.json`.
+- **Không chồng lấn:** phần tử dính (header, thanh công cụ, nút nổi) `MUST NOT` che nội dung hay nút khác - chừa
+  `padding`/`scroll-margin-top` bằng chiều cao phần dính; toast xếp dọc một góc, tối đa 3, không che nút chính của modal.
+- Modal khoá cuộn trang nền, giữ focus bên trong (focus trap), Esc đóng và trả focus về nút đã mở nó; ngoại lệ duy
+  nhất không đóng được là modal bắt buộc cập nhật ([`APP_INTEGRITY.md`](APP_INTEGRITY.md)).
+- Không tự bật modal, biểu ngữ, popup khi người dùng chưa thao tác (chính sách không làm phiền, `AGENTS.md` mục 7.2).
+- Kiểm tra trước merge: khổ 360px, 768px, 1280px ở cả Sáng/Tối - không cuộn ngang, không phần tử nào bị che.
+
 ## 4. Typography (chuẩn tiếng Việt, chống mỏi mắt)
 
 - Font thống nhất: **Inter** (hỗ trợ đầy đủ dấu tiếng Việt), fallback: `'SF Pro Text', 'Segoe UI', 'Roboto', system-ui, sans-serif`. Font code: `JetBrains Mono` → `Cascadia Code` → `Consolas`.
@@ -294,7 +320,7 @@ Chuỗi phiên bản: `YY.M.DDNN` - `YY` 2 số cuối năm; `M` tháng **không
 
 Tên tệp: `{tên-gói}_{phiên bản}_{os}-{arch}[-{loại}].{ext}`, thẻ git `v{phiên bản}` (VERSIONING.md mục 2.2).
 
-Ví dụ ngày 17/11/2026, Tsu Cwico Windows 64-bit:
+Ví dụ ngày 17/11/2026, TsuCwico Windows 64-bit:
 1. Bản 1: `tsucwico_26.11.1701_windows-x64-setup.exe`, thẻ `v26.11.1701`
 2. Bản 2 cùng ngày: `tsucwico_26.11.1702_windows-x64-setup.exe`, thẻ `v26.11.1702`
 

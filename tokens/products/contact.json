@@ -1,7 +1,7 @@
 {
   "$schema": "./product.schema.json",
   "id": "contact",
-  "name": "Tsu Contact",
+  "name": "TsuContact",
   "repo": "tsudev-org/tsucontact",
   "seed": {
     "hex": "#73DBCD",

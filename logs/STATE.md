@@ -3,6 +3,15 @@
 > Agent đọc file này ở đầu mỗi phiên và cập nhật ở cuối mỗi phiên.
 > Quy trình: `docs/AGENT_PROTOCOL.md`.
 
+> **28/11/2026 (chiều)**: `v10.2.0` - bộ logo TsuMIND chuẩn hoá lại từ 5 hình chủ dự án chốt (`source/original`
+> → `tools/make_masters.py` → `source/master` → `build.mjs` 122 tệp; `BRAND_ASSETS.md` mục 16). Cùng PR #99. Bước tiếp
+> không đổi: Phase TM3.
+
+> **28/11/2026**: `v10.1.0` - Phase TM2 xong: bộ logo TsuMIND chính thức (chủ dự án giao), `docs/BRAND_GUIDELINES.md`,
+> token `tsumind`, khung bố cục chung (`DESIGN_SYSTEM.md` 3.1, `ECOSYSTEM_IDENTITY.md` 4.4). Token Cloudflare TM4 đã có
+> và kiểm đạt. **Bước tiếp: Phase TM3** (hồ sơ pháp lý) - phiếu
+> [`20261128-TM3`](handover/20261128-TM3_tsumind-ho-so-phap-ly.md). OWNER còn: org `tsumind-org`, nhãn hiệu, ICANN.
+
 > **27/11/2026 (khuya)**: `v10.0.0` - hệ sinh thái đổi tên **TsuDEV → TsuMIND** (`tsumind.com`). Phase TM1 xong:
 > `NAMING_CONVENTION.md`, `TSUMIND_MIGRATION.md`, `docs/PLAN.md` (TM1-TM11), `check-naming.sh`, bộ logo
 > `assets/brand/tsumind/`. **Bước tiếp: Phase TM2** (sổ tay thương hiệu + quy chuẩn giao diện) - phiếu

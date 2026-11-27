@@ -10,7 +10,7 @@
 | Mục | Giá trị |
 | :-- | :-- |
 | **Phiên bản** | 1.0.2 - bộ quy ước v7.1.1 (26/11/2026): bước cam kết nonce khi so mã số (`tsulink` ADR-0003). 1.0.1: sửa công thức mã 6 chữ số, thứ tự nonce |
-| **Nền tảng kỹ thuật** | Giao thức **Lotus v2** của Lotus Share (`tsudev-org/lotus-share` `docs/GIAO-THUC-LOTUS-V2.md`): khám phá multicast, TLS hai chiều, ghim vân tay chứng thư, đã kiểm thật nhiều nền tảng. Tsu Link dùng lại và **siết thêm** (mục 2) |
+| **Nền tảng kỹ thuật** | Giao thức **Lotus v2** của Lotus Share (`tsudev-org/lotus-share` `docs/GIAO-THUC-LOTUS-V2.md`): khám phá multicast, TLS hai chiều, ghim vân tay chứng thư, đã kiểm thật nhiều nền tảng. TsuLink dùng lại và **siết thêm** (mục 2) |
 | **Thay thế** | Đồng bộ/sao lưu đám mây (TsuDEV Sync, quyền lợi Pro Q3 cũ) - bỏ từ v7.0.0 |
 | **Chi phí** | 0 đồng: không máy chủ, không băng thông internet |
 
@@ -30,7 +30,7 @@
 
 - Mỗi bản cài sinh **một cặp khoá ECDSA P-256** (hoặc Ed25519 nơi thư viện TLS hỗ trợ) và chứng thư X.509 tự ký, giữ
   trong kho khoá của nền tảng (AndroidKeyStore, Keychain, DPAPI/CNG, Secret Service); không xuất được nếu nền tảng cho
-  phép. Không dùng RSA 2048 cho Tsu Link (Lotus Share giữ RSA của mình để tương thích ngược).
+  phép. Không dùng RSA 2048 cho TsuLink (Lotus Share giữ RSA của mình để tương thích ngược).
 - **Vân tay** = SHA-256 chứng thư DER, hex chữ HOA 64 ký tự (giống Lotus v2 mục 5.1).
 - Vận chuyển: TLS 1.3 (rustls), ALPN `tsulink/1`, mTLS bắt buộc, cả hai bên so vân tay đối phương với danh sách đã ghép
   đôi; khác ⇒ đóng kết nối, ghi nhật ký cục bộ.
@@ -92,7 +92,7 @@ quyền lợi Pro, ghi nhận app đã dùng, chống lạm dụng/truy cập tr
   TypeScript `@tsudev/link` (WebRTC, mục 5).
 - Giao diện chung: màn "Đồng bộ thiết bị" (QR, quét QR, so mã số, danh sách thiết bị đã ghép đôi, tiến độ) trong
   `tsudev_ui` / `@tsudev/ui` - repo không tự vẽ khác.
-- Lotus Share vẫn là app chuyển tệp; Tsu Link dùng chung khám phá để hai app chạy cạnh nhau (Lotus v2 mục 6).
+- Lotus Share vẫn là app chuyển tệp; TsuLink dùng chung khám phá để hai app chạy cạnh nhau (Lotus v2 mục 6).
 
 ## 9. Sao lưu và mang dữ liệu đi (miễn phí, thay sao lưu đám mây)
 

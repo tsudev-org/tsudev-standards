@@ -1,4 +1,4 @@
-# NHẬN DIỆN HỆ SINH THÁI TSUDEV (v4.1.0)
+# NHẬN DIỆN HỆ SINH THÁI TSUDEV (v4.2.0)
 
 > `https://tsudev.com` là nhà chung của mọi dịch vụ, sản phẩm và công cụ trong hệ
 > sinh thái. Tài liệu này quy định mọi project **tự khai mình thuộc về đâu** như
@@ -123,7 +123,7 @@ Hộp thoại **Giới thiệu** `MUST` có dấu hiệu, tên sản phẩm, chu
 | Ngữ cảnh | Đúng | Sai |
 | --- | --- | --- |
 | Tên thương hiệu cho người đọc | `TsuDEV` | `tsudev`, `TsuDev`, `TSUDEV`, `Tsudev`, `Tsu Dev` |
-| Tên sản phẩm cho người đọc | `Tsu Swico`, `Tsu Contact`, `TsuFiles` (theo tên đã chốt của sản phẩm) | `TSUDEV SWICO`, `tsudev swico` |
+| Tên sản phẩm cho người đọc | `TsuSwico`, `TsuContact`, `TsuFiles` (theo tên đã chốt của sản phẩm) | `TSUDEV SWICO`, `tsudev swico` |
 | Định danh máy đọc | `tsudev`, `tsudev-org`, `tsudev-<san-pham>` hoặc tên thương hiệu đã duyệt (`tsuswico`, `tsucwico`, `tsucontact`, `tsufiles`), `com.tsudev.<ten>`, `tsudev.cwico` | đổi sang chữ hoa |
 | Tên miền | `tsudev.com` | `www.tsudev.com`, `TsuDEV.com`, `Tsudev.com` |
 
@@ -273,6 +273,19 @@ Site có đăng nhập:
   chữ cái (mục 6.4) - đoán sai gây nháy và xô lệch bố cục.
 - Kiểm tự động: E2E nhận diện trạng thái đăng nhập bằng `header button[aria-controls]` trỏ tới khối tài khoản. Mẫu tham
   chiếu: `tsudev` `packages/ui/src/components/SiteHeader.tsx` (PR #251, id `tsu-user-menu`).
+
+### 4.4. Khối "Thuộc hệ sinh thái TsuMIND" (từ v10.1.0)
+
+Thay dần khối "nhà làm" TsuDEV theo lộ trình [`TSUMIND_MIGRATION.md`](TSUMIND_MIGRATION.md) (website gốc ở Phase TM6,
+repo sản phẩm ở Phase TM7 - **chưa repo nào tự đổi trước phiếu `TM7`**):
+
+- Vị trí: chân trang, trên hàng bản quyền. Nội dung: logo ngang TsuMIND (`horizontal/tsumind-logo-horizontal-240w` nền tối,
+  `-light-240w` nền sáng, cao 28-32px, `<picture>` AVIF/WebP/PNG) + dòng "Thuộc hệ sinh thái TsuMIND", liên kết về trang chủ hệ sinh thái.
+- Giai đoạn chuyển tiếp ghi "TsuMIND (trước đây là TsuDEV)"; liên kết vẫn trỏ `https://tsudev.com` tới khi Phase TM10
+  bật chuyển hướng.
+- Bản quyền: `© {năm} TsuMIND` sau khi sản phẩm nhận phiếu `TM7`; trước đó giữ `© {năm} TsuDEV`.
+- App desktop/di động: cùng khối ở màn Giới thiệu (About), không ở màn chính.
+- Cách viết tên, màu, cỡ tối thiểu: [`BRAND_GUIDELINES.md`](BRAND_GUIDELINES.md).
 
 ---
 

@@ -34,10 +34,11 @@
       "description": "Hoạ tiết chữ ký ở hero, mỗi sản phẩm một hoạ tiết riêng, DESIGN_SYSTEM.md mục 1.2.4"
     },
     "fontDisplay": {
-      "enum": ["Inter", "Be Vietnam Pro", "Space Grotesk", "Nunito", "Lexend", "Quicksand", "JetBrains Mono", "Montserrat"],
+      "enum": ["Inter", "Be Vietnam Pro", "Space Grotesk", "Nunito", "Lexend", "Quicksand", "JetBrains Mono", "Montserrat", "Exo 2"],
       "description": "Font tiêu đề (h1-h3, số liệu lớn); thân bài luôn là typography.font-family. Mọi font trong danh sách có bộ ký tự tiếng Việt và giấy phép OFL"
     },
     "locked": { "type": "boolean", "description": "true: bảng màu do chủ dự án chốt tay, script sinh bỏ qua" },
+    "supersededBy": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$", "description": "id sản phẩm kế nhiệm khi đổi thương hiệu. Cặp cũ/kế nhiệm được miễn kiểm cách sắc độ và trùng hoạ tiết; tệp cũ giữ tới khi repo dùng nó chuyển xong (TSUMIND_MIGRATION.md Phase TM6)" },
     "lockedNote": { "type": "string" },
     "colors": {
       "type": "object",

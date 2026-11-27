@@ -26,7 +26,8 @@
 2. [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md) - token, không hard-code giao diện
 3. [`TESTING_QUALITY.md`](TESTING_QUALITY.md) - ngưỡng chất lượng và kiểm thử
 4. [`ACCESSIBILITY.md`](ACCESSIBILITY.md) - WCAG 2.1 AA
-5. [`BRAND_ASSETS.md`](BRAND_ASSETS.md) - khi đụng logo, favicon, icon ứng dụng (bộ TsuMIND: mục 16)
+5. [`BRAND_ASSETS.md`](BRAND_ASSETS.md) - khi đụng logo, favicon, icon ứng dụng (bộ TsuMIND: mục 16); quy chuẩn thương
+   hiệu TsuMIND (màu, phông, vùng an toàn, điều cấm): [`BRAND_GUIDELINES.md`](BRAND_GUIDELINES.md)
 6. [`NAMING_CONVENTION.md`](NAMING_CONVENTION.md) - đặt tên thương hiệu, repo, tệp, định danh code (TsuMIND)
 
 **Bạn đang làm chức năng đăng nhập, đăng ký, tài khoản:**
@@ -88,6 +89,7 @@
 | [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md) | Giao diện, token, component | Bất khả xâm phạm |
 | [`DATA_TABLE.md`](DATA_TABLE.md) | Vùng bản ghi, bộ chọn số bản ghi | Bất khả xâm phạm |
 | [`BRAND_ASSETS.md`](BRAND_ASSETS.md) | Logo, wordmark, favicon, icon ứng dụng | Bất khả xâm phạm |
+| [`BRAND_GUIDELINES.md`](BRAND_GUIDELINES.md) | Sổ tay nhận diện TsuMIND: biến thể, tỷ lệ, màu, phông, giọng văn, bảo hộ | Bất khả xâm phạm |
 | [`ECOSYSTEM_IDENTITY.md`](ECOSYSTEM_IDENTITY.md) | tsudev.com, ảnh đại diện, trang hồ sơ | Bất khả xâm phạm |
 | [`ACCESSIBILITY.md`](ACCESSIBILITY.md) | WCAG 2.1 AA | Bất khả xâm phạm |
 | [`TESTING_QUALITY.md`](TESTING_QUALITY.md) | Kiểm thử và chất lượng mã | Bất khả xâm phạm |
@@ -98,7 +100,7 @@
 | [`PRODUCT_POLICY.md`](PRODUCT_POLICY.md) | Chính sách sản phẩm: mặc định theo hệ thống, không quảng cáo, Pro/Ủng hộ, huy hiệu, iOS, website có hình/video, dữ liệu chỉ ở thiết bị, mục đích đăng nhập | Bất khả xâm phạm |
 | [`APP_INTEGRITY.md`](APP_INTEGRITY.md) | Toàn vẹn ứng dụng: máy chủ tự quyết, bắt buộc cập nhật (modal khoá), chứng thực app, làm rối mã PRIVATE an toàn với antivirus | Bất khả xâm phạm |
 | [`CONTROL_PLANE.md`](CONTROL_PLANE.md) | Trạm điều hành `console.tsudev.com` (Cloudflare Access + 7 lớp khoá) và cổng xác thực tập trung `id.tsudev.com`; website công khai chỉ đọc; hợp đồng điều hành website sản phẩm | Bất khả xâm phạm |
-| [`LOCAL_SYNC.md`](LOCAL_SYNC.md) | Tsu Link: đồng bộ trực tiếp giữa thiết bị qua Wi-Fi nội bộ/Bluetooth/QR, không internet; sao lưu `.tsubak` | Bất khả xâm phạm |
+| [`LOCAL_SYNC.md`](LOCAL_SYNC.md) | TsuLink: đồng bộ trực tiếp giữa thiết bị qua Wi-Fi nội bộ/Bluetooth/QR, không internet; sao lưu `.tsubak` | Bất khả xâm phạm |
 | [`STORE_SUBMISSION.md`](STORE_SUBMISSION.md) | Nộp duyệt cửa hàng/nền tảng: phiên agent điền biểu mẫu trên trình duyệt | Bất khả xâm phạm |
 | [`APPLE_CICD.md`](APPLE_CICD.md) | Apple iOS/iPadOS/macOS: CI/CD từ Ubuntu, ký, TestFlight, bí mật `APPLE_*`, script `scripts/apple/` | Bất khả xâm phạm |
 | [`RICH_TEXT_EDITOR.md`](RICH_TEXT_EDITOR.md) | Trình soạn thảo nội dung | Bất khả xâm phạm |

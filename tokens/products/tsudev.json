@@ -17,6 +17,7 @@
   "fontDisplay": "Be Vietnam Pro",
   "locked": true,
   "lockedNote": "Bảng xanh logo của ECOSYSTEM_IDENTITY.md mục 4.2 (chủ dự án chốt 19/11/2026)",
+  "supersededBy": "tsumind",
   "colors": {
     "light": {
       "text-link": "#0757A3",

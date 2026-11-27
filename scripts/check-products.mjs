@@ -75,8 +75,15 @@ for (const p of products) {
   }
 }
 
+// Cặp cũ/kế nhiệm khi đổi thương hiệu (supersededBy) cùng một bản sắc - miễn kiểm cách nhau.
+const succession = (a, b) => a.supersededBy === b.id || b.supersededBy === a.id;
+for (const p of products) {
+  if (p.supersededBy && !products.some((q) => q.id === p.supersededBy)) err(`${p.file}: supersededBy "${p.supersededBy}" không có tệp kế nhiệm`);
+}
+
 const seenMotif = new Map();
 for (const p of products) {
+  if (p.supersededBy) continue;
   if (seenMotif.has(p.motif)) err(`${p.file}: hoạ tiết "${p.motif}" đã thuộc ${seenMotif.get(p.motif)} - mỗi sản phẩm một hoạ tiết riêng`);
   else seenMotif.set(p.motif, p.id);
 }
@@ -86,7 +93,7 @@ let minDE = [Infinity];
 for (let i = 0; i < products.length; i++) {
   for (let j = i + 1; j < products.length; j++) {
     const [a, b] = [products[i], products[j]];
-    if (!a.colors?.light || !b.colors?.light) continue;
+    if (!a.colors?.light || !b.colors?.light || succession(a, b)) continue;
     let near = false;
     for (const theme of ['light', 'dark']) {
       const [x, y] = [a.colors[theme].primary, b.colors[theme].primary];
