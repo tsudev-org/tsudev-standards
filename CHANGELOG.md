@@ -8,6 +8,21 @@ Mới nhất trên cùng.
 
 ---
 
+## 9.1.0 - 27/11/2026
+
+Chủ dự án 27/11/2026: máy dùng nhiều tài khoản Claude (mỗi tài khoản một hạn mức) nên có lệnh `cc` chuyển tài khoản
+tức thì bằng profile `CLAUDE_CONFIG_DIR`, thay cho `/logout` + `/login` + dán mã.
+
+- `AGENT_PROTOCOL.md` **v2.5.0**: mục 4.4 MỚI "Nhiều tài khoản Claude trên một máy: lệnh `cc`" (mục đích, cơ chế dùng chung
+  hook/quy ước qua symlink, token + lịch sử riêng từng tài khoản; agent không tự đổi/xoay tài khoản, không đụng
+  `~/.claude-*`, chốt tiến độ vào tệp vì phiên có thể bị cắt ngang khi hết hạn mức).
+- `AGENTS.md` **v4.1.0**: thêm một đoạn tóm tắt ở mục 2.
+
+**Hướng dẫn nâng cấp** (MINOR, không bắt buộc sửa repo con): chạy `./scripts/sync-standards.sh --ref v9.1.0`.
+Không có thay đổi mã hay cổng kiểm.
+
+---
+
 ## 9.0.0 - 27/11/2026
 
 Chủ dự án 27/11/2026: mọi sản phẩm TsuDEV chỉ đăng nhập qua một cổng của `tsudev.com`; app cài đặt không có cơ chế

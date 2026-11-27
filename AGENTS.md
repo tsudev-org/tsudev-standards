@@ -1,4 +1,4 @@
-# AGENTS.md - Bộ quy ước dùng chung tsudev (v4.0.0)
+# AGENTS.md - Bộ quy ước dùng chung tsudev (v4.1.0)
 
 > **ĐÂY LÀ NGUỒN CHÂN LÝ.** Bộ quy ước được biên tập tại repo
 > `tsudev-org/tsudev-standards`. Repo con mang một BẢN SAO CHỈ-ĐỌC tại
@@ -81,6 +81,9 @@ chuyên đề. Bản đồ đầy đủ: [`docs/00-INDEX.md`](docs/00-INDEX.md).
   (`EnterPlanMode` hoặc subagent `model: "opus"`); một ngữ cảnh một Phase của
   `docs/PLAN.md`, xong Phase thì đánh `[x]`, cập nhật STATE, commit rồi dừng chờ `/clear`.
   Chi tiết: [`docs/AGENT_PROTOCOL.md`](docs/AGENT_PROTOCOL.md) mục 4.1-4.3.
+- **Nhiều tài khoản Claude** (từ `v9.1.0`): máy chủ dự án có lệnh `cc <số|tên>` đổi tài khoản tức thì, chủ dự án
+  tự chạy khi hết hạn mức. Agent không tự đổi/xoay tài khoản, không đụng `~/.claude-*`; phiên có thể bị cắt ngang
+  bất cứ lúc nào nên chốt tiến độ vào `PLAN.md`/`STATE.md` ngay mỗi mốc. Chi tiết: `docs/AGENT_PROTOCOL.md` mục 4.4.
 
 ## 3. Đội ngũ agent và chống giẫm chân
 
