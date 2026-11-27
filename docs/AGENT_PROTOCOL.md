@@ -137,6 +137,11 @@ không mất ngữ cảnh làm việc**, không phải tăng hạn mức bằng 
 
 - Lệnh `cc <số|tên>` (`~/.local/bin/cc`) chạy `claude` với `CLAUDE_CONFIG_DIR=~/.claude-<tên>`; `cc ls` liệt kê tài khoản
   và trạng thái đăng nhập (chỉ kiểm tệp có tồn tại, không đọc nội dung); `cc init` tạo lại liên kết dùng chung.
+- `cc ls` hiện hạn mức 5 giờ/tuần (% đã dùng + giờ reset) và gói/gia hạn của từng tài khoản để chủ dự án chọn tài
+  khoản còn hạn mức. Nguồn hạn mức là trường `rate_limits` mà Claude Code đưa vào status line (không dùng token OAuth,
+  không gọi API không công khai); status line ghi cache `~/.cache/tsudev/cc-usage/<profile>.json` (chỉ % và giờ reset,
+  `600`). Số liệu chỉ mới khi tài khoản đó có phiên chạy. Gói/gia hạn do chủ dự án nhập tay (`cc set`) vào
+  `~/.config/cc/accounts.json`. Agent `MUST NOT` lấy hạn mức bằng cách đọc token hay gọi API ngoài đường này.
 - Mỗi profile liên kết (symlink) `CLAUDE.md`, `settings.json`, `hooks/`, `skills/`, `plugins/` về `~/.claude` để hook
   bảo mật (`noleak-guard`), quy ước Phase và status line **áp dụng như nhau cho mọi tài khoản**. Token
   (`.credentials.json`), lịch sử và `projects/` (kèm memory) **riêng từng tài khoản**.

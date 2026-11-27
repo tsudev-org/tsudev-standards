@@ -16,6 +16,7 @@ tức thì bằng profile `CLAUDE_CONFIG_DIR`, thay cho `/logout` + `/login` + d
 - `AGENT_PROTOCOL.md` **v2.5.0**: mục 4.4 MỚI "Nhiều tài khoản Claude trên một máy: lệnh `cc`" (mục đích, cơ chế dùng chung
   hook/quy ước qua symlink, token + lịch sử riêng từng tài khoản; agent không tự đổi/xoay tài khoản, không đụng
   `~/.claude-*`, chốt tiến độ vào tệp vì phiên có thể bị cắt ngang khi hết hạn mức).
+  Có thêm `cc ls` hiện hạn mức 5 giờ/tuần và gói/gia hạn từ `rate_limits` của status line (không dùng token).
 - `AGENTS.md` **v4.1.0**: thêm một đoạn tóm tắt ở mục 2.
 
 **Hướng dẫn nâng cấp** (MINOR, không bắt buộc sửa repo con): chạy `./scripts/sync-standards.sh --ref v9.1.0`.
