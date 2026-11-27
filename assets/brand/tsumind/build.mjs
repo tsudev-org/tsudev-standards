@@ -1,38 +1,45 @@
 #!/usr/bin/env node
-// build.mjs - dây chuyền sinh bộ nhận diện TsuMIND từ ĐÚNG MỘT bộ nguồn.
+// build.mjs - dây chuyền sinh bộ nhận diện TsuMIND từ ĐÚNG MỘT bộ nguồn (bộ logo chính thức chủ dự án giao 27/11/2026).
 //
 // Nguồn (sửa ở đây, không sửa dist/):
-//   source/tsumind-emblem-source.png  ảnh gốc huy hiệu (nền xám giả + watermark - script tự xoá)
-//   svg/tsumind-*.svg                 dấu hiệu thu gọn, wordmark, logo ngang (vector vẽ tay)
+//   source/tsumind-logo-primary.png     huy hiệu chính (cú + dải chữ), nền trong suốt, 1024x1024
+//   source/tsumind-symbol.png           biểu tượng thu gọn (cú, không chữ), nền trong suốt, 1024x667
+//   source/tsumind-wordmark.png         dải chữ, nền trong suốt, 995x223
+//   source/tsumind-logo-horizontal.png  logo ngang (cú + dải chữ), nền trong suốt, 2141x620
+//   source/tsumind-app-icon-1024.png    biểu tượng ứng dụng, nền Midnight Navy liền, 1024x1024
+//   source/tsumind-tagline-vi.svg       tuyên ngôn "Công cụ thông minh cho mọi nền tảng" (path từ Be Vietnam Pro)
+//   source/tsumind-domain.svg           "tsumind.com" (path)
 //
 // Lệnh:
-//   npm ci && node build.mjs          sinh lại toàn bộ dist/ + MANIFEST.json
-//   node build.mjs --check            KHÔNG cần sharp: đối chiếu SHA-256 nguồn + dist với MANIFEST.json
-//                                     (chạy trong CI - bắt sửa tay dist/ hoặc đổi nguồn mà quên sinh lại)
+//   npm ci && node build.mjs     sinh lại toàn bộ dist/ + MANIFEST.json
+//   node build.mjs --check       KHÔNG cần sharp: đối chiếu SHA-256 nguồn + dist với MANIFEST.json (CI)
 //
-// Quy chuẩn: docs/BRAND_GUIDELINES.md (TsuMIND) + docs/BRAND_ASSETS.md mục 12 (bộ tài sản bắt buộc).
+// Nguyên tắc: chỉ THU NHỎ, không phóng to quá kích thước nguồn; ảnh giao diện xuất AVIF → WebP → PNG để
+// <picture>/srcset chọn bản sắc nét nhất cho mật độ điểm ảnh 1x/2x/3x. Ảnh vẽ chi tiết KHÔNG vector hoá tự động
+// (thử vtracer 27/11/2026: mất viền đậm và độ sâu - xem BRAND_ASSETS.md mục 16).
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, rmSync, existsSync } from 'node:fs';
 import { join, relative, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
-const SRC_PNG = join(ROOT, 'source/tsumind-emblem-source.png');
-const SVG_DIR = join(ROOT, 'svg');
+const SRC = join(ROOT, 'source');
 const DIST = join(ROOT, 'dist');
 const MANIFEST = join(ROOT, 'MANIFEST.json');
+const src = (f) => join(SRC, f);
 
-// Màu nền ô icon nền đặc (apple-touch, maskable, icon app) = Ink Navy của bảng màu thương hiệu.
-const TILE_BG = '#021023';
-const PAGE_BG_DARK = '#0A0A0A';
+// Hệ màu chuẩn (Sổ tay nhận diện TSUMIND mục 5).
+const MIDNIGHT_NAVY = '#0A1B3D';
+const DEEP_CIRCUIT_BLUE = '#13408A';
 
 const sha = (buf) => createHash('sha256').update(buf).digest('hex');
 const walk = (d) =>
-  readdirSync(d).flatMap((n) => {
-    const p = join(d, n);
-    return statSync(p).isDirectory() ? walk(p) : [p];
-  });
-const sources = () => [SRC_PNG, ...walk(SVG_DIR).filter((f) => f.endsWith('.svg'))].sort();
+  existsSync(d)
+    ? readdirSync(d).flatMap((n) => {
+        const p = join(d, n);
+        return statSync(p).isDirectory() ? walk(p) : [p];
+      })
+    : [];
 
 function check() {
   if (!existsSync(MANIFEST)) {
@@ -46,95 +53,44 @@ function check() {
     if (!existsSync(p)) errs.push(`thiếu ${rel}`);
     else if (sha(readFileSync(p)) !== h) errs.push(`lệch ${rel}`);
   }
-  const listed = new Set(Object.keys(m.outputs));
-  for (const f of existsSync(DIST) ? walk(DIST) : []) {
+  const listed = new Set([...Object.keys(m.outputs), ...Object.keys(m.sources)]);
+  for (const f of [...walk(DIST), ...walk(SRC)]) {
     const rel = relative(ROOT, f);
-    if (!listed.has(rel)) errs.push(`thừa ${rel} (không do build.mjs sinh)`);
+    if (!listed.has(rel)) errs.push(`thừa ${rel} (chưa ghi vào MANIFEST - chạy lại build.mjs)`);
   }
   if (errs.length) {
     console.error('Bộ nhận diện TsuMIND LỆCH nguồn:\n  ' + errs.join('\n  '));
-    console.error('Sửa nguồn ở source/ hoặc svg/, rồi: npm ci && node build.mjs');
+    console.error('Sửa nguồn ở source/, rồi: npm ci && node build.mjs');
     process.exit(1);
   }
-  console.log(`OK - ${Object.keys(m.sources).length} nguồn, ${listed.size} tệp sinh khớp MANIFEST.json`);
+  console.log(`OK - ${Object.keys(m.sources).length} nguồn, ${Object.keys(m.outputs).length} tệp sinh khớp MANIFEST.json`);
 }
 
-// Tách nền giả: vùng xám ít bão hoà NỐI LIỀN mép ảnh (flood fill từ mép), bỏ đảo nhỏ, mép mềm 1px.
-// Watermark ✦ góc dưới nằm trong vùng nền nên bị xoá cùng.
-async function cutEmblem(sharp) {
-  const { data, info } = await sharp(SRC_PNG).removeAlpha().raw().toBuffer({ resolveWithObject: true });
-  const { width: w, height: h } = info;
+// Xoá đốm alpha mồ côi (cụm điểm ảnh không trong suốt < minArea, tách rời hình chính) - ảnh nguồn có vài đốm 1-3px.
+async function despeckle(sharp, file, minArea = 400) {
+  const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const { width: w, height: h, channels } = info;
+  if (channels !== 4) throw new Error(`despeckle: cần 4 kênh, nhận ${channels}`);
   const n = w * h;
-  const bgish = new Uint8Array(n);
-  for (let i = 0; i < n; i++) {
-    const r = data[i * 3], g = data[i * 3 + 1], b = data[i * 3 + 2];
-    const mx = Math.max(r, g, b), mn = Math.min(r, g, b);
-    const sat = mx ? (mx - mn) / mx : 0;
-    const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-    bgish[i] = sat < 0.16 && lum > 95 ? 1 : 0;
-  }
-  const bg = new Uint8Array(n);
+  const seen = new Uint8Array(n);
   const q = new Int32Array(n);
-  let qh = 0, qt = 0;
-  const push = (i) => {
-    if (bgish[i] && !bg[i]) { bg[i] = 1; q[qt++] = i; }
-  };
-  for (let x = 0; x < w; x++) { push(x); push((h - 1) * w + x); }
-  for (let y = 0; y < h; y++) { push(y * w); push(y * w + w - 1); }
-  while (qh < qt) {
-    const i = q[qh++], x = i % w, y = (i / w) | 0;
-    if (x > 0) push(i - 1);
-    if (x < w - 1) push(i + 1);
-    if (y > 0) push(i - w);
-    if (y < h - 1) push(i + w);
-  }
-  // Đóng hình thái 2 vòng (giãn rồi co, kernel chữ thập, mép coi như nền): nối các vệt xám tối
-  // của nền giả vào vùng nền để chúng không thành đảo tiền cảnh lớn.
-  const morph = (m, grow) => {
-    const r = new Uint8Array(n);
-    for (let y = 0; y < h; y++)
-      for (let x = 0; x < w; x++) {
-        const i = y * w + x;
-        const nb = [m[i], x > 0 ? m[i - 1] : 1, x < w - 1 ? m[i + 1] : 1, y > 0 ? m[i - w] : 1, y < h - 1 ? m[i + w] : 1];
-        r[i] = grow ? (nb.some((v) => v) ? 1 : 0) : nb.every((v) => v) ? 1 : 0;
-      }
-    return r;
-  };
-  let closed = morph(morph(bg, true), true);
-  closed = morph(morph(closed, false), false);
-  bg.set(closed);
-  // Bỏ đảo tiền cảnh nhỏ (đốm nhiễu trong nền) < 5000 px.
-  const lab = new Int32Array(n).fill(-1);
   for (let s = 0; s < n; s++) {
-    if (bg[s] || lab[s] !== -1) continue;
-    qh = 0; qt = 0; q[qt++] = s; lab[s] = s;
+    if (seen[s] || data[s * 4 + 3] === 0) continue;
+    let qh = 0, qt = 0;
+    q[qt++] = s; seen[s] = 1;
     while (qh < qt) {
       const i = q[qh++], x = i % w, y = (i / w) | 0;
-      for (const j of [x > 0 ? i - 1 : -1, x < w - 1 ? i + 1 : -1, y > 0 ? i - w : -1, y < h - 1 ? i + w : -1]) {
-        if (j >= 0 && !bg[j] && lab[j] === -1) { lab[j] = s; q[qt++] = j; }
-      }
+      for (let dy = -1; dy <= 1; dy++)
+        for (let dx = -1; dx <= 1; dx++) {
+          const nx = x + dx, ny = y + dy;
+          if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;
+          const j = ny * w + nx;
+          if (!seen[j] && data[j * 4 + 3] !== 0) { seen[j] = 1; q[qt++] = j; }
+        }
     }
-    if (qt < 5000) for (let k = 0; k < qt; k++) bg[q[k]] = 1;
+    if (qt < minArea) for (let k = 0; k < qt; k++) data[q[k] * 4 + 3] = 0;
   }
-  const mask = Buffer.alloc(n);
-  for (let i = 0; i < n; i++) mask[i] = bg[i] ? 0 : 255;
-  const soft = await sharp(mask, { raw: { width: w, height: h, channels: 1 } }).blur(0.7).extractChannel(0).raw().toBuffer();
-  const rgba = Buffer.alloc(n * 4);
-  for (let i = 0; i < n; i++) {
-    rgba[i * 4] = data[i * 3]; rgba[i * 4 + 1] = data[i * 3 + 1]; rgba[i * 4 + 2] = data[i * 3 + 2];
-    rgba[i * 4 + 3] = soft[i];
-  }
-  // Cắt sát khung + đệm 8px, đặt vào ô vuông trong suốt.
-  const trimmed = await sharp(rgba, { raw: { width: w, height: h, channels: 4 } })
-    .trim({ threshold: 1 })
-    .extend({ top: 8, bottom: 8, left: 8, right: 8, background: { r: 0, g: 0, b: 0, alpha: 0 } })
-    .png()
-    .toBuffer({ resolveWithObject: true });
-  const side = Math.max(trimmed.info.width, trimmed.info.height);
-  return sharp(trimmed.data)
-    .resize(side, side, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-    .png()
-    .toBuffer();
+  return sharp(data, { raw: { width: w, height: h, channels: 4 } }).png().toBuffer();
 }
 
 async function build() {
@@ -146,66 +102,97 @@ async function build() {
     mkdirSync(dirname(p), { recursive: true });
     writeFileSync(p, buf);
   };
-  const png = (s) => s.png({ compressionLevel: 9, adaptiveFiltering: true, palette: false });
-  const svg = (name) => readFileSync(join(SVG_DIR, name));
-  const raster = (name, size) =>
-    png(sharp(svg(name), { density: Math.max(72, Math.ceil((size / 256) * 72 * 1.5)) }).resize(size, size)).toBuffer();
+  const png = (s) => s.png({ compressionLevel: 9, adaptiveFiltering: true });
+  // Ba định dạng cho giao diện web: AVIF (nhỏ nhất) → WebP → PNG (dự phòng).
+  const triple = async (base, img) => {
+    out(`${base}.avif`, await img.clone().avif({ quality: 72, effort: 4 }).toBuffer());
+    out(`${base}.webp`, await img.clone().webp({ quality: 90, alphaQuality: 100, effort: 6 }).toBuffer());
+    out(`${base}.png`, await png(img.clone()).toBuffer());
+  };
+  const fit = (buf, w, h) =>
+    sharp(buf).resize(w, h, { kernel: 'lanczos3', fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } });
 
-  // 1. Huy hiệu đầy đủ (cú + chữ) - nền trong suốt, AVIF → WebP → PNG.
-  const emblem = await cutEmblem(sharp);
-  for (const s of [1024, 512, 256, 192, 128, 96, 48]) {
-    const r = sharp(emblem).resize(s, s, { kernel: 'lanczos3' });
-    out(`emblem/tsumind-emblem-${s}.png`, await png(r.clone()).toBuffer());
-    out(`emblem/tsumind-emblem-${s}.webp`, await r.clone().webp({ quality: 90, alphaQuality: 100, effort: 6 }).toBuffer());
-    out(`emblem/tsumind-emblem-${s}.avif`, await r.clone().avif({ quality: 70, effort: 4 }).toBuffer());
-  }
+  const primary = await despeckle(sharp, src('tsumind-logo-primary.png'));
+  const symbol = await despeckle(sharp, src('tsumind-symbol.png'));
+  const wordmark = await despeckle(sharp, src('tsumind-wordmark.png'));
+  const horizontal = await despeckle(sharp, src('tsumind-logo-horizontal.png'));
+  const appIcon = readFileSync(src('tsumind-app-icon-1024.png'));
 
-  // 2. SVG giao diện (đã tối giản sẵn - chép nguyên).
-  for (const f of readdirSync(SVG_DIR).filter((f) => f.endsWith('.svg'))) out(`svg/${f}`, svg(f));
+  // 1. Logo chính (huy hiệu + dải chữ) - vuông.
+  for (const s of [1024, 512, 384, 256, 192, 128]) await triple(`logo/tsumind-logo-primary-${s}`, fit(primary, s, s));
+  // 2. Biểu tượng thu gọn (không chữ) - tỷ lệ 1024:667, đặt tên theo chiều rộng.
+  for (const wd of [1024, 512, 256, 128, 64]) await triple(`symbol/tsumind-symbol-${wd}w`, fit(symbol, wd));
+  // 3. Dải chữ.
+  for (const wd of [995, 480, 240]) await triple(`wordmark/tsumind-wordmark-${wd}w`, fit(wordmark, wd));
+  // 4. Logo ngang - header website cao 28-48px ⇒ bản 360/720/1440 phủ 1x-3x.
+  for (const wd of [2141, 1440, 720, 360]) await triple(`horizontal/tsumind-logo-horizontal-${wd}w`, fit(horizontal, wd));
 
-  // 3. Dấu hiệu thu gọn PNG (khay hệ thống, Linux hicolor, tài liệu).
-  for (const s of [16, 24, 32, 48, 64, 128, 256, 512, 1024]) out(`mark/tsumind-mark-${s}.png`, await raster('tsumind-mark.svg', s));
-
-  // 4. Favicon + PWA (BRAND_ASSETS mục 12.1).
-  out('favicon/favicon.svg', svg('tsumind-mark.svg'));
-  const icoLayers = await Promise.all([16, 24, 32, 48, 64, 128, 256].map((s) => raster('tsumind-mark.svg', s)));
+  // 5. Favicon + PWA từ biểu tượng ứng dụng (đã giản lược, nền liền - đọc rõ ở 16px).
+  const icon = (s) => png(sharp(appIcon).resize(s, s, { kernel: 'lanczos3' })).toBuffer();
+  const icoLayers = await Promise.all([16, 24, 32, 48, 64, 128, 256].map(icon));
   out('favicon/favicon.ico', await pngToIco(icoLayers));
-  out('favicon/favicon-96x96.png', await raster('tsumind-mark.svg', 96));
-  const tile = async (size, inner) =>
-    png(
-      sharp({ create: { width: size, height: size, channels: 4, background: TILE_BG } }).composite([
-        { input: await raster('tsumind-mark.svg', Math.round(size * inner)), gravity: 'center' },
-      ]),
-    ).toBuffer();
-  out('favicon/apple-touch-icon.png', await tile(180, 0.84));
+  for (const s of [16, 32, 48, 96]) out(`favicon/favicon-${s}x${s}.png`, await icon(s));
+  out('favicon/apple-touch-icon.png', await icon(180));
   for (const s of [192, 512]) {
-    out(`favicon/android-chrome-${s}x${s}.png`, await raster('tsumind-mark.svg', s));
-    out(`favicon/maskable-${s}x${s}.png`, await tile(s, 0.72)); // vùng an toàn maskable = 80% đường kính
+    out(`favicon/android-chrome-${s}x${s}.png`, await icon(s));
+    // maskable: thu cú vào vùng an toàn 80%, viền kéo dài bằng phản chiếu mép nền để không lộ khung.
+    const inner = Math.round(s * 0.8), pad = Math.floor((s - inner) / 2);
+    const small = await sharp(appIcon).resize(inner, inner, { kernel: 'lanczos3' }).png().toBuffer();
+    out(
+      `favicon/maskable-${s}x${s}.png`,
+      await png(
+        sharp(small).extend({ top: pad, left: pad, bottom: s - inner - pad, right: s - inner - pad, extendWith: 'mirror' }),
+      ).toBuffer(),
+    );
   }
 
-  // 5. Icon ứng dụng (ô nền đặc theo quy ước hệ điều hành).
-  const appLayers = await Promise.all([16, 24, 32, 48, 64, 128, 256].map((s) => tile(s, 0.9)));
-  out('app/tsumind-app.ico', await pngToIco(appLayers));
-  for (const s of [256, 512, 1024]) out(`app/tsumind-app-${s}.png`, await tile(s, 0.86));
-
-  // 6. Ảnh chia sẻ + ảnh đại diện mạng xã hội/GitHub.
-  const og = sharp({ create: { width: 1200, height: 630, channels: 4, background: PAGE_BG_DARK } }).composite([
-    { input: await sharp(emblem).resize(470, 470).png().toBuffer(), left: 70, top: 80 },
-    { input: await sharp(svg('tsumind-wordmark.svg'), { density: 300 }).resize({ width: 560 }).png().toBuffer(), left: 590, top: 262 },
-  ]);
-  out('social/og-image.png', await png(og).toBuffer());
-  out('social/avatar-500.png', await tile(500, 0.86));
+  // 6. Biểu tượng ứng dụng theo nền tảng.
+  out('app-icon/tsumind-app.ico', await pngToIco(icoLayers));
+  for (const s of [1024, 512, 256]) out(`app-icon/tsumind-app-icon-${s}.png`, await icon(s));
+  out('app-icon/google-play-icon-512.png', await icon(512));
+  // Android adaptive icon: lớp nền liền Midnight Navy + lớp trước là biểu tượng cú trong vùng an toàn 66/108.
   out(
-    'social/avatar-emblem-500.png',
+    'app-icon/android-adaptive-background-1024.png',
+    await png(sharp({ create: { width: 1024, height: 1024, channels: 4, background: MIDNIGHT_NAVY } })).toBuffer(),
+  );
+  out(
+    'app-icon/android-adaptive-foreground-1024.png',
     await png(
-      sharp({ create: { width: 500, height: 500, channels: 4, background: PAGE_BG_DARK } }).composite([
-        { input: await sharp(emblem).resize(460, 460).png().toBuffer(), gravity: 'center' },
+      sharp({ create: { width: 1024, height: 1024, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } }).composite([
+        { input: await fit(symbol, 620).png().toBuffer(), gravity: 'center' },
       ]),
     ).toBuffer(),
   );
 
+  // 7. Ảnh chia sẻ (Open Graph 1200x630) + ảnh đại diện.
+  const bg = (w, h) =>
+    Buffer.from(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><defs>` +
+        `<radialGradient id="g" cx="0.3" cy="0.45" r="0.9"><stop offset="0" stop-color="${DEEP_CIRCUIT_BLUE}"/>` +
+        `<stop offset="0.55" stop-color="${MIDNIGHT_NAVY}"/><stop offset="1" stop-color="#050D20"/></radialGradient></defs>` +
+        `<rect width="100%" height="100%" fill="url(#g)"/></svg>`,
+    );
+  const svgImg = (f, wd) => sharp(readFileSync(src(f)), { density: 300 }).resize({ width: wd }).png().toBuffer();
+  const ogPng = await png(
+    sharp(bg(1200, 630)).composite([
+      { input: await fit(primary, 500, 500).png().toBuffer(), left: 64, top: 65 },
+      { input: await fit(wordmark, 560).png().toBuffer(), left: 600, top: 198 },
+      { input: await svgImg('tsumind-tagline-vi.svg', 560), left: 604, top: 350 },
+      { input: await svgImg('tsumind-domain.svg', 190), left: 604, top: 430 },
+    ]),
+  ).toBuffer();
+  out('social/og-image-1200x630.png', ogPng);
+  out('social/og-image-1200x630.webp', await sharp(ogPng).webp({ quality: 90 }).toBuffer());
+  out('social/avatar-app-icon-500.png', await icon(500));
+  out(
+    'social/avatar-logo-primary-500.png',
+    await png(
+      sharp(bg(500, 500)).composite([{ input: await fit(primary, 450, 450).png().toBuffer(), gravity: 'center' }]),
+    ).toBuffer(),
+  );
+
   const manifest = { generator: 'assets/brand/tsumind/build.mjs', sources: {}, outputs: {} };
-  for (const f of sources()) manifest.sources[relative(ROOT, f)] = sha(readFileSync(f));
+  for (const f of walk(SRC).sort()) manifest.sources[relative(ROOT, f)] = sha(readFileSync(f));
   for (const f of walk(DIST).sort()) manifest.outputs[relative(ROOT, f)] = sha(readFileSync(f));
   writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + '\n');
   console.log(`Đã sinh ${Object.keys(manifest.outputs).length} tệp vào dist/`);

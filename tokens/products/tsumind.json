@@ -1,0 +1,44 @@
+{
+  "$schema": "./product.schema.json",
+  "id": "tsumind",
+  "name": "TsuMIND",
+  "repo": "tsudev-org/tsudev",
+  "seed": {
+    "hex": "#1E9BFF",
+    "source": "assets/brand/tsumind/source/tsumind-logo-primary.png",
+    "note": "Electric Blue - màu nhấn chính của Sổ tay nhận diện TsuMIND mục 5 (mắt cú, mạch điện)",
+    "measured": "27/11/2026"
+  },
+  "hue": 249,
+  "chroma": 0.17,
+  "layout": "cong",
+  "shape": "chuan",
+  "motif": "quang-sang",
+  "fontDisplay": "Exo 2",
+  "colors": {
+    "light": {
+      "text-link": "#025A9A",
+      "primary": "#046CB6",
+      "primary-hover": "#025A9A",
+      "primary-active": "#014A80",
+      "on-primary": "#FFFFFF",
+      "focus-ring": "#046CB6",
+      "accent": "#034F88",
+      "glow": "rgba(4, 108, 182, 0.1)",
+      "icon-info": "#046CB6",
+      "icon-nav": "#025A9A"
+    },
+    "dark": {
+      "text-link": "#73BAFF",
+      "primary": "#4DAAFF",
+      "primary-hover": "#7ABDFF",
+      "primary-active": "#1C93F1",
+      "on-primary": "#0A0A0A",
+      "focus-ring": "#4DAAFF",
+      "accent": "#A1D0FF",
+      "glow": "rgba(77, 170, 255, 0.14)",
+      "icon-info": "#4DAAFF",
+      "icon-nav": "#73BAFF"
+    }
+  }
+}

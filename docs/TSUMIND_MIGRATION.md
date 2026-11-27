@@ -134,16 +134,16 @@ chỉ thêm việc chuyển đổi: `AGENTS.md`, `SECURITY_BASELINE.md` (Zero Se
 
 | Subdomain hiện tại | Sản phẩm |
 |---|---|
-| `tramon.tsudev.com` | Tsu Tramon |
-| `cwico.tsudev.com` | Tsu Cwico |
-| `swico.tsudev.com` | Tsu Swico |
+| `tramon.tsudev.com` | TsuTramon |
+| `cwico.tsudev.com` | TsuCwico |
+| `swico.tsudev.com` | TsuSwico |
 | `disk.tsudev.com` | TsuDisk |
 | `files.tsudev.com` | TsuFiles |
 | `lotus.tsudev.com` | Lotus Share |
 | `sound.tsudev.com` | Sound Db |
 | `qulythuchi.tsudev.com` | Quly Thu Chi |
 | `compass.tsudev.com` | La bàn |
-| `contact.tsudev.com` | Tsu Contact |
+| `contact.tsudev.com` | TsuContact |
 | `xin-chao-nui-cam.tsudev.com` | Trò chơi Xin Chào Núi Cấm |
 | `id.tsudev.com` | Hệ thống tài khoản |
 

@@ -2,7 +2,7 @@
 
 - **Từ:** phiên điều phối (Phase TM1, bộ quy ước `v10.0.0`)
 - **Tới:** phiên kế tiếp ở repo `tsudev-standards`
-- **Trạng thái:** MỞ
+- **Trạng thái:** ĐÓNG 28/11/2026 - Phase TM2 xong trong `v10.1.0` (xem mục 5)
 
 ## 1. Đã xong ở TM1
 
@@ -39,3 +39,11 @@
 - Ảnh gốc là ảnh tạo bằng công cụ AI, có watermark ✦ (script xoá). Khi đăng ký nhãn hiệu, chủ dự án cần biết nguồn
   gốc hình (quyền tác giả với hình do AI tạo có thể bị hạn chế) - ghi trong sổ tay TM2.
 - Mã Phase `TM*` của kế hoạch này khác phiếu cũ `20261125-TM1b` (Tsu Tramon) - không liên quan.
+
+## 5. Kết quả (28/11/2026, phiên điều phối projects-17)
+
+- Chủ dự án giao bộ logo chính thức + Sổ tay (thay bộ thử TM1): nguồn `assets/brand/tsumind/source/` khớp SHA-256 gói
+  `tsumind-brand-assets.zip`; `build.mjs` viết lại, 75 tệp. Phiên trước bị cắt giữa lúc build (og-image rỗng) - đã sinh lại.
+- Chủ dự án chốt: văn bản giữ `TsuMIND` (dải chữ in hoa là đồ hoạ); phông theo Sổ tay (Exo 2 / Inter / JetBrains Mono).
+- `docs/BRAND_GUIDELINES.md` v1.0.0; `tokens/products/tsumind.json` (`tsudev.json` giữ, `supersededBy`); tên sản phẩm
+  viết liền; `DESIGN_SYSTEM.md` mục 3.1; `ECOSYSTEM_IDENTITY.md` mục 4.4. Bước tiếp: phiếu `20261128-TM3`.

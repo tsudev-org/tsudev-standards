@@ -25,13 +25,16 @@ Ký hiệu: **[OWNER]** chỉ chủ dự án làm được (đăng nhập, 2FA, 
 
 ## Phase TM2 - Sổ tay nhận diện thương hiệu + quy chuẩn giao diện thống nhất
 
-- [ ] [OWNER] Duyệt bộ logo TM1 (huy hiệu, dấu hiệu thu gọn, logo ngang) - hoặc gửi chỉnh sửa
-- [ ] `docs/BRAND_GUIDELINES.md`: cấu trúc tỷ lệ + vùng an toàn + cỡ tối thiểu, hệ màu (Ink Navy `#021023`, Deep Navy
-      `#061E3A`, Navy `#14355C`, Steel `#1F5180`, Ocean `#4294C0`, Mind Cyan `#51D2EC`, Ice `#D5E1E9` - đo từ logo,
-      kiểm WCAG), phông (Be Vietnam Pro + Chivo Mono), giọng văn, điều cấm, bảo hộ thương hiệu, triển khai đa nền tảng
-- [ ] Token: `tokens/products/tsumind.json` (thay `tsudev.json`), màu nhấn Mind Cyan qua `check-contrast.mjs`
-- [ ] Quy chuẩn bố cục chung mọi app/website (header, chân trang, nút, modal/popup một lớp, không chồng lấn, z-index
-      theo thang token, khối "thuộc hệ sinh thái TsuMIND") vào `DESIGN_SYSTEM.md` + `ECOSYSTEM_IDENTITY.md`
+- [x] [OWNER] Bộ logo: chủ dự án giao **bộ logo chính thức + Sổ tay** 27/11/2026 (thay bộ thử TM1); nguồn ở
+      `assets/brand/tsumind/source/`, `build.mjs` sinh 75 tệp. Chốt: văn bản giữ `TsuMIND`, phông theo Sổ tay
+- [x] `docs/BRAND_GUIDELINES.md` v1.0.0: biến thể, vùng an toàn, cỡ tối thiểu, hệ màu Sổ tay (Midnight Navy `#0A1B3D`,
+      Deep Circuit Blue `#13408A`, Electric Blue `#1E9BFF`, Neon Cyan `#3CD2F5`, Chrome Silver `#E4EAF4`, Slate Gray
+      `#5B6B85`) + bảng WCAG đo được, phông Exo 2 / Inter / JetBrains Mono, giọng văn, điều cấm, bảo hộ, đa nền tảng
+- [x] Token: `tokens/products/tsumind.json` (hue 249 Electric Blue, Exo 2); `tsudev.json` giữ với `supersededBy` tới
+      Phase TM6 (repo `tsudev` đọc cứng tệp này); tên sản phẩm viết liền; `gen-product-palette` + `check-products` +
+      `check-contrast` xanh
+- [x] Quy chuẩn bố cục chung: `DESIGN_SYSTEM.md` mục 3.1 (header, nội dung, chân trang, nút, overlay một lớp, thang
+      z-index, không chồng lấn) + `ECOSYSTEM_IDENTITY.md` mục 4.4 (khối "Thuộc hệ sinh thái TsuMIND")
 
 **Nghiệm thu:** chủ dự án duyệt sổ tay; cổng tương phản xanh; PR merge (MINOR).
 
@@ -50,8 +53,10 @@ Ký hiệu: **[OWNER]** chỉ chủ dự án làm được (đăng nhập, 2FA, 
 
 ## Phase TM4 - Kiểm kê + zone `tsumind.com` + `tsumind-infra`
 
-- [ ] [OWNER] Tạo API token Cloudflare tối thiểu quyền, có hạn (bảng P1-T04), lưu `~/.config/tsudev/cloudflare-tsumind.env`
-      (`KEY=VALUE`, 600); 2FA passkey; auto-renew + transfer lock; xác minh email ICANN
+- [x] [OWNER] Tạo API token Cloudflare có hạn, lưu `~/.config/tsudev/cloudflare-tsumind.env` (`KEY=VALUE`, 600, khoá
+      `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `TSUMIND_CF_ZONE_ID`) - kiểm 28/11/2026: `active`, hết hạn
+      27/12/2026, đọc được zone `tsumind.com` (active, đúng account, 0 bản ghi DNS). Đầu TM4 dò quyền ghi thật
+- [ ] [OWNER] 2FA passkey; auto-renew + transfer lock; xác minh email ICANN
 - [ ] Repo `tsudev-org/tsumind-infra` (private): `inventory/` P0-T02..T06 sinh bằng API, `adr/`, `runbooks/`, `iac/`
 - [ ] Phần A: DNSSEC, Full (strict), TLS 1.2+/1.3, Always HTTPS, CT monitoring, WAF free + custom rules (Log trước),
       rate limit `id.`, Bot Fight, header bảo mật, `security.txt`, Email Routing + SPF/DMARC `p=none`, Resend gửi đi,

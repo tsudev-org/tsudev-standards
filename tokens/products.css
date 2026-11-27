@@ -35,7 +35,7 @@
   --icon-nav: #FF9F6F;
 }
 
-/* Tsu Contact - tsudev-org/tsucontact | bố cục cong-cu | bo góc tron | hoạ tiết the-xep */
+/* TsuContact - tsudev-org/tsucontact | bố cục cong-cu | bo góc tron | hoạ tiết the-xep */
 :root[data-product="contact"] {
   --text-link: #973069;
   --primary: #AB437B;
@@ -66,7 +66,7 @@
   --icon-nav: #F999C8;
 }
 
-/* Tsu Cwico - tsudev-org/tsucwico | bố cục trinh-dien | bo góc sac | hoạ tiết luoi-quet */
+/* TsuCwico - tsudev-org/tsucwico | bố cục trinh-dien | bo góc sac | hoạ tiết luoi-quet */
 :root[data-product="cwico"] {
   --text-link: #056270;
   --primary: #087485;
@@ -252,7 +252,7 @@
   --icon-nav: #92C35B;
 }
 
-/* Tsu Swico - tsudev-org/tsuswico | bố cục cong-cu | bo góc sac | hoạ tiết mach-in */
+/* TsuSwico - tsudev-org/tsuswico | bố cục cong-cu | bo góc sac | hoạ tiết mach-in */
 :root[data-product="swico"] {
   --text-link: #7E4D00;
   --primary: #955C04;
@@ -283,7 +283,7 @@
   --icon-nav: #EDA756;
 }
 
-/* Tsu Tramon - tsudev-org/tsutramon | bố cục trinh-dien | bo góc mem | hoạ tiết duong-bieu-do */
+/* TsuTramon - tsudev-org/tsutramon | bố cục trinh-dien | bo góc mem | hoạ tiết duong-bieu-do */
 :root[data-product="trafficmonitor"] {
   --text-link: #5F5901;
   --primary: #716A04;
@@ -343,4 +343,35 @@
   --glow: rgba(56, 189, 248, 0.14);
   --icon-info: #60A5FA;
   --icon-nav: #7DD3FC;
+}
+
+/* TsuMIND - tsudev-org/tsudev | bố cục cong | bo góc chuan | hoạ tiết quang-sang */
+:root[data-product="tsumind"] {
+  --text-link: #025A9A;
+  --primary: #046CB6;
+  --primary-hover: #025A9A;
+  --primary-active: #014A80;
+  --on-primary: #FFFFFF;
+  --focus-ring: #046CB6;
+  --accent: #034F88;
+  --glow: rgba(4, 108, 182, 0.1);
+  --icon-info: #046CB6;
+  --icon-nav: #025A9A;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-control: 6px;
+  --font-display: 'Exo 2', var(--font-family);
+}
+:root[data-product="tsumind"][data-theme="dark"] {
+  --text-link: #73BAFF;
+  --primary: #4DAAFF;
+  --primary-hover: #7ABDFF;
+  --primary-active: #1C93F1;
+  --on-primary: #0A0A0A;
+  --focus-ring: #4DAAFF;
+  --accent: #A1D0FF;
+  --glow: rgba(77, 170, 255, 0.14);
+  --icon-info: #4DAAFF;
+  --icon-nav: #73BAFF;
 }

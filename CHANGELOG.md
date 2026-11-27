@@ -8,6 +8,30 @@ Mới nhất trên cùng.
 
 ---
 
+## 10.1.0 - 28/11/2026
+
+Phase TM2 (`docs/PLAN.md`): bộ logo chính thức + sổ tay thương hiệu TsuMIND + quy chuẩn bố cục chung.
+
+- `assets/brand/tsumind/`: thay bộ thử TM1 bằng **bộ logo chính thức chủ dự án giao 27/11/2026** (logo chính, biểu
+  tượng thu gọn, dải chữ, logo ngang, icon ứng dụng, nền trong suốt). `build.mjs` viết lại: chỉ thu nhỏ, AVIF/WebP/PNG,
+  favicon + PWA + maskable từ icon ứng dụng, Android adaptive, og-image 1200x630 có tuyên ngôn, `MANIFEST.json` băm cả
+  nguồn; gỡ `svg/` và `dist/emblem|mark|app|svg/`.
+- `docs/BRAND_GUIDELINES.md` **v1.0.0** MỚI: sổ tay nhận diện (ý nghĩa, biến thể, vùng an toàn, cỡ tối thiểu, hệ màu +
+  bảng WCAG đo được, phông Exo 2/Inter/JetBrains Mono, giọng văn, điều cấm, bảo hộ, đa nền tảng). Chủ dự án chốt:
+  văn bản giữ `TsuMIND` (dải chữ in hoa của logo là đồ hoạ).
+- `tokens/products/tsumind.json` MỚI (`data-product="tsumind"`, hue 249 Electric Blue, font tiêu đề Exo 2); trường
+  schema `supersededBy` (cặp cũ/kế nhiệm miễn kiểm cách sắc độ, trùng hoạ tiết); `tsudev.json` giữ nguyên bảng màu,
+  `supersededBy: tsumind`, gỡ ở Phase TM6. `fontDisplay` thêm `Exo 2`. Tên hiển thị viết liền: `TsuContact`,
+  `TsuSwico`, `TsuTramon`, `TsuCwico`.
+- `DESIGN_SYSTEM.md` **v4.3.0** mục 3.1: khung bố cục chung (header, nội dung, chân trang, nút), overlay một lớp, thang
+  `z-index` chỉ từ token, không chồng lấn. `ECOSYSTEM_IDENTITY.md` **v4.2.0** mục 4.4: khối "Thuộc hệ sinh thái TsuMIND".
+- `BRAND_ASSETS.md` **v4.4.0** mục 16; `AGENTS.md`, `00-INDEX.md` thêm lối vào sổ tay.
+
+**Hướng dẫn nâng cấp:** `./scripts/sync-standards.sh --ref v10.1.0`. Repo con không phải đổi gì ngay; logo/khối
+TsuMIND chỉ áp khi nhận phiếu `TM6`/`TM7`. Repo `tsudev` tiếp tục đọc `products/tsudev.json` (không đổi giá trị).
+
+---
+
 ## 10.0.0 - 27/11/2026
 
 Chủ dự án 27/11/2026: hệ sinh thái đổi tên **TsuDEV → TsuMIND**, tên miền chính `tsumind.com` (đã đăng ký tại Cloudflare).

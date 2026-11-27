@@ -348,7 +348,7 @@ thử nghiệm trên máy chủ sản phẩm (nếu có).
 | --- | --- | --- |
 | N1 | **Cục bộ trước** | Dữ liệu chính ở thiết bị: SQLite/SQLCipher (app), IndexedDB/OPFS (web), tệp cục bộ (desktop). Mọi thao tác ghi cục bộ rồi cập nhật giao diện ngay. Mục tiêu: phản hồi thao tác < 100 ms, cuộn/hoạt ảnh 60 khung/giây; việc nặng (mật mã, nhập tệp, báo cáo, đồng bộ) chạy ở isolate/worker/luồng nền |
 | N2 | **Không gửi dữ liệu người dùng lên mạng** | Áp cho MỌI người dùng (miễn phí và Pro). Chỉ được gửi ra ngoài: dữ liệu tài khoản ở mục 7.7, bản kê phiên bản + chứng thực ở `APP_INTEGRITY.md` (không chứa nội dung người dùng). `MUST NOT` tải dữ liệu, tệp, ảnh, danh bạ, vị trí của người dùng lên máy chủ TsuDEV hay dịch vụ lưu trữ/đồng bộ của bên thứ ba (Drive, iCloud, OneDrive, Dropbox, GitHub...) |
-| N3 | **Đồng bộ = Tsu Link** | Giữa hai thiết bị của người dùng, hai app đang mở, cùng mạng nội bộ; ghép đôi bằng QR/so mã số/BLE; TLS 1.3 hai chiều ghim vân tay (`LOCAL_SYNC.md`). Không máy chủ, không relay |
+| N3 | **Đồng bộ = TsuLink** | Giữa hai thiết bị của người dùng, hai app đang mở, cùng mạng nội bộ; ghép đôi bằng QR/so mã số/BLE; TLS 1.3 hai chiều ghim vân tay (`LOCAL_SYNC.md`). Không máy chủ, không relay |
 | N4 | **Máy chủ kiểm quyền, không tin app** | Quyền lợi (Q1, Q2) và mọi giá trị có ý nghĩa do máy chủ tsudev.com quyết, dựa trên JWS quyền lợi (mục 7.4) và chứng thực app (`APP_INTEGRITY.md`). Gate trong app chỉ để ẩn/hiện |
 | N5 | **Mang dữ liệu đi tự do** | Xuất/nhập **ra tệp** `.tsubak` (định dạng mở, mã hoá tuỳ chọn - `LOCAL_SYNC.md` mục 9) miễn phí mãi; không khoá dữ liệu của người dùng |
 | N6 | **Bảo mật** | Theo `SECURITY_BASELINE.md` + mục 6 + `APP_INTEGRITY.md`: OIDC PKCE; **mã cài đặt** ngẫu nhiên 128 bit (`AUTH_AND_ACCOUNT.md` mục 14.3), `MUST NOT` dùng IMEI/MAC/vân tay thiết bị. Mật mã chỉ dùng thư viện chuẩn (libsodium, RustCrypto, rustls, .NET BCL). Log không chứa dữ liệu người dùng. Không SDK theo dõi/phân tích/crash của bên thứ ba |
@@ -511,7 +511,7 @@ và đăng nhập theo ngữ cảnh chỉ khi người dùng bấm - `AUTH_AND_A
 - [ ] Ngắt mạng vẫn đủ tính năng cốt lõi; **0 byte dữ liệu người dùng rời máy** ra internet ở mọi gói (đo bằng proxy)
   - chỉ có lượt gọi tài khoản (7.7) và bản kê phiên bản/chứng thực (`APP_INTEGRITY.md`).
 - [ ] Không còn mã đồng bộ/sao lưu đám mây, không thư viện `tsusync`, không thông báo "nhiều thiết bị" (mục 7.3).
-- [ ] Đồng bộ giữa thiết bị qua Tsu Link đạt `LOCAL_SYNC.md` mục 10 (nếu sản phẩm có dữ liệu người dùng); xuất/nhập
+- [ ] Đồng bộ giữa thiết bị qua TsuLink đạt `LOCAL_SYNC.md` mục 10 (nếu sản phẩm có dữ liệu người dùng); xuất/nhập
   `.tsubak` có test.
 - [ ] Cổng phiên bản + modal khoá + chứng thực đạt `APP_INTEGRITY.md` mục 8.
 - [ ] Pro hết hạn ⇒ tắt Q1/Q2, không mất dữ liệu, không mất tính năng (mục 7.2).

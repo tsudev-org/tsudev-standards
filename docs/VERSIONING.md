@@ -73,7 +73,7 @@ Khuôn theo ngày trả lời được câu đó ngay từ tên tệp.
 | --- | --- | --- |
 | Thẻ git phát hành | `v` THƯỜNG + đúng phiên bản; không tiền tố tên, không hậu tố | `v26.11.1704` |
 | Bản thử | thêm `-beta.N` / `-rc.N`; Release đánh dấu Pre-release | `v26.11.1801-beta.1` |
-| Tiêu đề GitHub Release | `{Tên sản phẩm} {phiên bản}` | `Tsu Contact 26.11.1601` |
+| Tiêu đề GitHub Release | `{Tên sản phẩm} {phiên bản}` | `TsuContact 26.11.1601` |
 | Tệp phát hành | `{tên-gói}_{phiên bản}_{os}-{arch}[-{loại}].{ext}`; `os` ∈ `windows`, `macos`, `linux`, `android`, `ios`; `arch` ∈ `x64`, `x86`, `arm64`, `universal` | `tsucwico_26.11.1801_windows-x64-setup.exe` |
 | Tệp kiểm | `SHA256SUMS.txt` (+ `SHA256SUMS.txt.sigstore.json`) - đúng tên này | |
 | Phiên bản trong mã/manifest | = phiên bản sản phẩm (không `v`) | `26.11.1704` |
