@@ -361,7 +361,7 @@ tệp rỗng do build bị cắt ngang).
 | Squircle trong suốt | `app-icon/tsumind-app-icon-squircle-{128,256,512,1024}.png` | Minh hoạ, Microsoft Store, trang tải |
 | Ảnh chia sẻ / đại diện | `social/og-image-1200x630.{png,webp,avif}`, `avatar-app-icon-500.png`, `avatar-logo-primary-500.png` | Open Graph, ảnh tổ chức GitHub, mạng xã hội |
 
-Định dạng: **AVIF** (nhỏ nhất, ~1/7 PNG) → **WebP** (~1/5) → **PNG** (dự phòng mọi trình duyệt, hệ điều hành) qua
+Định dạng: **AVIF** (nhỏ nhất, ~1/5 PNG) → **WebP** (~1/5) → **PNG** (dự phòng mọi trình duyệt, hệ điều hành) qua
 `<picture>`; chỉ thu nhỏ từ master; ≤ 64px làm nét nhẹ. Mẫu dùng trên web:
 
 ```html

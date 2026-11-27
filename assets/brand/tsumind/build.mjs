@@ -104,7 +104,11 @@ async function build() {
   // Ba định dạng cho giao diện web: AVIF (nhỏ nhất) → WebP → PNG (dự phòng mọi trình duyệt/hệ điều hành).
   const triple = async (base, img) => {
     const buf = await img.png().toBuffer();
-    out(`${base}.avif`, await sharp(buf).avif({ quality: 70, effort: 6, chromaSubsampling: '4:4:4' }).toBuffer());
+    // sharp 0.35 (aom 3.15) chấm `quality` khác 0.34: 88 (92 cho cạnh <= 128px) mới >= độ trung thực của q70 cũ
+    // ở MỌI tệp (PSNR nhân alpha so với PNG, đo 28/11/2026). Đổi mức thì đo lại, không hạ.
+    const { width: aw, height: ah } = await sharp(buf).metadata();
+    const aq = Math.max(aw, ah) <= 128 ? 92 : 88;
+    out(`${base}.avif`, await sharp(buf).avif({ quality: aq, effort: 6, chromaSubsampling: '4:4:4' }).toBuffer());
     out(`${base}.webp`, await sharp(buf).webp({ quality: 90, alphaQuality: 100, effort: 6, smartSubsample: true }).toBuffer());
     out(`${base}.png`, await png(sharp(buf)).toBuffer());
   };
@@ -253,7 +257,7 @@ async function build() {
   ).toBuffer();
   out('social/og-image-1200x630.png', og);
   out('social/og-image-1200x630.webp', await sharp(og).webp({ quality: 90 }).toBuffer());
-  out('social/og-image-1200x630.avif', await sharp(og).avif({ quality: 65, effort: 6 }).toBuffer());
+  out('social/og-image-1200x630.avif', await sharp(og).avif({ quality: 80, effort: 6 }).toBuffer());
   out('social/avatar-app-icon-500.png', await buf(await tile(500, 0.8)));
   out(
     'social/avatar-logo-primary-500.png',
