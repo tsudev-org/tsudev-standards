@@ -3,6 +3,12 @@
 > Agent đọc file này ở đầu mỗi phiên và cập nhật ở cuối mỗi phiên.
 > Quy trình: `docs/AGENT_PROTOCOL.md`.
 
+> **27/11/2026 (khuya)**: `v10.0.0` - hệ sinh thái đổi tên **TsuDEV → TsuMIND** (`tsumind.com`). Phase TM1 xong:
+> `NAMING_CONVENTION.md`, `TSUMIND_MIGRATION.md`, `docs/PLAN.md` (TM1-TM11), `check-naming.sh`, bộ logo
+> `assets/brand/tsumind/`. **Bước tiếp: Phase TM2** (sổ tay thương hiệu + quy chuẩn giao diện) - phiếu
+> [`20261127-TM2`](handover/20261127-TM2_tsumind-so-tay-thuong-hieu.md). Việc [OWNER] đang chờ: duyệt logo, tạo org
+> `tsumind-org` giữ tên, token Cloudflare cho TM4.
+
 > **27/11/2026 (tối)**: `v9.1.0` (PR #96, chờ merge) - quy ước nhiều tài khoản Claude + lệnh `cc`
 > (`AGENT_PROTOCOL.md` mục 4.4). Mọi agent: không tự đổi/xoay tài khoản, không đụng `~/.claude-*`, chốt tiến độ vào
 > PLAN/STATE mỗi mốc vì phiên có thể bị cắt khi hết hạn mức. Phiếu [`20261127-CC1`](handover/20261127-CC1_nhieu-tai-khoan-claude-lenh-cc.md).

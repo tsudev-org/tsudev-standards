@@ -3,6 +3,11 @@
 > Đọc theo nhu cầu, không cần đọc tuần tự. Bắt đầu từ
 > [`../AGENTS.md`](../AGENTS.md) - đó là điểm vào bắt buộc của mọi phiên.
 
+## Chuyển đổi TsuDEV → TsuMIND (từ v10.0.0)
+
+[`TSUMIND_MIGRATION.md`](TSUMIND_MIGRATION.md) (đặc tả, quyết định D-01..D-12) · [`PLAN.md`](PLAN.md) (Phase TM1-TM11)
+· [`NAMING_CONVENTION.md`](NAMING_CONVENTION.md) (bắt buộc mọi tên mới).
+
 ## Đọc theo vai trò
 
 **Bạn vừa vào dự án, chưa biết gì:**
@@ -21,7 +26,8 @@
 2. [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md) - token, không hard-code giao diện
 3. [`TESTING_QUALITY.md`](TESTING_QUALITY.md) - ngưỡng chất lượng và kiểm thử
 4. [`ACCESSIBILITY.md`](ACCESSIBILITY.md) - WCAG 2.1 AA
-5. [`BRAND_ASSETS.md`](BRAND_ASSETS.md) - khi đụng logo, favicon, icon ứng dụng
+5. [`BRAND_ASSETS.md`](BRAND_ASSETS.md) - khi đụng logo, favicon, icon ứng dụng (bộ TsuMIND: mục 16)
+6. [`NAMING_CONVENTION.md`](NAMING_CONVENTION.md) - đặt tên thương hiệu, repo, tệp, định danh code (TsuMIND)
 
 **Bạn đang làm chức năng đăng nhập, đăng ký, tài khoản:**
 1. [`AUTH_AND_ACCOUNT.md`](AUTH_AND_ACCOUNT.md) - kiến trúc, ba lối vào, xác minh, ma trận quyền, lối đăng nhập chủ động - không nhắc tự động (14.4)

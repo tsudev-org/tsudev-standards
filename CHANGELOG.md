@@ -8,6 +8,31 @@ Mới nhất trên cùng.
 
 ---
 
+## 10.0.0 - 27/11/2026
+
+Chủ dự án 27/11/2026: hệ sinh thái đổi tên **TsuDEV → TsuMIND**, tên miền chính `tsumind.com` (đã đăng ký tại Cloudflare).
+Chuyển đổi làm NGAY theo Phase vì mọi sản phẩm hiện chỉ do chủ dự án dùng (D-08).
+
+- `docs/NAMING_CONVENTION.md` **v1.1.0** MỚI (bắt buộc): tên chuẩn `TsuMIND`, ma trận dạng viết theo ngữ cảnh (hiển thị,
+  slug, PascalCase `TsuMind`, env `TSUMIND_`, reverse-DNS `com.tsumind.*`), biến thể cấm, danh mục mọi sản phẩm (mục 3.4,
+  sản phẩm có `Tsu` viết liền: `TsuCwico`), ngoại lệ `TMNC-EXCEPTION`, checklist PR.
+- `docs/TSUMIND_MIGRATION.md` **v1.1** MỚI: đặc tả chuyển đổi (R-01..R-12, cổng phê duyệt G1-G10, Phần A cấu hình
+  `tsumind.com` 0 đồng, P0-P11) + mục 0.3 quyết định D-08..D-12 và đối chiếu hạ tầng thật.
+- `docs/PLAN.md` MỚI: Phase TM1-TM11. TM1 xong trong bản này.
+- `scripts/check-naming.sh` MỚI: quét biến thể tên cấm; cảnh báo mặc định, `NAMING_STRICT=1` chặn, `NAMING_LEGACY=1`
+  quét thêm tên cũ (miễn qua `allowlist-legacy.txt`).
+- `assets/brand/tsumind/` MỚI: bộ logo TsuMIND một nguồn + `build.mjs` (tách nền giả và watermark, AVIF/WebP/PNG,
+  favicon 7 lớp + SVG, PWA + maskable, icon app, og-image, avatar) + `MANIFEST.json`; CI chạy `build.mjs --check`.
+- `BRAND_ASSETS.md` **v4.3.0** mục 16; `AGENTS.md` **v4.2.0**; `00-INDEX.md`.
+
+**Vì sao MAJOR:** đổi tên thương hiệu mẹ và đặt quy ước đặt tên bắt buộc cho mọi tên mới.
+
+**Hướng dẫn nâng cấp:** `./scripts/sync-standards.sh --ref v10.0.0`. Repo con CHƯA phải đổi gì ngay: chạy thử
+`.standards/scripts/check-naming.sh` (chỉ cảnh báo), mọi tên MỚI theo `NAMING_CONVENTION.md`; việc rebrand đến qua
+phiếu `TM7`. KHÔNG đổi định danh đã phát hành, KHÔNG thay logo tsudev trước khi chủ dự án duyệt bộ TsuMIND (TM2).
+
+---
+
 ## 9.1.0 - 27/11/2026
 
 Chủ dự án 27/11/2026: máy dùng nhiều tài khoản Claude (mỗi tài khoản một hạn mức) nên có lệnh `cc` chuyển tài khoản
