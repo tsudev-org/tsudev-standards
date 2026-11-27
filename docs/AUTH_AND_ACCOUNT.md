@@ -608,7 +608,7 @@ kiện để chia sẻ liên kết giữa các sản phẩm mà không hỏng.
 ### 13.4. Ô đồng ý Điều khoản (từ v3.3.0)
 
 - Màn đăng nhập/đăng ký của cổng `MUST` có ô *"Tôi đã đọc và chấp nhận Điều khoản dịch vụ và Chính sách quyền riêng tư."*,
-  hai cụm là liên kết tới `/dieu-khoan` và `/quyen-rieng-tu` (mục 13.1). `MUST NOT` tích sẵn - Nghị định 13/2023/NĐ-CP
+  hai cụm là liên kết tới `/dieu-khoan` và `/quyen-rieng-tu` (mục 13.1). `MUST NOT` tích sẵn - Luật 91/2025/QH15 Điều 9, NĐ 356/2025/NĐ-CP Điều 6
   đòi sự đồng ý rõ ràng, chủ động.
 - Bấm một lối vào khi chưa tích ⇒ mở bảng dưới (bottom sheet) tóm tắt hai văn bản + nút **"Đồng ý và tiếp tục"** +
   "Huỷ". `MUST NOT` chỉ rung/đổi màu mà không nói lý do.

@@ -8,6 +8,25 @@ Mới nhất trên cùng.
 
 ---
 
+## 10.3.0 - 28/11/2026
+
+Phase TM3: hồ sơ pháp lý hệ sinh thái TsuMIND.
+
+- `docs/LEGAL_COMPLIANCE.md` v1.0.0 MỚI: bảng văn bản hiện hành (ngày tra 28/11/2026, mức tin cậy A/B/C), cơ quan sau sáp nhập,
+  nghĩa vụ theo Luật 91/2025/QH15 + NĐ 356/2025 (thay NĐ 13/2023), Luật TMĐT 122/2025 + NĐ 248/2026 (thay NĐ 52/2013, 85/2021),
+  Luật ANM 116/2025; áp dụng cho chủ sở hữu **cá nhân** có gói Pro; việc [OWNER]; sai lệch của tệp đầu vào đã chỉnh (hạn phản hồi
+  yêu cầu 2 ngày làm việc chứ không phải 72 giờ; trẻ em từ đủ 7 tuổi; UBND cấp tỉnh xác nhận thông báo TMĐT; 20 ngày làm việc
+  khi đổi tên miền; hạn 24/3/6 giờ của Luật ANM).
+- `templates/legal/` MỚI: 11 tệp (chân trang, thông tin chủ sở hữu, chính sách DLCN, điều khoản, an toàn thông tin, cookie, hồ sơ
+  đánh giá tác động Mẫu 10/09/02a/02b, thông báo TMĐT, quy trình DSR, thông báo chuyển đổi thương hiệu).
+- Sửa dẫn NĐ 13/2023 (đã hết hiệu lực) ở `SECURITY_BASELINE.md`, `AUTH_AND_ACCOUNT.md`, `EMAIL.md`.
+- **Mục "cần xác minh"** (đọc được toàn văn qua trang thứ cấp; bản chính thức `vbpl.vn` và PDF Công báo chưa trích máy được): NĐ 330/2026
+  (số hiệu, nguồn mâu thuẫn), NĐ 147/2024, nghị định hướng dẫn Luật ANM, nội dung từng khoản NĐ 248 Điều 4-16 và Luật ANM Điều 7.
+- Không phải tư vấn pháp lý; chủ dự án ký, nộp, khai MST.
+- Hướng dẫn nâng cấp: `sync-standards.sh --ref v10.3.0`; repo `tsudev` nhận phiếu `20261128-TM3b`.
+
+---
+
 ## 10.2.0 - 28/11/2026
 
 Chuẩn hoá lại bộ nhận diện TsuMIND từ **5 hình chủ dự án chốt** (thay bộ zip `v10.1.0`: biểu tượng, logo ngang, icon

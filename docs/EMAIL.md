@@ -47,7 +47,7 @@ Mọi địa chỉ dưới đây có luật `tsudev: <địa chỉ> - <mục đ�
 | --------------------------- | ---------- | --------------------------------------------------------------------------------- |
 | `security@tsudev.com`       | chuyển tiếp | Báo cáo lỗ hổng: `SECURITY.md`, `/.well-known/security.txt`, liên hệ antivirus    |
 | `contact@tsudev.com`        | chuyển tiếp | Liên hệ chung: website, hồ sơ cửa hàng, README                                    |
-| `privacy@tsudev.com`        | chuyển tiếp | Quyền riêng tư, yêu cầu xoá dữ liệu (Nghị định 13/2023, GDPR): `PRIVACY.md`, cửa hàng |
+| `privacy@tsudev.com`        | chuyển tiếp | Quyền riêng tư, yêu cầu xoá dữ liệu (Luật 91/2025 + NĐ 356/2025, GDPR; thời hạn phản hồi: `LEGAL_COMPLIANCE.md`): `PRIVACY.md`, cửa hàng |
 | `abuse@tsudev.com`          | chuyển tiếp | RFC 2142 - báo cáo lạm dụng                                                        |
 | `postmaster@tsudev.com`     | chuyển tiếp | RFC 5321 - bắt buộc với mọi tên miền nhận thư                                      |
 | `hostmaster@tsudev.com`     | chuyển tiếp | RFC 2142 - DNS                                                                    |
@@ -141,7 +141,7 @@ làm Gmail trả `421 4.7.28 ... unusual rate of unsolicited mail ... temporaril
   "Cũng áp dụng bộ lọc cho các cuộc hội thoại phù hợp"). Kết quả: không thư `*@tsudev.com` nào vào Spam; nhãn
   `TsuDEV/An ninh`, `/Quyền riêng tư`, `/Liên hệ`, `/Hệ thống`, `/Thư trả lời`, `/Báo cáo TLS` (bỏ qua hộp thư đến).
 - Thêm địa chỉ mới vào mục 3 ⇒ thêm vào nhóm phù hợp trong tệp XML cùng PR, rồi chủ dự án nhập lại.
-- Thư `security@`/`privacy@` `SHOULD` được phản hồi trong 3 ngày làm việc (`SECURITY.md`, Nghị định 13/2023).
+- Thư `security@`/`privacy@` `SHOULD` được phản hồi trong 3 ngày làm việc (`SECURITY.md`; riêng yêu cầu của chủ thể dữ liệu: phản hồi trong 2 ngày làm việc theo NĐ 356/2025 Điều 5, xem `LEGAL_COMPLIANCE.md`).
 
 ## 7. Website, ứng dụng, cửa hàng
 

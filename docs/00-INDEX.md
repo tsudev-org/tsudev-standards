@@ -30,6 +30,11 @@
    hiệu TsuMIND (màu, phông, vùng an toàn, điều cấm): [`BRAND_GUIDELINES.md`](BRAND_GUIDELINES.md)
 6. [`NAMING_CONVENTION.md`](NAMING_CONVENTION.md) - đặt tên thương hiệu, repo, tệp, định danh code (TsuMIND)
 
+**Bạn đang soạn chính sách, điều khoản, hồ sơ pháp lý, thông báo website:**
+1. [`LEGAL_COMPLIANCE.md`](LEGAL_COMPLIANCE.md) - văn bản hiện hành, nghĩa vụ kèm điều khoản và ngày tra, việc [OWNER]
+2. [`../templates/legal/README.md`](../templates/legal/README.md) - 10 mẫu (chân trang, DLCN, điều khoản, an toàn thông tin, cookie, hồ sơ đánh giá tác động, thông báo TMĐT, DSR, chuyển đổi thương hiệu)
+3. [`SECURITY_BASELINE.md`](SECURITY_BASELINE.md) mục 9 - sự cố và thông báo
+
 **Bạn đang làm chức năng đăng nhập, đăng ký, tài khoản:**
 1. [`AUTH_AND_ACCOUNT.md`](AUTH_AND_ACCOUNT.md) - kiến trúc, ba lối vào, xác minh, ma trận quyền, lối đăng nhập chủ động - không nhắc tự động (14.4)
 2. [`CROSS_DEVICE_LOGIN.md`](CROSS_DEVICE_LOGIN.md) - "Quét để đăng nhập" bằng QR + mã khớp

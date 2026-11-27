@@ -43,14 +43,16 @@ Ký hiệu: **[OWNER]** chỉ chủ dự án làm được (đăng nhập, 2FA, 
 
 ## Phase TM3 - Hồ sơ pháp lý và công bố hệ sinh thái số
 
-- [ ] Tra văn bản HIỆN HÀNH (nguồn chính thức): Luật Bảo vệ dữ liệu cá nhân 2025 + nghị định hướng dẫn (thay phần lớn
+- [x] Tra văn bản HIỆN HÀNH (nguồn chính thức): Luật Bảo vệ dữ liệu cá nhân 2025 + nghị định hướng dẫn (thay phần lớn
       NĐ 13/2023), NĐ 52/2013 + 85/2021 (TMĐT, thông báo website với Bộ Công Thương), Luật An ninh mạng, Luật ATTT mạng,
       NĐ 147/2024 (dịch vụ Internet), cơ quan quản lý sau sáp nhập (Bộ KH&CN thay Bộ TT&TT)
-- [ ] `docs/LEGAL_COMPLIANCE.md` + `templates/legal/`: thông tin chủ sở hữu (chân trang), chính sách bảo vệ DLCN,
+- [x] `docs/LEGAL_COMPLIANCE.md` + `templates/legal/`: thông tin chủ sở hữu (chân trang), chính sách bảo vệ DLCN,
       điều khoản sử dụng, chính sách an toàn thông tin, hồ sơ đánh giá tác động xử lý DLCN (Bộ Công an - A05), mẫu
       thông báo website (online.gov.vn), quy trình xử lý yêu cầu của chủ thể dữ liệu
-- [ ] Phiếu sang repo `tsudev` đưa khung nội dung vào chân trang, `/terms`, `/privacy`, `/security`
-- [ ] Ghi rõ: tài liệu mẫu không thay tư vấn pháp lý; [OWNER] ký, nộp, khai MST
+- [x] Phiếu sang repo `tsudev` đưa khung nội dung vào chân trang, `/terms`, `/privacy`, `/security`
+- [x] Ghi rõ: tài liệu mẫu không thay tư vấn pháp lý; [OWNER] ký, nộp, khai MST
+
+**Tiến độ 28/11/2026:** [OWNER] còn treo ký/nộp/khai MST, luật sư rà soát, đóng mục "cần xác minh" (`LEGAL_COMPLIANCE.md` mục 8).
 
 **Nghiệm thu:** mỗi nghĩa vụ có trích dẫn điều khoản + ngày tra; chủ dự án duyệt; PR merge.
 
