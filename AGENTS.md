@@ -1,4 +1,4 @@
-# AGENTS.md - Bộ quy ước dùng chung tsudev (v4.1.0)
+# AGENTS.md - Bộ quy ước dùng chung tsudev (v4.2.0)
 
 > **ĐÂY LÀ NGUỒN CHÂN LÝ.** Bộ quy ước được biên tập tại repo
 > `tsudev-org/tsudev-standards`. Repo con mang một BẢN SAO CHỈ-ĐỌC tại
@@ -48,6 +48,8 @@ chuyên đề. Bản đồ đầy đủ: [`docs/00-INDEX.md`](docs/00-INDEX.md).
 | Giao diện, token, component | [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) |
 | Bảng bản ghi, bộ chọn số bản ghi | [`docs/DATA_TABLE.md`](docs/DATA_TABLE.md) |
 | Logo, favicon, icon ứng dụng | [`docs/BRAND_ASSETS.md`](docs/BRAND_ASSETS.md) |
+| **Đặt tên** thương hiệu, repo, tệp, biến, hàm, định danh (TsuMIND) | [`docs/NAMING_CONVENTION.md`](docs/NAMING_CONVENTION.md) |
+| **Chuyển đổi TsuDEV → TsuMIND**: tên miền `tsumind.com`, Phase TM1-TM11 | [`docs/TSUMIND_MIGRATION.md`](docs/TSUMIND_MIGRATION.md), [`docs/PLAN.md`](docs/PLAN.md) |
 | tsudev.com, ảnh đại diện, trang hồ sơ | [`docs/ECOSYSTEM_IDENTITY.md`](docs/ECOSYSTEM_IDENTITY.md) |
 | Cấu trúc thư mục | [`docs/PROJECT_STRUCTURE.md`](docs/PROJECT_STRUCTURE.md) |
 | Khả năng truy cập | [`docs/ACCESSIBILITY.md`](docs/ACCESSIBILITY.md) |
@@ -84,6 +86,12 @@ chuyên đề. Bản đồ đầy đủ: [`docs/00-INDEX.md`](docs/00-INDEX.md).
 - **Nhiều tài khoản Claude** (từ `v9.1.0`): máy chủ dự án có lệnh `cc <số|tên>` đổi tài khoản tức thì, chủ dự án
   tự chạy khi hết hạn mức. Agent không tự đổi/xoay tài khoản, không đụng `~/.claude-*`; phiên có thể bị cắt ngang
   bất cứ lúc nào nên chốt tiến độ vào `PLAN.md`/`STATE.md` ngay mỗi mốc. Chi tiết: `docs/AGENT_PROTOCOL.md` mục 4.4.
+
+- **Hệ sinh thái đổi tên thành TsuMIND** (từ `v10.0.0`, chủ dự án 27/11/2026): tên miền chính `tsumind.com`, mọi tên
+  mới `MUST` theo [`docs/NAMING_CONVENTION.md`](docs/NAMING_CONVENTION.md) (hiển thị `TsuMIND`, sản phẩm viết liền
+  `TsuCwico`; định danh code `TsuMind`/`tsuMind`/`tsu_mind`/`TSUMIND_`). Định danh đã phát hành (package Android, ID
+  winget, khoá ký, khoá updater) `MUST NOT` đổi. Repo con làm phần của mình khi nhận phiếu `TM7`, không tự đổi tên
+  repo/org/tên miền ngoài kế hoạch [`docs/PLAN.md`](docs/PLAN.md).
 
 ## 3. Đội ngũ agent và chống giẫm chân
 

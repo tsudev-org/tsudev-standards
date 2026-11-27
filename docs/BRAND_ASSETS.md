@@ -1,4 +1,4 @@
-# TÀI SẢN THƯƠNG HIỆU (v4.2.0)
+# TÀI SẢN THƯƠNG HIỆU (v4.3.0)
 
 > Logo, dấu hiệu thu gọn, wordmark, favicon và icon ứng dụng của hệ sinh thái
 > tsudev: bản gốc nằm ở đâu, sinh ra bằng gì, dùng dấu hiệu nào ở cỡ nào.
@@ -305,3 +305,33 @@ Một sản phẩm `MAY` có logo riêng thay logo tsudev khi **chủ dự án d
 
 Ảnh gốc `SHOULD` có cạnh ngắn từ 1024px hoặc là SVG; ảnh nhỏ hơn thì bản 512/1024 là phóng to - ghi nợ trong repo.
 
+
+## 16. Bộ nhận diện TsuMIND (từ v10.0.0)
+
+Hệ sinh thái đổi tên TsuDEV → **TsuMIND** ([`TSUMIND_MIGRATION.md`](TSUMIND_MIGRATION.md), quyết định D-12). Bộ logo
+TsuMIND có **một nguồn duy nhất** ở repo bộ quy ước - khác mục 1 (logo tsudev nằm ở repo website) vì mọi repo con
+nhận bộ quy ước qua đồng bộ, và website `tsudev` cũng sẽ đổi thành `tsumind` ở Phase TM6.
+
+| Thứ | Đường dẫn (`tsudev-org/tsudev-standards`) |
+| --- | --- |
+| Ảnh gốc huy hiệu | `assets/brand/tsumind/source/tsumind-emblem-source.png` (1024x1024, nền xám giả + watermark - script tự xoá) |
+| Vector vẽ tay | `assets/brand/tsumind/svg/`: `tsumind-mark.svg` (dấu hiệu thu gọn = `favicon.svg`), `tsumind-wordmark*.svg`, `tsumind-logo-horizontal*.svg` (bản thường cho nền Tối, `-light` cho nền Sáng, `-adaptive` theo `prefers-color-scheme`) |
+| Dây chuyền | `assets/brand/tsumind/build.mjs` (`npm ci && node build.mjs`; `node build.mjs --check` không cần phụ thuộc) |
+| Tệp sinh | `assets/brand/tsumind/dist/` + chuỗi băm ở `MANIFEST.json` - `MUST NOT` sửa tay |
+
+**Dùng ở đâu:**
+
+| Dấu hiệu | Tệp | Dùng khi |
+| --- | --- | --- |
+| Huy hiệu (cú + chữ) | `dist/emblem/tsumind-emblem-{48..1024}.{avif,webp,png}` | Trang chủ, ảnh chia sẻ, tài liệu, bản in - từ 96px trở lên |
+| Dấu hiệu thu gọn | `dist/svg/tsumind-mark.svg`, `dist/mark/*.png` | Header, favicon, khay hệ thống, mọi chỗ dưới 96px |
+| Logo ngang | `dist/svg/tsumind-logo-horizontal*.svg` | Header website, README, chân trang "thuộc hệ sinh thái TsuMIND" |
+| Favicon + PWA | `dist/favicon/*` | Đủ bảng mục 12.1 |
+| Icon ứng dụng | `dist/app/tsumind-app.ico`, `tsumind-app-{256,512,1024}.png` | App thuộc thương hiệu mẹ (ô nền đặc Ink Navy `#021023`) |
+| Ảnh chia sẻ / đại diện | `dist/social/og-image.png`, `avatar-500.png`, `avatar-emblem-500.png` | Open Graph, ảnh tổ chức GitHub, mạng xã hội |
+
+- Chữ trên huy hiệu gốc là `TSUMIND` viết hoa (đồ hoạ). Mọi văn bản và wordmark vector `MUST` viết `TsuMIND`
+  ([`NAMING_CONVENTION.md`](NAMING_CONVENTION.md) mục 3.1).
+- Huy hiệu là ảnh raster chi tiết - `MUST NOT` co dưới 96px (nhoè); dưới ngưỡng đó dùng dấu hiệu thu gọn SVG.
+- Sản phẩm có logo riêng vẫn theo mục 15; khối "nhà làm" đổi từ logo tsudev sang logo ngang TsuMIND ở Phase TM6-TM7.
+- Trạng thái: **chờ chủ dự án duyệt** (Phase TM2). Chưa repo nào được thay logo tsudev bằng bộ này trước khi duyệt.

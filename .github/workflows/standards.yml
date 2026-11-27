@@ -31,6 +31,12 @@ jobs:
       - name: Mọi cặp màu phải đạt ngưỡng WCAG
         run: node scripts/check-contrast.mjs
 
+      - name: Bộ logo TsuMIND khớp nguồn (BRAND_ASSETS 16)
+        run: node assets/brand/tsumind/build.mjs --check
+
+      - name: Quy ước đặt tên TsuMIND (cảnh báo, NAMING_CONVENTION 14)
+        run: ./scripts/check-naming.sh
+
       - name: Cổng kiểm quy ước
         run: ./scripts/check-standards.sh
 
