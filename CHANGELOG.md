@@ -22,6 +22,10 @@ Chuẩn hoá lại bộ nhận diện TsuMIND từ **5 hình chủ dự án ch�
   sáng** (`-light`, chữ Midnight Navy); favicon `.ico` + PNG + `head-snippet.html`; iOS/cửa hàng nền liền; **macOS
   `.icns`** (lưới Apple 824/1024); Windows `.ico` 7 cỡ; **Linux hicolor**; Android adaptive + **themed monochrome**;
   ảnh chia sẻ AVIF/WebP/PNG; `--check` bắt thêm tệp rỗng.
+- **Bảo mật:** `sharp` 0.34.5 → **0.35.5** (libvips 8.18.7), vá 3 cảnh báo Dependabot mức cao (librsvg CVE-2026-96889,
+  libheif GHSA-g89c-p67h-r497 / GHSA-2jg2-4ch7-h545, libvips CVE-2026-33327/33328/35590/35591); `npm audit` 0 lỗ hổng.
+  PNG sinh lại giống hệt từng điểm ảnh; bộ mã hoá AVIF mới chấm `quality` khác nên nâng 70 → 88 (92 cho cạnh ≤ 128px)
+  để không tệp nào kém độ trung thực bản cũ (PSNR TB 42,2 → 44,4 dB).
 - `BRAND_ASSETS.md` **v4.5.0** mục 16 viết lại (16.1 ba tầng nguồn + quy trình đổi hình, 16.2 bảng dùng + mẫu
   `<picture>`); `BRAND_GUIDELINES.md` **v1.1.0** (tên tệp, tỷ lệ, icon đa nền tảng); `ECOSYSTEM_IDENTITY.md` mục 4.4
   dùng `240w` / `-light-240w`; token `tsumind.json` trỏ hình gốc mới.
