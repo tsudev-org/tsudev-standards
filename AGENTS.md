@@ -1,4 +1,4 @@
-# AGENTS.md - Bộ quy ước dùng chung tsudev (v4.2.0)
+# AGENTS.md - Bộ quy ước dùng chung tsudev (v10.3.0)
 
 > **ĐÂY LÀ NGUỒN CHÂN LÝ.** Bộ quy ước được biên tập tại repo
 > `tsudev-org/tsudev-standards`. Repo con mang một BẢN SAO CHỈ-ĐỌC tại
@@ -39,6 +39,7 @@ chuyên đề. Bản đồ đầy đủ: [`docs/00-INDEX.md`](docs/00-INDEX.md).
 | --- | --- |
 | Quy trình phiên, khóa file, bàn giao | [`docs/AGENT_PROTOCOL.md`](docs/AGENT_PROTOCOL.md) |
 | **Bảo mật bắt buộc** | [`docs/SECURITY_BASELINE.md`](docs/SECURITY_BASELINE.md) |
+| **Pháp lý Việt Nam**: dữ liệu cá nhân (Luật 91/2025, NĐ 356/2025), TMĐT (NĐ 248/2026), an ninh mạng (Luật 116/2025); mẫu chính sách, hồ sơ Bộ Công an, thông báo website | [`docs/LEGAL_COMPLIANCE.md`](docs/LEGAL_COMPLIANCE.md), [`templates/legal/`](templates/legal/README.md) |
 | Quy tắc `.gitignore` | [`docs/GITIGNORE_POLICY.md`](docs/GITIGNORE_POLICY.md) |
 | Nhánh, commit, PR, phát hành | [`docs/GIT_WORKFLOW.md`](docs/GIT_WORKFLOW.md) |
 | Hạ tầng 0 đồng | [`docs/FREE_TIER_STACK.md`](docs/FREE_TIER_STACK.md) |

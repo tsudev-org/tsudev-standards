@@ -70,8 +70,8 @@ Mọi project `MUST` phân loại dữ liệu mình xử lý vào 4 mức, ghi v
 - `MUST NOT` ghi dữ liệu D3 ra log, ra thông báo lỗi, ra URL query string, hay ra
   hệ thống giám sát bên thứ ba.
 - `MUST` khai báo thời hạn lưu trữ cho dữ liệu D2/D3 và có cơ chế xóa khi hết hạn.
-- Với dữ liệu cá nhân của người dùng Việt Nam, `MUST` đối chiếu Nghị định
-  13/2023/ND-CP về bảo vệ dữ liệu cá nhân trước khi thu thập trường mới.
+- Với dữ liệu cá nhân của người dùng Việt Nam, `MUST` đối chiếu Luật 91/2025/QH15 và Nghị định
+  356/2025/ND-CP (thay NĐ 13/2023) về bảo vệ dữ liệu cá nhân trước khi thu thập trường mới.
 
 ---
 
@@ -366,7 +366,7 @@ Theo đúng thứ tự này, **không đảo thứ tự**:
 3. **Khắc phục**: vá lỗ hổng, đổi toàn bộ khóa liên quan, buộc đăng xuất tất cả
    phiên.
 4. **Thông báo**: nếu có dữ liệu cá nhân, thông báo cho người bị ảnh hưởng và cơ
-   quan có thẩm quyền theo Nghị định 13/2023/ND-CP.
+   quan có thẩm quyền theo Luật 91/2025/QH15 Điều 23 và NĐ 356/2025/ND-CP: thông báo cơ quan chuyên trách của Bộ Công an chậm nhất 72 giờ kể từ khi phát hiện (xem `LEGAL_COMPLIANCE.md`).
 5. **Rút kinh nghiệm**: viết báo cáo sau sự cố **không quy trách nhiệm cá nhân**,
    tập trung vào lỗ hổng quy trình. Bổ sung một cổng kiểm tự động để lỗi đó không
    lặp lại - nếu không thêm được cổng kiểm nào, sự cố coi như chưa đóng.

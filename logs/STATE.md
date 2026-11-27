@@ -3,6 +3,13 @@
 > Agent đọc file này ở đầu mỗi phiên và cập nhật ở cuối mỗi phiên.
 > Quy trình: `docs/AGENT_PROTOCOL.md`.
 
+> **28/11/2026 (đêm)**: `v10.3.0` - Phase TM3 xong: `docs/LEGAL_COMPLIANCE.md` + `templates/legal/` (11 tệp), phiếu
+> [`TM3b`](handover/20261128-TM3b_tsudev-khung-phap-ly.md) sang repo `tsudev`. Chủ sở hữu là **cá nhân không đăng ký kinh
+> doanh**, có gói Pro (chủ dự án xác nhận). Văn bản đọc toàn văn qua trang thứ cấp (bản chính thức chưa trích máy được): mục
+> "cần xác minh" ở `LEGAL_COMPLIANCE.md` mục 8. **Bước tiếp: Phase TM4** - phiếu
+> [`20261129-TM4`](handover/20261129-TM4_tsumind-kiem-ke-zone-infra.md). OWNER: quyết định hồ sơ đánh giá tác động, thông báo
+> TMĐT, nhân sự DLCN, luật sư rà soát, nhãn hiệu, org `tsumind-org`, ICANN.
+
 > **28/11/2026 (chiều)**: `v10.2.0` **đã phát hành** (Release Latest, `8065fce`; gộp cả 10.1.0, không có tag
 > `v10.1.0` riêng). Gồm PR #99 (bộ logo TsuMIND chuẩn hoá lại từ 5 hình chủ dự án chốt: `source/original` →
 > `tools/make_masters.py` → `source/master` → `build.mjs` 122 tệp; `BRAND_ASSETS.md` mục 16) và PR #100 (`sharp`
