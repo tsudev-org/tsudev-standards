@@ -3,6 +3,10 @@
 > Agent đọc file này ở đầu mỗi phiên và cập nhật ở cuối mỗi phiên.
 > Quy trình: `docs/AGENT_PROTOCOL.md`.
 
+> **27/11/2026 (tối)**: `v9.1.0` (PR #96, chờ merge) - quy ước nhiều tài khoản Claude + lệnh `cc`
+> (`AGENT_PROTOCOL.md` mục 4.4). Mọi agent: không tự đổi/xoay tài khoản, không đụng `~/.claude-*`, chốt tiến độ vào
+> PLAN/STATE mỗi mốc vì phiên có thể bị cắt khi hết hạn mức. Phiếu [`20261127-CC1`](handover/20261127-CC1_nhieu-tai-khoan-claude-lenh-cc.md).
+
 > **27/11/2026**: bản `v9.0.0` - một cổng đăng nhập duy nhất (`AUTH_AND_ACCOUNT.md` mục 2.1), cổng kiểm
 > `check-central-login.sh`, mẫu `RA_SOAT_DANG_NHAP.md`. Việc còn: mỗi repo sản phẩm đồng bộ (chạy sync hai lượt) và tự
 > rà theo hướng dẫn nâng cấp trong CHANGELOG; kiểm Apple Guideline 4.8/5.1.1(v) trước lần nộp App Store đầu.

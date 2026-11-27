@@ -1,4 +1,4 @@
-# GIAO THỨC LÀM VIỆC CỦA AGENT (v2.4.0)
+# GIAO THỨC LÀM VIỆC CỦA AGENT (v2.5.0)
 
 > Tài liệu này mô tả **cách vận hành một phiên làm việc** cho cả lập trình viên
 > và agent AI: mở phiên, khóa file, bàn giao, đóng phiên. Quy ước nội dung nằm ở
@@ -124,6 +124,51 @@ Kế hoạch cũ dạng bảng hoặc emoji vẫn dùng được; khi sửa kế
 - **Tiết kiệm chỉ cắt lãng phí, không cắt mục tiêu**: `MUST NOT` bỏ bớt phạm vi, mục checklist, tiêu chí nghiệm thu,
   test, cổng kiểm hay bước bảo mật của task/Phase để đỡ token. Ngữ cảnh sắp đầy thì chốt tiến độ vào tệp và đề nghị
   `/compact`, không vội kết thúc Phase.
+
+### 4.4. Nhiều tài khoản Claude trên một máy: lệnh `cc` (MUST - chủ dự án 27/11/2026)
+
+**Mục đích.** Chủ dự án dùng nhiều tài khoản Claude (gói thuê bao riêng, mỗi tài khoản một hạn mức giờ/tuần) trên cùng
+một máy và chạy 2-6 terminal song song cho nhiều dự án. Khi một tài khoản hết hạn mức, cách cũ (`/logout` rồi `/login`
+kèm dán mã qua trình duyệt) tốn thời gian, tốn RAM/CPU và làm đứt việc của agent. Cách mới: mỗi tài khoản một thư mục
+cấu hình riêng (`CLAUDE_CONFIG_DIR`), đăng nhập **đúng một lần**, sau đó chuyển tức thì. Mục tiêu là **tiếp tục Phase
+không mất ngữ cảnh làm việc**, không phải tăng hạn mức bằng thủ thuật.
+
+**Cơ chế (chỉ trên máy của chủ dự án, repo con không phụ thuộc).**
+
+- Lệnh `cc <số|tên>` (`~/.local/bin/cc`) chạy `claude` với `CLAUDE_CONFIG_DIR=~/.claude-<tên>`; `cc ls` liệt kê tài khoản
+  và trạng thái đăng nhập (chỉ kiểm tệp có tồn tại, không đọc nội dung); `cc init` tạo lại liên kết dùng chung.
+- `cc ls` hiện hạn mức 5 giờ/tuần (% đã dùng + giờ reset) và gói/gia hạn của từng tài khoản để chủ dự án chọn tài
+  khoản còn hạn mức. Nguồn hạn mức là trường `rate_limits` mà Claude Code đưa vào status line (không dùng token OAuth,
+  không gọi API không công khai); status line ghi cache `~/.cache/tsudev/cc-usage/<profile>.json` (chỉ % và giờ reset,
+  `600`). Số liệu chỉ mới khi tài khoản đó có phiên chạy. Gói/gia hạn do chủ dự án nhập tay (`cc set`) vào
+  `~/.config/cc/accounts.json`. Agent `MUST NOT` lấy hạn mức bằng cách đọc token hay gọi API ngoài đường này.
+- Quản lý tài khoản: `cc login <số|tên>` (đăng nhập một lần, điền sẵn email), `cc logout <số|tên>` (hỏi xác nhận, chỉ
+  xoá đăng nhập của profile đó), `cc add <email>` / `cc rm <số|tên>` (sửa `~/.config/cc/accounts.list`, `rm` không xoá
+  thư mục profile). `cc ls` gọi `claude auth status --json` để đối chiếu email thật của từng profile với danh sách và
+  báo `SAI` khi đăng nhập nhầm; loại gói lấy từ đây, ngày gia hạn vẫn nhập tay. Các lệnh này do chủ dự án chạy, agent
+  không chạy thay.
+- Mỗi profile liên kết (symlink) `CLAUDE.md`, `settings.json`, `hooks/`, `skills/`, `plugins/` về `~/.claude` để hook
+  bảo mật (`noleak-guard`), quy ước Phase và status line **áp dụng như nhau cho mọi tài khoản**. Token
+  (`.credentials.json`), lịch sử và `projects/` (kèm memory) **riêng từng tài khoản**.
+- Tên thư mục profile là định danh tài khoản của chủ dự án: `MUST NOT` ghi vào repo, tài liệu, AKB, commit, phiếu
+  bàn giao hay tin nhắn cho phiên khác (thông tin cá nhân); chỉ gọi chung là "profile `cc`".
+
+**Quy tắc cho agent.**
+
+1. Việc đổi tài khoản là **việc của chủ dự án, chạy tay**. Agent `MUST NOT` tự đổi tài khoản, tự viết công cụ phát hiện
+   hết hạn mức rồi xoay vòng, hay đề xuất cách né/lách giới hạn (nằm ngoài ý định và có rủi ro vi phạm điều khoản của
+   nhà cung cấp). Cần thêm hạn mức: đề xuất kênh chính thống (nâng gói, API key theo lượng dùng).
+2. `MUST NOT` đọc, in, sao chép, sửa, chuyển `.credentials.json` hay tệp trong `~/.claude-*` (mục Zero Secret Exposure);
+   `MUST NOT` chạy `/logout`, `/login` hay đổi `CLAUDE_CONFIG_DIR` thay chủ dự án, và `MUST NOT` nới quyền thư mục
+   profile (giữ `700`).
+3. **Phiên có thể bị cắt ngang bất cứ lúc nào vì hết hạn mức**, nên nguồn sự thật phải nằm trong tệp (mục 4.2): mỗi mốc
+   nhỏ xong ghi ngay vào `docs/PLAN.md`/`logs/STATE.md` (Phase đang làm, tệp đang sửa, lỗi chưa xử lý, bước tiếp). Phiên
+   kế tiếp ở tài khoản khác không thấy lịch sử chat của phiên trước: đọc `STATE.md`/`PLAN.md`, `git status`/`git log`
+   để làm tiếp, không đoán.
+4. Gặp thông báo hết hạn mức/`rate limit`: chốt tiến độ vào tệp theo mục 4.2 rồi báo chủ dự án một dòng (ví dụ
+   `⏸ Hết hạn mức tài khoản này. Tiến độ đã ghi STATE.md. Gõ cc <số khác> rồi "tiếp".`); không thử lại dồn dập.
+5. Nhiều phiên song song ở các profile khác nhau vẫn tuân thủ mục 3 và 7 (khóa file, nhánh riêng, một nhiệm vụ mỗi
+   phiên); tài khoản khác nhau **không** làm hai phiên được phép sửa cùng một tệp.
 
 ## 5. Đóng phiên và bàn giao
 
