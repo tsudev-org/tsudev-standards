@@ -279,8 +279,8 @@ Site có đăng nhập:
 Thay dần khối "nhà làm" TsuDEV theo lộ trình [`TSUMIND_MIGRATION.md`](TSUMIND_MIGRATION.md) (website gốc ở Phase TM6,
 repo sản phẩm ở Phase TM7 - **chưa repo nào tự đổi trước phiếu `TM7`**):
 
-- Vị trí: chân trang, trên hàng bản quyền. Nội dung: logo ngang TsuMIND (`horizontal/tsumind-logo-horizontal-360w`,
-  cao 28-32px, `<picture>` AVIF/WebP/PNG) + dòng "Thuộc hệ sinh thái TsuMIND", liên kết về trang chủ hệ sinh thái.
+- Vị trí: chân trang, trên hàng bản quyền. Nội dung: logo ngang TsuMIND (`horizontal/tsumind-logo-horizontal-240w` nền tối,
+  `-light-240w` nền sáng, cao 28-32px, `<picture>` AVIF/WebP/PNG) + dòng "Thuộc hệ sinh thái TsuMIND", liên kết về trang chủ hệ sinh thái.
 - Giai đoạn chuyển tiếp ghi "TsuMIND (trước đây là TsuDEV)"; liên kết vẫn trỏ `https://tsudev.com` tới khi Phase TM10
   bật chuyển hướng.
 - Bản quyền: `© {năm} TsuMIND` sau khi sản phẩm nhận phiếu `TM7`; trước đó giữ `© {năm} TsuDEV`.

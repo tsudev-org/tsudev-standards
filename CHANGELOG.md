@@ -8,6 +8,29 @@ Mới nhất trên cùng.
 
 ---
 
+## 10.2.0 - 28/11/2026
+
+Chuẩn hoá lại bộ nhận diện TsuMIND từ **5 hình chủ dự án chốt** (thay bộ zip `v10.1.0`: biểu tượng, logo ngang, icon
+ứng dụng bị xén mất nửa dưới con cú).
+
+- `assets/brand/tsumind/` kiến trúc **ba tầng nguồn**: `source/original/` (5 hình gốc, bất biến), `source/master/` (PNG
+  RGBA nền trong suốt), `source/text/` (SVG chữ). `tools/make_masters.py` MỚI: phóng x4 Real-ESRGAN (trọng số chính
+  thức, kiểm SHA-256, `weights_only`), tách nền khử pha trộn giữ quầng sáng, logo ngang ghép từ cú master + chữ,
+  squircle khớp siêu elip khử răng cưa 1024px; phụ thuộc ghim ở `tools/requirements.txt`. `MANIFEST.json` băm cả
+  `tools/`.
+- `build.mjs` viết lại: 122 tệp - logo/biểu tượng/logo ngang/dải chữ AVIF + WebP + PNG; logo ngang và dải chữ **bản nền
+  sáng** (`-light`, chữ Midnight Navy); favicon `.ico` + PNG + `head-snippet.html`; iOS/cửa hàng nền liền; **macOS
+  `.icns`** (lưới Apple 824/1024); Windows `.ico` 7 cỡ; **Linux hicolor**; Android adaptive + **themed monochrome**;
+  ảnh chia sẻ AVIF/WebP/PNG; `--check` bắt thêm tệp rỗng.
+- `BRAND_ASSETS.md` **v4.5.0** mục 16 viết lại (16.1 ba tầng nguồn + quy trình đổi hình, 16.2 bảng dùng + mẫu
+  `<picture>`); `BRAND_GUIDELINES.md` **v1.1.0** (tên tệp, tỷ lệ, icon đa nền tảng); `ECOSYSTEM_IDENTITY.md` mục 4.4
+  dùng `240w` / `-light-240w`; token `tsumind.json` trỏ hình gốc mới.
+
+**Hướng dẫn nâng cấp:** `./scripts/sync-standards.sh --ref v10.2.0`. Tên tệp `dist/` đổi (cỡ mới, thêm `-light`); repo
+con chưa dùng bộ TsuMIND nên không phải sửa gì - áp dụng ở Phase TM6/TM7.
+
+---
+
 ## 10.1.0 - 28/11/2026
 
 Phase TM2 (`docs/PLAN.md`): bộ logo chính thức + sổ tay thương hiệu TsuMIND + quy chuẩn bố cục chung.

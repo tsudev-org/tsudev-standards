@@ -2,8 +2,8 @@
 
 | Mục | Giá trị |
 |---|---|
-| Phiên bản | 1.0.0 (bộ quy ước `v10.1.0`, 28/11/2026) |
-| Nguồn | Sổ tay Quy chuẩn Nhận diện Thương hiệu TSUMIND v1.0 do chủ dự án giao 27/11/2026, chuẩn hoá theo bộ quy ước |
+| Phiên bản | 1.1.0 (bộ quy ước `v10.2.0`, 28/11/2026) |
+| Nguồn | Sổ tay Quy chuẩn Nhận diện Thương hiệu TSUMIND v1.0 do chủ dự án giao 27/11/2026, chuẩn hoá theo bộ quy ước; hình logo: 5 hình chủ dự án chốt 28/11/2026 |
 | Trạng thái | Bắt buộc (Normative) cho mọi sản phẩm, website, tài liệu, kênh truyền thông của hệ sinh thái |
 | Đi cùng | [`NAMING_CONVENTION.md`](NAMING_CONVENTION.md) (cách viết tên), [`BRAND_ASSETS.md`](BRAND_ASSETS.md) mục 16 (tệp logo), [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md) (token giao diện), [`TSUMIND_MIGRATION.md`](TSUMIND_MIGRATION.md) (lộ trình) |
 
@@ -48,14 +48,14 @@ Tệp ở `assets/brand/tsumind/dist/` (bảng đầy đủ: [`BRAND_ASSETS.md`]
 | Biến thể | Tệp | Dùng khi |
 |---|---|---|
 | Logo chính (huy hiệu + dải chữ) | `logo/tsumind-logo-primary-*` | Trang giới thiệu, ảnh bìa, tài liệu, bao bì số |
-| Logo ngang (cú + chữ) | `horizontal/tsumind-logo-horizontal-*` | Header website, email, thanh điều hướng, tài liệu ngang |
-| Biểu tượng thu gọn (cú, không chữ) | `symbol/tsumind-symbol-*` | Ảnh đại diện, watermark, chỗ hẹp |
+| Logo ngang (cú + chữ) | `horizontal/tsumind-logo-horizontal-*` (nền tối), `-light-*` (nền sáng) | Header website, email, thanh điều hướng, tài liệu ngang |
+| Biểu tượng (cú trong vòng tròn, không chữ) | `symbol/tsumind-symbol-*` | Ảnh đại diện, watermark, chỗ hẹp |
 | Dải chữ | `wordmark/tsumind-wordmark-*` | Ghép cạnh biểu tượng khi bố cục cần tách |
-| Biểu tượng ứng dụng | `app-icon/*` | iOS, Android, Windows, macOS, Linux |
+| Biểu tượng ứng dụng | `app-icon/*`: ô vuông nền liền (iOS, cửa hàng), squircle (macOS `.icns`, Windows `.ico`, Linux) | iOS, Android, Windows, macOS, Linux |
 | Favicon + PWA | `favicon/*` | Tab trình duyệt, màn hình chính |
 
 **Quy tắc chọn:** vùng hiển thị càng nhỏ, biến thể càng đơn giản. Dưới 64px dùng biểu tượng thu gọn; dưới 32px dùng
-favicon (bản biểu tượng ứng dụng đã giản lược, nền liền).
+favicon (biểu tượng tròn thu nhỏ có làm nét).
 
 ## 4. Cấu trúc, vùng an toàn, cỡ tối thiểu
 
@@ -70,7 +70,7 @@ favicon (bản biểu tượng ứng dụng đã giản lược, nền liền).
 | Biểu tượng thu gọn | ≥ 32px | 8 mm |
 | Favicon | 16px (bản giản lược riêng) | - |
 
-- Luôn giữ nguyên tỷ lệ (logo chính ~1:1, biểu tượng 1024:667, logo ngang ~3,45:1).
+- Luôn giữ nguyên tỷ lệ (logo chính 1:1, biểu tượng 1:1, logo ngang ~2,2:1).
 - **Lưới biểu tượng ứng dụng:** vùng an toàn 80% khung, cú căn giữa; bo góc theo nền tảng - không tự bo trước với iOS.
 - Logo là ảnh raster chi tiết: chỉ **thu nhỏ** từ nguồn, `MUST NOT` phóng to quá kích thước nguồn; web dùng
   `<picture>` AVIF → WebP → PNG với `srcset` 1x/2x/3x. Không vector hoá tự động (thử 27/11/2026: mất viền đậm và độ sâu).
@@ -168,10 +168,10 @@ Agent không làm thay các bước pháp lý; chỉ chuẩn bị tài liệu kh
 | Nền tảng | Chuẩn |
 |---|---|
 | Website | Header: logo ngang cao 36-44px; chân trang: logo ngang (đơn sắc khi nền phức tạp). `<head>`: `favicon.ico` + PNG 32px, `apple-touch-icon` 180px, PWA 192/512 + maskable, `theme-color` `#0A1B3D`. Open Graph 1200x630 (`social/og-image-1200x630.png`) |
-| Windows | `.ico` 16/24/32/48/64/128/256 (`app-icon/tsumind-app.ico`) |
-| macOS | `.icns` dựng từ bộ 16-1024px lúc build app |
-| Linux | PNG 16-512px |
-| Android | Adaptive icon 108dp, vùng an toàn 66dp: nền `android-adaptive-background-1024.png` (Midnight Navy), trước `android-adaptive-foreground-1024.png` (cú); themed icon đơn sắc; ảnh cửa hàng `google-play-icon-512.png` |
+| Windows | `app-icon/tsumind-app.ico` 16/24/32 (biểu tượng tròn) + 48/64/128/256 (squircle) |
+| macOS | `app-icon/tsumind.icns` (squircle theo lưới Apple 824/1024, 16-1024 gồm @2x) |
+| Linux | `app-icon/linux/hicolor/<cỡ>/apps/tsumind.png` 16-512px |
+| Android | Adaptive icon 108dp, vùng an toàn 66dp: nền `android-adaptive-background-1024.png` (Midnight Navy), trước `android-adaptive-foreground-1024.png` (cú); themed icon `android-adaptive-monochrome-1024.png`; ảnh cửa hàng `google-play-icon-512.png` |
 | iOS | 1024x1024 vuông, không trong suốt, không tự bo góc (`app-icon/tsumind-app-icon-1024.png`) |
 
 **Sản phẩm con:** giữ logo riêng ([`BRAND_ASSETS.md`](BRAND_ASSETS.md) mục 15) và bản sắc màu riêng
@@ -186,5 +186,6 @@ Theo [`TSUMIND_MIGRATION.md`](TSUMIND_MIGRATION.md) và [`PLAN.md`](PLAN.md) (Ph
 
 ## 12. Cập nhật sổ tay
 
-Đổi nhận diện ⇒ sửa nguồn ở `assets/brand/tsumind/source/`, chạy `build.mjs`, nâng phiên bản tài liệu này và ghi
+Đổi nhận diện ⇒ chủ dự án thay hình ở `assets/brand/tsumind/source/original/`, chạy `tools/make_masters.py` rồi `build.mjs`
+([`BRAND_ASSETS.md`](BRAND_ASSETS.md) mục 16.1), nâng phiên bản tài liệu này và ghi
 `CHANGELOG.md`. Lưu tệp vector gốc (SVG/AI) khi chủ dự án có.

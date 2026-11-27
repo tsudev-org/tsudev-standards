@@ -1,4 +1,4 @@
-# TÀI SẢN THƯƠNG HIỆU (v4.4.0)
+# TÀI SẢN THƯƠNG HIỆU (v4.5.0)
 
 > Logo, dấu hiệu thu gọn, wordmark, favicon và icon ứng dụng của hệ sinh thái
 > tsudev: bản gốc nằm ở đâu, sinh ra bằng gì, dùng dấu hiệu nào ở cỡ nào.
@@ -306,38 +306,77 @@ Một sản phẩm `MAY` có logo riêng thay logo tsudev khi **chủ dự án d
 Ảnh gốc `SHOULD` có cạnh ngắn từ 1024px hoặc là SVG; ảnh nhỏ hơn thì bản 512/1024 là phóng to - ghi nợ trong repo.
 
 
-## 16. Bộ nhận diện TsuMIND (từ v10.0.0, bộ chính thức từ v10.1.0)
+## 16. Bộ nhận diện TsuMIND (từ v10.0.0; bộ chuẩn hoá từ v10.2.0)
 
 Hệ sinh thái đổi tên TsuDEV → **TsuMIND** ([`TSUMIND_MIGRATION.md`](TSUMIND_MIGRATION.md), quyết định D-12). Bộ logo
 TsuMIND có **một nguồn duy nhất** ở repo bộ quy ước - khác mục 1 (logo tsudev nằm ở repo website) vì mọi repo con
 nhận bộ quy ước qua đồng bộ, và website `tsudev` cũng sẽ đổi thành `tsumind` ở Phase TM6. Quy chuẩn dùng (biến thể,
 vùng an toàn, cỡ tối thiểu, màu, phông, điều cấm): [`BRAND_GUIDELINES.md`](BRAND_GUIDELINES.md).
 
-`v10.1.0` thay bộ thử nghiệm của TM1 (ảnh huy hiệu xoá watermark + SVG vẽ tay) bằng **bộ logo chính thức chủ dự án giao
-27/11/2026** (nền trong suốt, kèm Sổ tay nhận diện). Thư mục `svg/` và `dist/emblem|mark|app|svg/` cũ đã gỡ.
+**Lịch sử:** TM1 (`v10.0.0`) bộ thử vẽ tay → `v10.1.0` gói zip 27/11/2026 (biểu tượng, logo ngang, icon app bị
+**xén mất nửa dưới con cú**) → `v10.2.0` (28/11/2026) chuẩn hoá lại từ **5 hình chủ dự án chốt**, cú trong vòng tròn
+hoàn chỉnh.
 
-| Thứ | Đường dẫn (`tsudev-org/tsudev-standards`) |
-| --- | --- |
-| Nguồn | `assets/brand/tsumind/source/`: `tsumind-logo-primary.png` (1024x1024), `tsumind-symbol.png` (1024x667), `tsumind-wordmark.png` (995x223), `tsumind-logo-horizontal.png` (2141x620), `tsumind-app-icon-1024.png` (nền Midnight Navy liền), `tsumind-tagline-vi.svg` + `tsumind-domain.svg` (chữ đã chuyển path, dùng cho ảnh chia sẻ) |
-| Dây chuyền | `assets/brand/tsumind/build.mjs` (`npm ci && node build.mjs`, ~2 phút; `node build.mjs --check` không cần phụ thuộc, chạy trong CI) |
-| Tệp sinh | `assets/brand/tsumind/dist/` (75 tệp) + chuỗi băm nguồn và tệp sinh ở `MANIFEST.json` - `MUST NOT` sửa tay |
+### 16.1. Ba tầng nguồn (`assets/brand/tsumind/`)
 
-**Dùng ở đâu:**
+| Tầng | Đường dẫn | Nội dung | Ai sửa |
+| --- | --- | --- | --- |
+| Gốc | `source/original/` | `0-logo-tsumind.png` (huy hiệu 1024, alpha thật + dấu ✦), `1-primary-emblem.png` (bản 255px của 0, chỉ đối chiếu), `2-horizontal-lockup.jpg` (255x143), `3-brand-mark.jpg` (255x255), `4-app-icon-squircle.jpg` (255x255) | Chỉ chủ dự án - **bất biến**, giữ làm bằng chứng gốc (`BRAND_GUIDELINES.md` mục 9) |
+| Master | `source/master/` | PNG RGBA nền trong suốt: `tsumind-emblem` (1040), `tsumind-mark` (820), `tsumind-lockup` + `-light` (910x409), `tsumind-wordmark` + `-light` (499x126), `tsumind-squircle` (1024) | Sinh bằng `tools/make_masters.py`, commit |
+| Chữ | `source/text/` | Tuyên ngôn + tên miền dạng path SVG (ảnh chia sẻ) | Tay |
+| Sinh | `dist/` (122 tệp) | Bảng mục 16.2 | `build.mjs` - `MUST NOT` sửa tay |
 
-| Dấu hiệu | Tệp (`dist/`) | Dùng khi |
+`MANIFEST.json` băm SHA-256 cả ba tầng nguồn, `tools/` và `dist/`; CI chạy `node build.mjs --check` (bắt lệch, thừa,
+tệp rỗng do build bị cắt ngang).
+
+**`tools/make_masters.py`** (chạy tay khi đổi hình gốc; môi trường ở `~/.cache/tsumind-brand/`, phụ thuộc ghim ở
+`tools/requirements.txt`):
+
+- Hình 2-4 chỉ 255px ⇒ phóng x4 bằng **Real-ESRGAN** (mô hình `anime6b`, nét logo minh hoạ gọn hơn `x4plus` - so mắt
+  28/11/2026). Trọng số chính thức `github.com/xinntao/Real-ESRGAN`, kiểm SHA-256 trước khi nạp, nạp
+  `torch.load(weights_only=True)`; chạy CPU ~1 phút.
+- Tách nền: nền đơn sắc nối mép ảnh, **khử pha trộn** giữ quầng sáng (`F = (C - (1-a)·nền)/a`); hình 0 có alpha thật,
+  chỉ xoá ✦ (giữ điểm ảnh cách thân ≤ 3px).
+- Logo ngang: thân cú ở hình 2 trùng màu nền (tách sẽ thủng) ⇒ lấy **phần chữ** của hình 2, ghép **cú master** của
+  hình 3 đúng cỡ/khoảng cách. Bản `-light`: chữ Midnight Navy cho nền sáng.
+- Squircle: mặt nạ **khớp siêu elip** (dạng squircle iOS/macOS, n ≈ 6,75), siêu lấy mẫu 4x4 khử răng cưa; nền phóng lên
+  1024px rồi ghép đè cú master nét sắc (vị trí tìm bằng tương quan chéo).
+- Đã thử và loại: vector hoá tự động (vtracer 27/11/2026 mất viền đậm, độ sâu). SVG chỉ có khi chủ dự án có tệp vector gốc.
+
+### 16.2. Dùng ở đâu (`dist/`)
+
+| Dấu hiệu | Tệp | Dùng khi |
 | --- | --- | --- |
-| Logo chính | `logo/tsumind-logo-primary-{128..1024}.{avif,webp,png}` | Trang giới thiệu, ảnh bìa, tài liệu - rộng ≥ 120px |
-| Logo ngang | `horizontal/tsumind-logo-horizontal-{360,720,1440,2141}w.*` | Header website (cao 36-44px ⇒ 360w/720w/1440w cho 1x/2x/3x), README, khối "Thuộc hệ sinh thái TsuMIND" |
-| Biểu tượng thu gọn | `symbol/tsumind-symbol-{64..1024}w.*` | Ảnh đại diện, watermark, chỗ hẹp - 32-63px |
-| Dải chữ | `wordmark/tsumind-wordmark-{240,480,995}w.*` | Ghép cạnh biểu tượng |
-| Favicon + PWA | `favicon/` (`favicon.ico` 16-256, PNG 16/32/48/96, `apple-touch-icon.png` 180, `android-chrome-*`, `maskable-*`) | Đủ bảng mục 12.1 - dưới 32px |
-| Icon ứng dụng | `app-icon/` (`tsumind-app.ico`, `tsumind-app-icon-{256,512,1024}.png`, `google-play-icon-512.png`, `android-adaptive-{background,foreground}-1024.png`) | App thuộc thương hiệu mẹ |
-| Ảnh chia sẻ / đại diện | `social/og-image-1200x630.{png,webp}`, `avatar-app-icon-500.png`, `avatar-logo-primary-500.png` | Open Graph, ảnh tổ chức GitHub, mạng xã hội |
+| Logo chính | `logo/tsumind-logo-primary-{128,192,256,384,512,1024}.{avif,webp,png}` | Trang giới thiệu, ảnh bìa, tài liệu - rộng ≥ 120px |
+| Biểu tượng | `symbol/tsumind-symbol-{32,64,128,256,512,768}.*` | Ảnh đại diện, avatar, chỗ hẹp, watermark |
+| Logo ngang nền tối | `horizontal/tsumind-logo-horizontal-{240,360,480,720,910}w.*` | Header website (cao 36-44px ⇒ `240w`/`360w`/`480w` cho 1x/2x/3x), README, khối "Thuộc hệ sinh thái TsuMIND" |
+| Logo ngang nền sáng | `horizontal/tsumind-logo-horizontal-light-*w.*` | Như trên, trên nền trắng/sáng |
+| Dải chữ | `wordmark/tsumind-wordmark{,-light}-{240,360,499}w.*` | Ghép cạnh biểu tượng |
+| Favicon + PWA | `favicon/`: `favicon.ico` (16/32/48), `favicon-{16,32,48,96}x*.png`, `apple-touch-icon.png` (180, nền liền), `android-chrome-{192,512}` (squircle, `any`), `maskable-{192,512}` (cú 70% trên nền liền), `site.webmanifest`, `head-snippet.html` (thẻ `<head>` chép sẵn) | Đủ bảng mục 12.1 |
+| iOS / cửa hàng | `app-icon/tsumind-app-icon-{256,512,1024}.png`, `google-play-icon-512.png` - vuông, không trong suốt, không bo góc | App Store, Google Play, Android cũ |
+| macOS | `app-icon/tsumind.icns` (16-1024, gồm @2x) + `tsumind-macos-1024.png` - squircle theo lưới Apple 824/1024 | Gói `.app` |
+| Windows | `app-icon/tsumind-app.ico` (16-32 biểu tượng tròn giản lược, 48-256 squircle) | `.exe`, MSIX, lối tắt |
+| Linux | `app-icon/linux/hicolor/{16..512}x*/apps/tsumind.png` - chép thẳng vào `/usr/share/icons/hicolor/` | `.deb`, `.rpm`, AppImage |
+| Android adaptive | `app-icon/android-adaptive-{background,foreground,monochrome}-1024.png` (cú 62/108 trong vùng an toàn 66dp; đơn sắc = nét sáng của cú cho themed icon) | `mipmap-anydpi-v26` |
+| Squircle trong suốt | `app-icon/tsumind-app-icon-squircle-{128,256,512,1024}.png` | Minh hoạ, Microsoft Store, trang tải |
+| Ảnh chia sẻ / đại diện | `social/og-image-1200x630.{png,webp,avif}`, `avatar-app-icon-500.png`, `avatar-logo-primary-500.png` | Open Graph, ảnh tổ chức GitHub, mạng xã hội |
+
+Định dạng: **AVIF** (nhỏ nhất, ~1/7 PNG) → **WebP** (~1/5) → **PNG** (dự phòng mọi trình duyệt, hệ điều hành) qua
+`<picture>`; chỉ thu nhỏ từ master; ≤ 64px làm nét nhẹ. Mẫu dùng trên web:
+
+```html
+<picture>
+  <source type="image/avif" srcset="tsumind-logo-horizontal-240w.avif 1x, tsumind-logo-horizontal-480w.avif 2x, tsumind-logo-horizontal-720w.avif 3x">
+  <source type="image/webp" srcset="tsumind-logo-horizontal-240w.webp 1x, tsumind-logo-horizontal-480w.webp 2x, tsumind-logo-horizontal-720w.webp 3x">
+  <img src="tsumind-logo-horizontal-240w.png" srcset="tsumind-logo-horizontal-480w.png 2x" width="240" height="108" alt="TsuMIND">
+</picture>
+```
 
 - Dải chữ `TSUMIND` in hoa trong logo là đồ hoạ. Mọi văn bản `MUST` viết `TsuMIND`
   ([`NAMING_CONVENTION.md`](NAMING_CONVENTION.md) mục 3.1, chủ dự án chốt lại 27/11/2026).
-- Logo là ảnh raster chi tiết: chỉ thu nhỏ, `MUST NOT` phóng to quá kích thước nguồn; web dùng `<picture>` AVIF → WebP
-  → PNG + `srcset`. Không vector hoá tự động (vtracer 27/11/2026: mất viền đậm và độ sâu) - chờ tệp vector gốc.
+- Favicon 16px là giới hạn vật lý của hình chi tiết: đọc được dạng đĩa tròn có mắt sáng; không thay bằng bản vẽ khác
+  khi chủ dự án chưa duyệt.
 - Sản phẩm có logo riêng vẫn theo mục 15; khối "nhà làm" đổi từ logo tsudev sang logo ngang TsuMIND ở Phase TM6-TM7
-  ([`ECOSYSTEM_IDENTITY.md`](ECOSYSTEM_IDENTITY.md) mục 4.4).
-- Trạng thái: **bộ chính thức, chủ dự án giao 27/11/2026**. Repo con chỉ thay logo khi nhận phiếu `TM6`/`TM7`.
+  ([`ECOSYSTEM_IDENTITY.md`](ECOSYSTEM_IDENTITY.md) mục 4.4). Repo con chỉ thay logo khi nhận phiếu `TM6`/`TM7`.
+- Đổi hình: chủ dự án đặt hình mới vào `source/original/` (giữ tên số thứ tự) → `tools/make_masters.py` → soát mắt
+  master trên nền trắng và nền tối → `npm ci && node build.mjs` → commit cả ba tầng + `dist/` + `MANIFEST.json`.

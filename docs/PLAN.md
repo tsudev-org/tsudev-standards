@@ -27,6 +27,9 @@ Ký hiệu: **[OWNER]** chỉ chủ dự án làm được (đăng nhập, 2FA, 
 
 - [x] [OWNER] Bộ logo: chủ dự án giao **bộ logo chính thức + Sổ tay** 27/11/2026 (thay bộ thử TM1); nguồn ở
       `assets/brand/tsumind/source/`, `build.mjs` sinh 75 tệp. Chốt: văn bản giữ `TsuMIND`, phông theo Sổ tay
+- [x] `v10.2.0` (28/11/2026): chuẩn hoá lại bộ logo từ **5 hình chủ dự án chốt** (bộ zip xén mất nửa dưới con cú):
+      `source/original` → `tools/make_masters.py` (Real-ESRGAN x4, tách nền, squircle siêu elip) → `source/master` →
+      `build.mjs` 122 tệp (AVIF/WebP/PNG, `.ico`, `.icns`, Linux hicolor, Android adaptive + themed, logo ngang nền sáng)
 - [x] `docs/BRAND_GUIDELINES.md` v1.0.0: biến thể, vùng an toàn, cỡ tối thiểu, hệ màu Sổ tay (Midnight Navy `#0A1B3D`,
       Deep Circuit Blue `#13408A`, Electric Blue `#1E9BFF`, Neon Cyan `#3CD2F5`, Chrome Silver `#E4EAF4`, Slate Gray
       `#5B6B85`) + bảng WCAG đo được, phông Exo 2 / Inter / JetBrains Mono, giọng văn, điều cấm, bảo hộ, đa nền tảng
