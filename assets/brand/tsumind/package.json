@@ -9,6 +9,6 @@
   },
   "devDependencies": {
     "png-to-ico": "2.1.8",
-    "sharp": "0.34.5"
+    "sharp": "0.35.5"
   }
 }
