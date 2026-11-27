@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="t">
+  <title id="t">TsuMIND</title>
+  <defs>
+    <linearGradient id="blade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#B9CCDA"/>
+    </linearGradient>
+    <radialGradient id="iris" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#9BEBFA"/><stop offset=".55" stop-color="#51D2EC"/><stop offset="1" stop-color="#2A78B4"/>
+    </radialGradient>
+  </defs>
+  <!-- tai cú -->
+  <path d="M22 10 L104 70 L62 98 Z M234 10 L152 70 L194 98 Z" fill="#061E3A" stroke="#51D2EC" stroke-width="9" stroke-linejoin="round"/>
+  <!-- huy hiệu tròn -->
+  <circle cx="128" cy="142" r="104" fill="#061E3A" stroke="#51D2EC" stroke-width="11"/>
+  <circle cx="128" cy="142" r="86" fill="none" stroke="#14355C" stroke-width="6"/>
+  <!-- mạch ngực -->
+  <path d="M128 196 V236 M100 200 L88 224 M156 200 L168 224" stroke="#4294C0" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <!-- mắt -->
+  <circle cx="88" cy="140" r="31" fill="url(#iris)" stroke="#D5E1E9" stroke-width="5"/>
+  <circle cx="168" cy="140" r="31" fill="url(#iris)" stroke="#D5E1E9" stroke-width="5"/>
+  <circle cx="88" cy="142" r="13" fill="#021023"/>
+  <circle cx="168" cy="142" r="13" fill="#021023"/>
+  <circle cx="94" cy="135" r="5" fill="#FFFFFF"/>
+  <circle cx="174" cy="135" r="5" fill="#FFFFFF"/>
+  <!-- lông mày dạng lưỡi -->
+  <path d="M30 20 L132 118 L118 134 L54 92 Z M226 20 L124 118 L138 134 L202 92 Z" fill="url(#blade)" stroke="#021023" stroke-width="3" stroke-linejoin="round"/>
+  <!-- mỏ -->
+  <path d="M128 150 L141 168 L128 196 L115 168 Z" fill="#51D2EC" stroke="#021023" stroke-width="3" stroke-linejoin="round"/>
+</svg>

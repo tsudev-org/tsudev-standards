@@ -1,1 +1,3 @@
 node_modules/
+# dist/ là tài sản sinh ra NHƯNG được commit (repo con lấy trực tiếp); build.mjs --check canh lệch nguồn.
+!dist/
